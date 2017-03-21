@@ -1,0 +1,53 @@
+.detail-book-photo {
+    max-width: 100%;
+}
+
+.detail-book-name {
+	font-family: "Verdana","sans-serif";
+	font-weight: 900;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 2em;
+}
+
+.detail-book-author {
+	margin-bottom: 0px; 
+	font-size: 1.1em;
+	font-style: italic;
+	font-family: "Verdana","sans-serif";
+    color: #337ab7;
+}
+
+.detail-book-price {
+	margin-bottom: 0px; 
+	font-weight: 800;
+	font-size: 1.3em;
+    font-family: "Verdana","sans-serif";
+    color: firebrick;
+}
+
+.detail-book-section{
+	margin-top:10px;
+}
+
+.detail-book-addcart{
+	margin-right:50px;
+}
+
+.detail-book-card-rate{
+	color:gold;
+	font-size: 1.2em;
+}
+
+.detail-input-number{
+	width: 60px;
+}
+
+.detail-description-header{
+	font-family: "Verdana","sans-serif";
+	font-weight: bolder;
+}
+
+.detail-description-content{
+	font-size: 1.5em;
+}

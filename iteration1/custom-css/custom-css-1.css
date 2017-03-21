@@ -1,0 +1,56 @@
+.thumbnail img {
+    height: 170px;
+    width: auto;
+}
+
+.ratings {
+    padding-left: 0px;
+}
+
+.thumbnail a {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.thumbnail p {
+    margin: 0px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.thumbnail h4 {
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+}
+
+.thumbnail {
+    border: 0 none;
+    box-shadow: none;
+}
+
+.book-card-name{
+    font-family: "Verdana","sans-serif";
+    font-weight: 900;
+    font-size:1.1em;
+    color: black;
+}
+
+.book-card-author{
+    font-style: italic;
+    color: grey;
+}
+
+.book-card-price{
+    font-family: "Verdana","sans-serif";
+    color: firebrick;
+}
+
+.book-card-rate{
+    color:gold;
+}
+
+.book-card-review{
+    color:royalblue;
+}
