@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dynamicheart.bookstore.domain">
+
+    <class name="Order" table="orders">
+        <id name="id" column="order_id">
+            <generator class="native"/>
+        </id>
+        <property name="userId" column="order_user_id"/>
+        <!--<id name="userId" column="order_user_id" class="User" property-ref="id" not-null="true" insert="false" update="false"/>-->
+        <!--property name="userId" column="order_user_id" not-null="true"/-->
+        <!--property name="status" column="order_status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">OrderStatus</param>
+            </type>
+        </property-->
+        <property name="status" column="order_status"/>
+        <property name="placeDate" column="order_place_date"/>
+       <!-- <set name="items" cascade="all">
+            <key column="order_id" not-null="true"/>
+            <one-to-many class="OrderItem"/>
+        </set>-->
+    </class>
+
+</hibernate-mapping>

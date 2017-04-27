@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dynamicheart.bookstore.domain">
+
+    <class name="OrderItem" table="orderItems">
+        <id name="orderItemId" column="orderItem_id">
+            <generator class="native"/>
+        </id>
+        <many-to-one name="orderId" column="order_id" class="Order" property-ref="id" not-null="true" insert="false" update="false" />
+        <many-to-one name="bookId"  column="book_id" class="Book"  property-ref="id" not-null="true" insert="false" update="false" />
+        <property name="quantity" column="order_quantity"/>
+        <property name="price" column="orderItem_price" type="double" precision="4"/>
+    </class>
+
+</hibernate-mapping>

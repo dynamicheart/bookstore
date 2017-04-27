@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dynamicheart.bookstore.domain">
+
+    <class name="Book" table="books">
+        <id name="id" column="book_id">
+            <generator class="native"/>
+        </id>
+        <property name="ISBN" column="book_ISBN" not-null="true" unique="true"/>
+        <property name="name" column="book_name" not-null="true"/>
+        <property name="author" column="book_author"/>
+        <property name="publisher" column="book_publisher"/>
+        <property name="price" column="book_price"/>
+
+    </class>
+
+</hibernate-mapping>

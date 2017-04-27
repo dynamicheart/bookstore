@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dynamicheart.bookstore.domain">
+
+    <class name="User" table="users">
+        <id name="id" column="user_id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="user_name" not-null="true" unique="true"/>
+        <property name="password" column="user_password" not-null="true"/>
+        <property name="phoneNumber" column="user_phone_number" not-null="true" unique="true"/>
+        <property name="email" column="user_email" not-null="true" unique="true"/>
+    </class>
+    
+</hibernate-mapping>
