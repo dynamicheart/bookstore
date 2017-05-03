@@ -5,7 +5,7 @@
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http auto-config="true">
-        <intercept-url pattern="/admin" access="isAnonymous()" />
+        <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
         <form-login/>
         <logout/>
         <csrf disabled="true"/>
