@@ -36,7 +36,7 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
     @Embedded
     private AuditSection auditSection = new AuditSection();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "book")
     private Set<BookDescription> descriptions = new HashSet<BookDescription>();
 
     @Column(name="DATE_AVAILABLE")

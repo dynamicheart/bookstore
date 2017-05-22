@@ -1,3 +1,4 @@
 rootProject.name = 'bookstore'
-include 'model'
+include 'bookstore-store'
+include 'bookstore-core'
 
