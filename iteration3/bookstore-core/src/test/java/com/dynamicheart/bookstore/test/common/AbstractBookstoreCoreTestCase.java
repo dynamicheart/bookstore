@@ -11,8 +11,12 @@ import com.dynamicheart.bookstore.test.configuration.ConfigurationTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
 
@@ -22,8 +26,8 @@ import javax.inject.Inject;
  *
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ConfigurationTest.class})
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ConfigurationTest.class)
 public class AbstractBookstoreCoreTestCase {
 	
 	@Inject

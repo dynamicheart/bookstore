@@ -27,8 +27,8 @@
   
 		<beans:bean id="entityManagerFactory" name="bookstoreContainer" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 
-			<beans:property name="dataSource" ref="datasource" />		
-
+			<beans:property name="dataSource" ref="datasource" />
+			<beans:property name="packagesToScan" value="com.dynamicheart.bookstore.core.model" />
 			<beans:property name="jpaVendorAdapter">
 				<beans:bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 					<beans:property name="showSql" value="true" />
@@ -43,7 +43,7 @@
 					<beans:entry key="hibernate.show_sql" value="true" />
 					<beans:entry key="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider" />
 					<beans:entry key="hibernate.cache.use_second_level_cache" value="true" />
-					
+
 					<!-- Uncomment the following 2 lines to generate bookstore sql schema when the application is built. Remove the schema.sql file once generated, otherwise it will try to create it twice in the test database (table already exist... -->
 					<!--
 					<beans:entry key="javax.persistence.schema-generation.scripts.action" value="create"  />
