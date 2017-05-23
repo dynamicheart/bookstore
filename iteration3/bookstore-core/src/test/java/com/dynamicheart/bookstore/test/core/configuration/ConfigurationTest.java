@@ -1,4 +1,4 @@
-package com.dynamicheart.bookstore.test.configuration;
+package com.dynamicheart.bookstore.test.core.configuration;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;

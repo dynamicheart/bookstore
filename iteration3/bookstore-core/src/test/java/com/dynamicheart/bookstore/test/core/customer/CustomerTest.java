@@ -1,9 +1,9 @@
-package com.dynamicheart.bookstore.test.customer;
+package com.dynamicheart.bookstore.test.core.customer;
 
 import com.dynamicheart.bookstore.core.business.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.customer.CustomerGender;
-import com.dynamicheart.bookstore.test.common.AbstractBookstoreCoreTestCase;
+import com.dynamicheart.bookstore.test.core.common.AbstractBookstoreCoreTestCase;
 import org.junit.Ignore;
 import org.junit.Test;
 
