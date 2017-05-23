@@ -6,8 +6,10 @@ import com.dynamicheart.bookstore.core.model.common.audit.AuditListener;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditSection;
 import com.dynamicheart.bookstore.core.model.common.audit.Auditable;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -48,6 +50,10 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
     @Column(name = "REVIEW_COUNT")
     private Integer productReviewCount;
+
+    @NotEmpty
+    @Column(name = "ISBN", length = 13)
+    private Integer isbn;
 
     public Book() {
     }
@@ -111,4 +117,6 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
     public void setProductReviewCount(Integer productReviewCount) {
         this.productReviewCount = productReviewCount;
     }
+
+
 }
