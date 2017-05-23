@@ -1,5 +1,19 @@
 group 'com.dynamicheart'
 version '1.0-SNAPSHOT'
 
+apply plugin: 'java'
 apply plugin: 'idea'
 
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    // https://mvnrepository.com/artifact/com.mchange/c3p0
+    compile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
+}
