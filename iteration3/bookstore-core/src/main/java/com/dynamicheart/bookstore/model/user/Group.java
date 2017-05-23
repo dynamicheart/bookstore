@@ -15,14 +15,14 @@ import java.util.Set;
 
 @Entity
 @EntityListeners(value = AuditListener.class)
-@Table(name = "SM_GROUP", schema= SchemaConstant.BOOKSTORE_SHECMA)
+@Table(name = "BS_GROUP", schema= SchemaConstant.BOOKSTORE_SHECMA)
 public class Group extends BookstoreEntity<Integer, Group> implements Auditable {
 
 	private static final long serialVersionUID = -5501508252681691905L;
 
 	@Id
 	@Column(name = "GROUP_ID", unique=true, nullable=false)
-	@TableGenerator(name = "TABLE_GEN", table = "SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "GROUP_SEQ_NEXT_VAL")
+	@TableGenerator(name = "TABLE_GEN", table = "BS_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "GROUP_SEQ_NEXT_VAL")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
 	private Integer id;
 	

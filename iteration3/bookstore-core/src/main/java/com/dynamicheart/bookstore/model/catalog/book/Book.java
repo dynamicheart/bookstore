@@ -21,15 +21,14 @@ import java.util.Set;
 
 @Entity
 @EntityListeners(value = AuditListener.class)
-@Table(name = "PRODUCT", schema=SchemaConstant.BOOKSTORE_SHECMA, uniqueConstraints=
-@UniqueConstraint(columnNames = {"MERCHANT_ID", "SKU"}))
+@Table(name = "BOOK", schema=SchemaConstant.BOOKSTORE_SHECMA)
 public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
     private static final long serialVersionUID = -6879309779332486129L;
 
     @Id
-    @Column(name = "PRODUCT_ID", unique=true, nullable=false)
-    @TableGenerator(name = "TABLE_GEN", table = "SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "PRODUCT_SEQ_NEXT_VAL")
+    @Column(name = "BOOK_ID", unique=true, nullable=false)
+    @TableGenerator(name = "TABLE_GEN", table = "BS_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "BOOK_SEQ_NEXT_VAL")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private Long id;
 

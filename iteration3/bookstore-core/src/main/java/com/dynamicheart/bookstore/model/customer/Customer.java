@@ -21,7 +21,7 @@ public class Customer extends BookstoreEntity<Long, Customer>{
 
     @Id
     @Column(name = "CUSTOMER_ID", unique = true, nullable = false)
-    @TableGenerator(name = "TABLE_GEN", table = "SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT",
+    @TableGenerator(name = "TABLE_GEN", table = "BS_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT",
             pkColumnValue = "CUSTOMER_SEQ_NEXT_VAL")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private Long id;
