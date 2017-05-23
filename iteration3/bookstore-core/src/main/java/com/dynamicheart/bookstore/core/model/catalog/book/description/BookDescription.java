@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class BookDescription extends Description {
 	private static final long serialVersionUID = 7007939137361544460L;
 
-	@ManyToOne(targetEntity = Book.class)
+	@OneToOne(targetEntity = Book.class)
 	@JoinColumn(name = "BOOK_ID", nullable = false)
 	private Book book;
 

@@ -9,7 +9,6 @@ import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,7 +20,8 @@ import java.util.Set;
 
 @Entity
 @EntityListeners(value = AuditListener.class)
-@Table(name = "BOOK", schema=SchemaConstant.BOOKSTORE_SHECMA)
+@Table(name = "BOOK", schema=SchemaConstant.BOOKSTORE_SHECMA, uniqueConstraints =
+@UniqueConstraint(columnNames = {"ISBN"}))
 public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
     private static final long serialVersionUID = -6879309779332486129L;
@@ -35,8 +35,8 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
     @Embedded
     private AuditSection auditSection = new AuditSection();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "book")
-    private Set<BookDescription> descriptions = new HashSet<BookDescription>();
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "book")
+    private BookDescription description;
 
     @Column(name="DATE_AVAILABLE")
     @Temporal(TemporalType.TIMESTAMP)
@@ -52,7 +52,7 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
     private Integer productReviewCount;
 
     @NotEmpty
-    @Column(name = "ISBN", length = 13)
+    @Column(name = "ISBN", nullable = false, length = 13)
     private Integer isbn;
 
     public Book() {
@@ -78,12 +78,12 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
         this.auditSection = auditSection;
     }
 
-    public Set<BookDescription> getDescriptions() {
-        return descriptions;
+    public BookDescription getDescription() {
+        return description;
     }
 
-    public void setDescriptions(Set<BookDescription> descriptions) {
-        this.descriptions = descriptions;
+    public void setDescription(BookDescription description) {
+        this.description = description;
     }
 
     public Date getDateAvailable() {
@@ -118,5 +118,11 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
         this.productReviewCount = productReviewCount;
     }
 
+    public Integer getIsbn() {
+        return isbn;
+    }
 
+    public void setIsbn(Integer isbn) {
+        this.isbn = isbn;
+    }
 }
