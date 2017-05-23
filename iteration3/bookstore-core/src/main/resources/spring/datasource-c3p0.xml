@@ -5,9 +5,8 @@
 
     <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           p:driverClass="${db.driverClass}" p:jdbcUrl="${db.jdbcUrl}" p:user="${db.user}"
-          p:password="${db.password}" p:initialPoolSize="${db.initialPoolSize}"
+		  p:initialPoolSize="${db.initialPoolSize}"
           p:minPoolSize="${db.minPoolSize}" p:maxPoolSize="${db.maxPoolSize}"
           p:preferredTestQuery="${db.preferredTestQuery}" p:testConnectionOnCheckin="true"
           p:idleConnectionTestPeriod="300" destroy-method="close" />
-		
 </beans>
