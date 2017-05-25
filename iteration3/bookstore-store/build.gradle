@@ -33,11 +33,9 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: "spring-boot-starter-tomcat"
-    }
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-tomcat")
     compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.springframework.boot:spring-boot-starter-jetty")
     compile("org.springframework.boot:spring-boot-starter-actuator")
 
     compile("org.springframework.mobile:spring-mobile-device")
@@ -50,6 +48,10 @@ dependencies {
     compile "org.hibernate:hibernate-core:5.2.9.Final"
     compile "org.hibernate:hibernate-validator:5.4.1.Final"
 
+    // https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp
+    compile group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.7'
+
+    compile "javax.servlet:jstl:1.2"
     compile "javax.inject:javax.inject:1"
     compile "mysql:mysql-connector-java:5.1.6"
 
