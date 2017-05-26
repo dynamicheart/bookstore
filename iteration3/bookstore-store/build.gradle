@@ -48,8 +48,14 @@ dependencies {
     compile "org.hibernate:hibernate-core:5.2.9.Final"
     compile "org.hibernate:hibernate-validator:5.4.1.Final"
 
+    // https://mvnrepository.com/artifact/com.github.darrachequesne/spring-data-jpa-datatables
+    compile group: 'com.github.darrachequesne', name: 'spring-data-jpa-datatables', version: '4.1'
+
     // https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp
     compile group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.7'
+
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
     compile "javax.servlet:jstl:1.2"
     compile "javax.inject:javax.inject:1"

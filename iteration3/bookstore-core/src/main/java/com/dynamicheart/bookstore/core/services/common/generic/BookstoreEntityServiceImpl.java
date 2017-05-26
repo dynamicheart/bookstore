@@ -3,6 +3,9 @@ package com.dynamicheart.bookstore.core.services.common.generic;
 
 import com.dynamicheart.bookstore.core.business.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
@@ -22,6 +25,7 @@ public abstract class BookstoreEntityServiceImpl<K extends Serializable & Compar
 
 
     private JpaRepository<E, K> repository;
+    private DataTablesRepository<E, K> dataTablesRepository;
 
 	@SuppressWarnings("unchecked")
 	public BookstoreEntityServiceImpl(JpaRepository<E, K> repository) {
@@ -29,6 +33,14 @@ public abstract class BookstoreEntityServiceImpl<K extends Serializable & Compar
 		this.objectClass = (Class<E>) genericSuperclass.getActualTypeArguments()[1];
 		this.repository = repository;
 	}
+
+    @SuppressWarnings("unchecked")
+    public BookstoreEntityServiceImpl(JpaRepository<E, K> repository, DataTablesRepository<E, K> dataTablesRepository) {
+        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        this.objectClass = (Class<E>) genericSuperclass.getActualTypeArguments()[1];
+        this.repository = repository;
+        this.dataTablesRepository = dataTablesRepository;
+    }
 	
 	protected final Class<E> getObjectClass() {
 		return objectClass;
@@ -76,4 +88,8 @@ public abstract class BookstoreEntityServiceImpl<K extends Serializable & Compar
 		return repository.count();
 	}
 
+    @Override
+    public DataTablesOutput<E> findAll(DataTablesInput input) {
+        return dataTablesRepository.findAll(input);
+    }
 }

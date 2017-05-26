@@ -6,6 +6,8 @@ import com.dynamicheart.bookstore.core.repositories.customer.CustomerRepository;
 import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -23,7 +25,7 @@ public class CustomerServiceImpl extends BookstoreEntityServiceImpl<Long, Custom
 
     @Inject
     public CustomerServiceImpl(CustomerRepository customerRepository) {
-        super(customerRepository);
+        super(customerRepository, customerRepository);
         this.customerRepository = customerRepository;
     }
 
@@ -54,4 +56,5 @@ public class CustomerServiceImpl extends BookstoreEntityServiceImpl<Long, Custom
     public void delete(Customer customer) throws ServiceException {
         customerRepository.delete(customer);
     }
+
 }

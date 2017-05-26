@@ -35,7 +35,8 @@ dependencies {
     compile "org.hibernate:hibernate-core:5.2.9.Final"
     compile "org.hibernate:hibernate-validator:5.4.1.Final"
 
-    compile "com.fasterxml.jackson.core:jackson-databind:2.8.5"
+    // https://mvnrepository.com/artifact/com.github.darrachequesne/spring-data-jpa-datatables
+    compile group: 'com.github.darrachequesne', name: 'spring-data-jpa-datatables', version: '4.1'
 
     compile "mysql:mysql-connector-java:5.1.6"
     compile "javax.inject:javax.inject:1"

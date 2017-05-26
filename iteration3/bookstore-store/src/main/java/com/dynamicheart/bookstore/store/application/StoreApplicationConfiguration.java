@@ -3,6 +3,8 @@ package com.dynamicheart.bookstore.store.application;
 import com.dynamicheart.bookstore.core.configuration.CoreApplicationConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.*;
+import org.springframework.data.jpa.datatables.repository.DataTablesRepositoryFactoryBean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
 @ComponentScan({"com.dynamicheart.bookstore.store","com.dynamicheart.bookstore.core"})
+@EnableJpaRepositories(repositoryFactoryBeanClass = DataTablesRepositoryFactoryBean.class)
 @EnableAutoConfiguration
 @Import(CoreApplicationConfiguration.class)
 @ImportResource("classpath:/spring/bookstore-store-context.xml")

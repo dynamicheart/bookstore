@@ -28,5 +28,4 @@ public class CustomerTest extends AbstractBookstoreCoreTestCase {
 
         customerService.create(customer);
     }
-
 }
