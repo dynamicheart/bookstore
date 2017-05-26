@@ -3,6 +3,8 @@ package com.dynamicheart.bookstore.core.services.common.generic;
 
 import com.dynamicheart.bookstore.core.business.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
@@ -76,4 +78,7 @@ public abstract class BookstoreEntityServiceImpl<K extends Serializable & Compar
 		return repository.count();
 	}
 
+    public Page<E> findPaginated(int page, int size) {
+        return repository.findAll(new PageRequest(page, size));
+    }
 }
