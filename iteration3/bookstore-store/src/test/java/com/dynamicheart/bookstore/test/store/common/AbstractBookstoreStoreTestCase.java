@@ -20,10 +20,6 @@ import javax.inject.Inject;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = StoreApplicationConfiguration.class)
+@SpringBootTest(classes = StoreApplicationConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AbstractBookstoreStoreTestCase {
-	
-	@Inject
-	protected CustomerService customerService;
-
 }
