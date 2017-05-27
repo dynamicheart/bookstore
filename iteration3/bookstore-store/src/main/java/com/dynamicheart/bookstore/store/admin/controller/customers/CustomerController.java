@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * Created by dynamicheart on 5/24/2017.
  */
 
-
+@Controller
 public class CustomerController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);

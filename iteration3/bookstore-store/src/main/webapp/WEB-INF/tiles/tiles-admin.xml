@@ -4,12 +4,12 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-	<definition name="admin-dashboard" template="/pages/admin/test.jsp">
+	<definition name="admin-dashboard" template="/layout/admin/layout.jsp">
 	</definition>
-	<!--<definition name="admin-customer" template="/layout/admin/layout.jsp">
+	<definition name="admin-customer" template="/layout/admin/layout.jsp">
   		<put-attribute name="body" value="/pages/admin/customer/customer.jsp" />
   	</definition>
  	<definition name="admin-customers" template="/layout/admin/layout.jsp">
   		<put-attribute name="body" value="/pages/admin/customer/customers.jsp" />
-  	</definition>-->
+  	</definition>
 </tiles-definitions>
