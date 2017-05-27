@@ -19,8 +19,6 @@ public class CustomerRESTControllerTest extends AbstractBookstoreStoreTestCase{
 
     private static final String ENDPOINT = "http://localhost:8080/admin/api/customers";
 
-
-
     @Test
     public void fetchPage(){
         given().params("page", "0", "size", "2").get(ENDPOINT)

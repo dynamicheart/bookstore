@@ -1,6 +1,5 @@
 package com.dynamicheart.bookstore.test.store.application;
 
-import com.dynamicheart.bookstore.store.application.StoreApplicationConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,8 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {StoreApplicationConfiguration.class})
-public class ApplicationTest {
+@SpringBootTest(classes = {StoreApplicationConfigurationTest.class})
+public class StoreApplicationTest {
 
     @Test
     public void contextLoad() throws Exception{

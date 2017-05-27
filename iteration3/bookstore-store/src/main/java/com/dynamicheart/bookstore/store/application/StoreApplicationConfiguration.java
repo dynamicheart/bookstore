@@ -25,7 +25,7 @@ public class StoreApplicationConfiguration {
     @Bean
     public TilesConfigurer tilesConfigurer(){
         TilesConfigurer tilesConfigurer = new TilesConfigurer();
-        tilesConfigurer.setDefinitions(new String[] {"/WEB-INF/tiles/tiles-admin.xml","/WEB-INF/tiles/tiles-store.xml"});
+        tilesConfigurer.setDefinitions(new String[] {"/WEB-INF/tiles/tiles-admin.xml"});
         tilesConfigurer.setCheckRefresh(true);
         return tilesConfigurer;
     }

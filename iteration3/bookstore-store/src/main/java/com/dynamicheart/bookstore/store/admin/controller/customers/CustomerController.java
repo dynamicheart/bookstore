@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * Created by dynamicheart on 5/24/2017.
  */
 
-@Controller
+
 public class CustomerController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
@@ -72,7 +72,7 @@ public class CustomerController {
         return "admin-customer";
     }
 
-    @RequestMapping(value="/admin/customers/save.html", method=RequestMethod.POST)
+    @RequestMapping(value="/admin/customers/save", method=RequestMethod.POST)
     public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, Model model, HttpServletRequest request) throws Exception{
 
         String email_regEx = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b";

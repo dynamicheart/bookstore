@@ -38,6 +38,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-actuator")
 
+    compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+
     compile("org.springframework.mobile:spring-mobile-device")
     compile("org.springframework.security:spring-security-taglibs")
 
@@ -49,7 +51,9 @@ dependencies {
     compile "org.hibernate:hibernate-validator:5.4.1.Final"
 
     // https://mvnrepository.com/artifact/org.apache.tiles/tiles-jsp
-    compile group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.7'
+    compile ("org.apache.tiles:tiles-jsp:3.0.7") {
+        exclude group:"javax.servlet",module:"servlet-api"
+    }
 
     // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
     compile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.2'
@@ -57,8 +61,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
     compile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
 
+    // https://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api
+    compile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.2'
 
-    compile "javax.servlet:jstl:1.2"
+    compile ("javax.servlet:jstl:1.2"){
+        exclude group:"javax.servlet",module:"servlet-api"
+    }
     compile "javax.inject:javax.inject:1"
     compile "mysql:mysql-connector-java:5.1.6"
 
