@@ -52,7 +52,7 @@ public class CustomerController {
      * @throws Exception
      */
 
-    @RequestMapping(value="/admin/customers/customer", method= RequestMethod.GET)
+    @RequestMapping(value="/admin/customers/customer/detail", method= RequestMethod.GET)
     public String displayCustomer(Long id, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 
@@ -64,13 +64,14 @@ public class CustomerController {
             //get from DB
             customer = customerService.getById(id);
             if(customer==null) {
-                return "redirect:/admin/customers/list.html";
+                return "redirect:/admin/customers";
             }
 
         } else {
             customer = new Customer();
         }
 
+        model.addAttribute("customer",customer);
         return "admin-customer";
     }
 
@@ -100,7 +101,7 @@ public class CustomerController {
             newCustomer = customerService.getById( customer.getId() );
 
             if(newCustomer==null) {
-                return "redirect:/admin/customers/list";
+                return "redirect:/admin/customers";
             }
         }
 
@@ -121,10 +122,7 @@ public class CustomerController {
      * @throws Exception
      */
     @RequestMapping(value="/admin/customers", method=RequestMethod.GET)
-    public String displayCustomers(Model model,HttpServletRequest request) throws Exception {
-
-        model.addAttribute("url","\"/api/admin/customers\"");
-
+    public String displayCustomers(Model model, HttpServletRequest request) throws Exception {
         return "admin-customers";
     }
 

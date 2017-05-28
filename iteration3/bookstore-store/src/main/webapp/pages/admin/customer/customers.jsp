@@ -5,9 +5,9 @@
 
 <%@ page session="false"%>
 
-<%
-    String path = request.getContextPath();
-%>
+<c:set value="/api/admin/customers" var="fetchUrl" scope="request"/>
+<c:set value="/admin/customers/customer/detail" var="editUrl" scope="request"/>
+<c:set value="/api/admin/customer" var="deleteUrl" scope="request"/>
 
 <div class="tabbable">
 
@@ -26,7 +26,6 @@
                             <th>Id</th>
                             <th>Nick</th>
                             <th>Gender</th>
-                            <th>Data Of Birth</th>
                             <th>Email Address</th>
                             <th width="10%">&nbsp;</th>
                         </tr>
@@ -51,13 +50,11 @@
             "searching": false,
             "lengthMenu": [5,10,15,30],
             "ajax": {
-                "url": ${url}
-            },
+                "url": '<c:url value="${fetchUrl}" />'},
             "columns":[
                 {"data": "id"},
                 {"data": "nick"},
                 {"data": "gender"},
-                {"data": "dateOfBirth"},
                 {"data": "emailAddress"},
                 { "": "" }
             ],
@@ -71,7 +68,7 @@
                                         "</div>"
                 }
             ]
-        } );
+        });
     } );
 
     $("#customerTable").on('draw.dt',function(){
@@ -79,6 +76,10 @@
             $(this).on('click',function(){
                 var table = $('#customerTable').DataTable();
                 var data = table.row( $(this).parents('tr') ).data();
+                var url = '<c:url value="${editUrl}" />';
+                var queryString = '?id=' + data.id;
+                var locationUrl = url + queryString;
+                window.location= locationUrl;
             });
         });
         $(".dt-delete").each(function(){
@@ -87,7 +88,7 @@
                 var data = table.row( $(this).parents('tr') ).data();
                 if(confirm("Are you really want to delete the user whose id is " + data.id)){
                     $.ajax({
-                        url:'<%=path%>/api/admin/customer/' + data.id,
+                        url: '<c:url value="${deleteUrl}" />'+ data.id,
                         type:'delete',
                         dataType: "json",
                         cache: "false",

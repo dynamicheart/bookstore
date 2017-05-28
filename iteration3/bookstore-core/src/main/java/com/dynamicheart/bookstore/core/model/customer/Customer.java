@@ -2,11 +2,15 @@ package com.dynamicheart.bookstore.core.model.customer;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
+import com.dynamicheart.bookstore.core.model.user.Group;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by dynamicheart on 5/3/2017.
@@ -43,6 +47,22 @@ public class Customer extends BookstoreEntity<Long, Customer>{
 
     @Column(name="CUSTOMER_PASSWORD", length=60)
     private String password;
+
+    @ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
+    @JoinTable(name = "CUSTOMER_GROUP", schema=SchemaConstant.BOOKSTORE_SHECMA, joinColumns = {
+            @JoinColumn(name = "CUSTOMER_ID", nullable = false, updatable = false) }
+            ,
+            inverseJoinColumns = { @JoinColumn(name = "GROUP_ID",
+                    nullable = false, updatable = false) }
+    )
+    @Cascade({
+            org.hibernate.annotations.CascadeType.DETACH,
+            org.hibernate.annotations.CascadeType.LOCK,
+            org.hibernate.annotations.CascadeType.REFRESH,
+            org.hibernate.annotations.CascadeType.REPLICATE
+
+    })
+    private List<Group> groups = new ArrayList<Group>();
 
     public Customer() {
     }
@@ -93,5 +113,13 @@ public class Customer extends BookstoreEntity<Long, Customer>{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 }

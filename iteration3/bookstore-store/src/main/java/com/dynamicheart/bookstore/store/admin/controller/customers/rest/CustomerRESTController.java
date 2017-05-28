@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import static com.dynamicheart.bookstore.store.utils.BriefUtils.getCustomerBriefs;
+
 /**
  * Created by dynamicheart on 5/26/2017.
  */
@@ -32,13 +34,13 @@ public class CustomerRESTController {
             params = {"draw", "start","length"},
             method = RequestMethod.GET
     )
-    public @ResponseBody Map<String, Object> findPaginated(
+    public @ResponseBody Map<String, Object> pageCustomers(
             @RequestParam("draw") int draw,
             @RequestParam("start") int start,
             @RequestParam("length") int length){
         Map<String, Object> result = new HashMap<>();
         Page<Customer> pages = customerService.findPaginated(start/length, length);
-        result.put("data",pages.getContent());
+        result.put("data", getCustomerBriefs(pages.getContent()));
         result.put("draw",draw);
         result.put("recordsTotal",pages.getTotalElements());
         result.put("recordsFiltered",pages.getTotalElements());

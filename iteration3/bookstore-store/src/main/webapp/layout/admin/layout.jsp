@@ -49,12 +49,14 @@
     <div id = "alert_placeholder"></div>
 
     <hr>
-    <footer>
-        <p>&copy; dynamicheart 2017-<%=Calendar.getInstance().get(Calendar.YEAR)%>
-        </p>
-    </footer>
 
 </div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">&copy; dynamicheart 2017-<%=Calendar.getInstance().get(Calendar.YEAR)%></p>
+    </div>
+</footer>
 
 
 <!-- Le javascript

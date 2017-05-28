@@ -6,10 +6,10 @@
 <tiles-definitions>
 	<definition name="admin-dashboard" template="/layout/admin/layout.jsp">
 	</definition>
-	<definition name="admin-customer" template="/layout/admin/layout.jsp">
-  		<put-attribute name="body" value="/pages/admin/customer/customer.jsp" />
-  	</definition>
  	<definition name="admin-customers" template="/layout/admin/layout.jsp">
   		<put-attribute name="body" value="/pages/admin/customer/customers.jsp" />
   	</definition>
+	<definition name="admin-customer" template="/layout/admin/layout.jsp">
+		<put-attribute name="body" value="/pages/admin/customer/customer.jsp" />
+	</definition>
 </tiles-definitions>
