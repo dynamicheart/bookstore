@@ -120,18 +120,10 @@ public class CustomerController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value="/admin/customers/list", method=RequestMethod.GET)
+    @RequestMapping(value="/admin/customers", method=RequestMethod.GET)
     public String displayCustomers(Model model,HttpServletRequest request) throws Exception {
 
         model.addAttribute("url","\"/api/admin/customers\"");
-
-        List<String> columns = new LinkedList<>();
-        columns.add("id");
-        columns.add("gender");
-        columns.add("dateOfBirth");
-        columns.add("emailAddress");
-        columns.add("nick");
-        model.addAttribute("columns", columns);
 
         return "admin-customers";
     }

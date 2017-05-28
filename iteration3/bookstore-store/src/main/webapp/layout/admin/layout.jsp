@@ -23,7 +23,6 @@
 
 <head>
 
-
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title><s:message code="label.storeadministration" text="Store administration"/></title>
@@ -34,6 +33,7 @@
     <link rel="icon" href="<c:url value="/static/favicon.ico"/>">
 
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <jsp:include page="/common/adminLinks.jsp"/>
 
 </head>
@@ -46,6 +46,7 @@
         <tiles:insertAttribute name="body"/>
     </div>
 
+    <div id = "alert_placeholder"></div>
 
     <hr>
     <footer>
@@ -59,30 +60,8 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $('#dataTable').DataTable( {
-            "processing": true,
-            "serverSide": true,
-            "pageLength": 10,
-            "ordering": false,
-            "searching": false,
-            "lengthMenu": [5,10,15,30],
-            "ajax": {
-                "url": ${url}
-            },
-            "columns":[
-                <c:forEach items="${columns}" var="column">
-                    {"data": "${column}"},
-                </c:forEach>
-            ]
-        } );
-    } );
-</script>
 
 </body>
 </html>
