@@ -41,28 +41,8 @@
 <body class="body">
 
 <div id="wrapper">
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation"
-         style="margin-bottom: 0">
 
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i>
-                        Customers</a></li>
-                    <li><a href="#" class="active"><i class="fa fa-book fa-fw"></i>
-                        Books</a></li>
-                    <li><a href="#"><i class="fa fa-reorder fa-fw"></i>
-                        Orders</a></li>
-                    <li><a href="#"><i class="fa fa-table fa-fw"></i>
-                        Orderitems</a></li>
-                </ul>
-            </div>
-            <!-- /.sidebar-collapse -->
-        </div>
-    </nav>
-
-    <div id="page-wrapper">
+    <div>
         <tiles:insertAttribute name="body"/>
     </div>
 
@@ -79,8 +59,30 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable( {
+            "processing": true,
+            "serverSide": true,
+            "pageLength": 10,
+            "ordering": false,
+            "searching": false,
+            "lengthMenu": [5,10,15,30],
+            "ajax": {
+                "url": ${url}
+            },
+            "columns":[
+                <c:forEach items="${columns}" var="column">
+                    {"data": "${column}"},
+                </c:forEach>
+            ]
+        } );
+    } );
+</script>
 
 </body>
 </html>
