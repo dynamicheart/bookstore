@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.core.services.common.generic;
 
-import com.dynamicheart.bookstore.core.business.exception.ServiceException;
+import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
 import org.springframework.data.domain.Page;
 

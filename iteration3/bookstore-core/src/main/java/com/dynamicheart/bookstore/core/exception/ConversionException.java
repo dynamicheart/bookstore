@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.dynamicheart.bookstore.core.business.exception;
+package com.dynamicheart.bookstore.core.exception;
 
 /**
  * @author Umesh A

@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.core.services.catalog.book;
 
-import com.dynamicheart.bookstore.core.business.exception.ServiceException;
+import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.repositories.catalog.book.BookRepository;
@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.HashSet;
 
 /**
  * Created by dynamicheart on 5/23/2017.

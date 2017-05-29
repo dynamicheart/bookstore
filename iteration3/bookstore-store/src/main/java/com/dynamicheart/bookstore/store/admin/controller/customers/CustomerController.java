@@ -55,9 +55,11 @@ public class CustomerController {
      * @throws Exception
      */
 
-    @RequestMapping(value="/admin/customers/customer/detail", method= RequestMethod.GET)
+    @RequestMapping(value="/admin/customer/detail", method= RequestMethod.GET)
     public String displayCustomer(Long id, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+        //display menu
+        this.setMenu(model, request);
 
         Customer customer = null;
 
@@ -78,7 +80,7 @@ public class CustomerController {
         return "admin-customer";
     }
 
-    @RequestMapping(value="/admin/customers/save", method=RequestMethod.POST)
+    @RequestMapping(value="/admin/customer/save", method=RequestMethod.POST)
     public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, Model model, HttpServletRequest request) throws Exception{
 
         String email_regEx = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b";
@@ -137,14 +139,12 @@ public class CustomerController {
 
         //display menu
         Map<String,String> activeMenus = new HashMap<String,String>();
-        activeMenus.put("customer", "customer");
-        activeMenus.put("customer-list", "customer-list");
+        activeMenus.put("Customer", "Customer");
 
         @SuppressWarnings("unchecked")
         Map<String, Menu> menus = (Map<String, Menu>)request.getAttribute("MENUMAP");
 
-        Menu currentMenu = (Menu)menus.get("customer");
-        model.addAttribute("currentMenu",currentMenu);
+        Menu currentMenu = (Menu)menus.get("Customer");
         model.addAttribute("activeMenus",activeMenus);
     }
 

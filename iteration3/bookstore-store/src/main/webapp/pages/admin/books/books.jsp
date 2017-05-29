@@ -5,9 +5,9 @@
 
 <%@ page session="false"%>
 
-<c:set value="/api/admin/customers" var="fetchUrl" scope="request"/>
-<c:set value="/admin/customers/customer/detail" var="editUrl" scope="request"/>
-<c:set value="/api/admin/customer" var="deleteUrl" scope="request"/>
+<c:set value="/api/admin/books" var="fetchUrl" scope="request"/>
+<c:set value="/admin/book/detail" var="editUrl" scope="request"/>
+<c:set value="/api/admin/book" var="deleteUrl" scope="request"/>
 
 <div class="tabbable">
 
@@ -17,16 +17,17 @@
 
             <div>
 
-                <h3><s:message code="label.customer.list" text="Customer list" /></h3>
+                <h3 class="page-header"><s:message code="label.book.list" text="Book List" /></h3>
                 <br/><br/>
 
-                <table id="customerTable" class="display" cellspacing="0" width="100%">
+                <table id="bookTable" class="display" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Nick</th>
-                            <th>Gender</th>
-                            <th>Email Address</th>
+                            <th>ISBN</th>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
                             <th width="10%">&nbsp;</th>
                         </tr>
                     </thead>
@@ -42,7 +43,7 @@
 <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready(function() {
-        $('#customerTable').DataTable( {
+        $('#bookTable').DataTable( {
             "processing": true,
             "serverSide": true,
             "pageLength": 10,
@@ -53,9 +54,10 @@
                 "url": '<c:url value="${fetchUrl}" />'},
             "columns":[
                 {"data": "id"},
-                {"data": "nick"},
-                {"data": "gender"},
-                {"data": "emailAddress"},
+                {"data": "isbn"},
+                {"data": "title"},
+                {"data": "price"},
+                {"data": "quantity"},
                 { "": "" }
             ],
             "columnDefs": [
@@ -71,10 +73,10 @@
         });
     } );
 
-    $("#customerTable").on('draw.dt',function(){
+    $("#bookTable").on('draw.dt',function(){
         $(".dt-edit").each(function(){
             $(this).on('click',function(){
-                var table = $('#customerTable').DataTable();
+                var table = $('#bookTable').DataTable();
                 var data = table.row( $(this).parents('tr') ).data();
                 var url = '<c:url value="${editUrl}" />';
                 var queryString = '?id=' + data.id;
@@ -84,9 +86,9 @@
         });
         $(".dt-delete").each(function(){
             $(this).on('click',function(){
-                var table = $('#customerTable').DataTable();
+                var table = $('#bookTable').DataTable();
                 var data = table.row( $(this).parents('tr') ).data();
-                if(confirm("Are you really want to delete the user whose id is " + data.id)){
+                if(confirm("Are you really want to delete the book" + data.title)){
                     $.ajax({
                         url: '<c:url value="${deleteUrl}" />'+ data.id,
                         type:'delete',

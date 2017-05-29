@@ -1,4 +1,4 @@
-package com.dynamicheart.bookstore.core.business.exception;
+package com.dynamicheart.bookstore.core.exception;
 
 /**
  * <p>Exception générée par les services de l'application.</p>

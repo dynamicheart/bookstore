@@ -45,15 +45,21 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
     @Column(name="AVAILABLE")
     private boolean available = true;
 
+    @Column(name="PRICE")
+    private BigDecimal price;
+
+    @Column(name = "QUANTITY")
+    private Integer quantity = 0;
+
     @Column(name = "REVIEW_AVG")
     private BigDecimal bookReviewAvg;
 
     @Column(name = "REVIEW_COUNT")
-    private Integer productReviewCount;
+    private Integer bookReviewCount;
 
     @NotEmpty
     @Column(name = "ISBN", nullable = false, length = 13)
-    private Integer isbn;
+    private String isbn;
 
     public Book() {
     }
@@ -102,6 +108,22 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
         this.available = available;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     public BigDecimal getBookReviewAvg() {
         return bookReviewAvg;
     }
@@ -110,19 +132,19 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
         this.bookReviewAvg = bookReviewAvg;
     }
 
-    public Integer getProductReviewCount() {
-        return productReviewCount;
+    public Integer getBookReviewCount() {
+        return bookReviewCount;
     }
 
-    public void setProductReviewCount(Integer productReviewCount) {
-        this.productReviewCount = productReviewCount;
+    public void setBookReviewCount(Integer bookReviewCount) {
+        this.bookReviewCount = bookReviewCount;
     }
 
-    public Integer getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Integer isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 }

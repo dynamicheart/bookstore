@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.store.init.data;
 
-import com.dynamicheart.bookstore.core.business.exception.ServiceException;
+import com.dynamicheart.bookstore.core.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

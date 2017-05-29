@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.core.services.customer;
 
-import com.dynamicheart.bookstore.core.business.exception.ServiceException;
+import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityService;
 

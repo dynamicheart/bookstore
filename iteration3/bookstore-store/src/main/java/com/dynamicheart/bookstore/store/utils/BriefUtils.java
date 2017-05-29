@@ -1,7 +1,11 @@
 package com.dynamicheart.bookstore.store.utils;
 
+import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
+import com.dynamicheart.bookstore.core.model.order.Order;
+import com.dynamicheart.bookstore.store.admin.model.catalog.book.BookBrief;
 import com.dynamicheart.bookstore.store.admin.model.customer.CustomerBrief;
+import com.dynamicheart.bookstore.store.admin.model.order.OrderBrief;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,5 +28,35 @@ public class BriefUtils {
         }
 
         return customerBriefs;
+    }
+
+
+    public static List<BookBrief> getBookBriefs(List<Book> books){
+        List<BookBrief> bookBriefs = new LinkedList<>();
+
+        for(Book book: books){
+            BookBrief bookBrief = new BookBrief();
+            bookBrief.setId(book.getId());
+            bookBrief.setIsbn(book.getIsbn());
+            bookBrief.setPrice(book.getPrice());
+            bookBrief.setQuantity(book.getQuantity());
+            bookBrief.setTitle(book.getDescription().getTitle());
+        }
+        return bookBriefs;
+    }
+
+    public static List<OrderBrief> getOrderBriefs(List<Order> orders){
+        List<OrderBrief> orderBriefs = new LinkedList<>();
+
+        for(Order order:orders){
+            OrderBrief orderBrief = new OrderBrief();
+            orderBrief.setId(order.getId());
+            orderBrief.setCustomerId(order.getCustomerId());
+            orderBrief.setStatus(order.getStatus());
+            orderBrief.setTotal(order.getTotal());
+            orderBrief.setDatePurchased(order.getDatePurchased());
+        }
+
+        return orderBriefs;
     }
 }

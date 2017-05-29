@@ -23,8 +23,8 @@ public class OrderItem extends BookstoreEntity<Long, OrderItem>{
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private Long id;
 
-    @Column(name = "BOOK_ISBN")
-    private Integer isbn;
+    @Column(name = "BOOK_ISBN", length = 13)
+    private String isbn;
 
     @Column (name="BOOK_NAME" , length=64 , nullable=false)
     private String bookName;
@@ -49,11 +49,11 @@ public class OrderItem extends BookstoreEntity<Long, OrderItem>{
         this.id = id;
     }
 
-    public Integer getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Integer isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 

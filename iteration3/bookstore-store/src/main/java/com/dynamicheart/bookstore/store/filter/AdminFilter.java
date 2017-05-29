@@ -72,8 +72,7 @@ public class AdminFilter extends HandlerInterceptorAdapter {
 				}
 			}
 		
-		} 
-		
+		}
 		
 		List<Menu> list = new ArrayList<Menu>(menus.values());
 
@@ -108,7 +107,6 @@ public class AdminFilter extends HandlerInterceptorAdapter {
 			}
 			
 		}
-		
 		return m;
 		
 	}
