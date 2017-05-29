@@ -2,6 +2,7 @@ package com.dynamicheart.bookstore.store.admin.controller.customers;
 
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.services.customer.CustomerService;
+import com.dynamicheart.bookstore.store.admin.model.web.Menu;
 import com.dynamicheart.bookstore.store.utils.LabelUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -20,8 +21,10 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -123,7 +126,26 @@ public class CustomerController {
      */
     @RequestMapping(value="/admin/customers", method=RequestMethod.GET)
     public String displayCustomers(Model model, HttpServletRequest request) throws Exception {
+
+        this.setMenu(model, request);
+
         return "admin-customers";
+    }
+
+
+    private void setMenu(Model model, HttpServletRequest request) throws Exception {
+
+        //display menu
+        Map<String,String> activeMenus = new HashMap<String,String>();
+        activeMenus.put("customer", "customer");
+        activeMenus.put("customer-list", "customer-list");
+
+        @SuppressWarnings("unchecked")
+        Map<String, Menu> menus = (Map<String, Menu>)request.getAttribute("MENUMAP");
+
+        Menu currentMenu = (Menu)menus.get("customer");
+        model.addAttribute("currentMenu",currentMenu);
+        model.addAttribute("activeMenus",activeMenus);
     }
 
 }

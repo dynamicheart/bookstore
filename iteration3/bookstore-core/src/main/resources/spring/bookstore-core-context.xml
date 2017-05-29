@@ -17,15 +17,17 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/data/jpa
-    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">  
-    
-  <!-- This is the entry XML point -->
-  
-   
-  <!-- datasource -->
-  <beans:import resource="classpath:/spring/datasource-c3p0.xml" />
-  <!-- DB, TX and properties -->
-  <beans:import resource="classpath:/spring/bookstore-core-config.xml" />
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+
+    <!-- This is the entry XML point -->
+
+    <!-- datasource -->
+    <beans:import resource="classpath:/spring/datasource-c3p0.xml" />
+    <!-- cache -->
+    <beans:import resource="classpath:/spring/bookstore-core-ehcache.xml" />
+    <!-- DB, TX and properties -->
+    <beans:import resource="classpath:/spring/bookstore-core-config.xml" />
    
 
 </beans:beans>
