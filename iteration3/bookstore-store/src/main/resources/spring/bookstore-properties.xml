@@ -54,6 +54,7 @@
 		<value>bootstrap3</value>
 		<value>exoticamobilia</value>
     </util:list>
-	
-	
+
+	<bean id="initData" class="com.dynamicheart.bookstore.store.init.data.InitStoreData"/>
+
 </beans>

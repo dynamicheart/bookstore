@@ -53,5 +53,16 @@
 
 	<!-- Maps '/' requests to the 'home' view -->
 	<mvc:view-controller path="/" view-name="shop"/>
+
+
+	<mvc:interceptors>
+		<!-- Changes the locale when a 'locale' request parameter is sent; e.g. /?locale=de -->
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**"/>
+			<bean class="com.dynamicheart.bookstore.store.filter.AdminFilter" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 	 
 </beans>
