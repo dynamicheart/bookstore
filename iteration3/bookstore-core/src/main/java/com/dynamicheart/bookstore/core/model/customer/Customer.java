@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "CUSTOMER", schema = SchemaConstant.BOOKSTORE_SHECMA)
+@Table(name = "CUSTOMER", schema = SchemaConstant.BOOKSTORE_SCHEMA)
 public class Customer extends BookstoreEntity<Long, Customer>{
 
     private static final long serialVersionUID = 4887453298941565028L;
@@ -49,7 +49,7 @@ public class Customer extends BookstoreEntity<Long, Customer>{
     private String password;
 
     @ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
-    @JoinTable(name = "CUSTOMER_GROUP", schema=SchemaConstant.BOOKSTORE_SHECMA, joinColumns = {
+    @JoinTable(name = "CUSTOMER_GROUP", schema=SchemaConstant.BOOKSTORE_SCHEMA, joinColumns = {
             @JoinColumn(name = "CUSTOMER_ID", nullable = false, updatable = false) }
             ,
             inverseJoinColumns = { @JoinColumn(name = "GROUP_ID",

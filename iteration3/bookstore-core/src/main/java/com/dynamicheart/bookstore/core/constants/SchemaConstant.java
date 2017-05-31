@@ -5,5 +5,5 @@ package com.dynamicheart.bookstore.core.constants;
  */
 public class SchemaConstant {
 
-    public final static String BOOKSTORE_SHECMA = "BOOKSTORE";
+    public final static String BOOKSTORE_SCHEMA = "BOOKSTORE";
 }

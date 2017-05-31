@@ -8,7 +8,7 @@ import com.dynamicheart.bookstore.core.model.common.Description;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "BOOK_DESCRIPTION", schema= SchemaConstant.BOOKSTORE_SHECMA, uniqueConstraints={
+@Table(name = "BOOK_DESCRIPTION", schema= SchemaConstant.BOOKSTORE_SCHEMA, uniqueConstraints={
 	@UniqueConstraint(columnNames={
 			"BOOK_ID",
 		})

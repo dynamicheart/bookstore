@@ -1,91 +1,108 @@
 package com.dynamicheart.bookstore.core.model.order.orderitem;
 
+
+
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
 import com.dynamicheart.bookstore.core.model.order.Order;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-
-/**
- * Created by dynamicheart on 5/23/2017.
- */
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "ORDER_ITEM", schema = SchemaConstant.BOOKSTORE_SHECMA)
-public class OrderItem extends BookstoreEntity<Long, OrderItem>{
+@Table(name="ORDER_ITEM" , schema= SchemaConstant.BOOKSTORE_SCHEMA)
+public class OrderItem extends BookstoreEntity<Long, OrderItem> {
+	private static final long serialVersionUID = 176131742783954627L;
+	
+	@Id
+	@Column(name="ORDER_ITEM_ID")
+	@TableGenerator(name = "TABLE_GEN", table = "SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "ORDER_ITEM_ID_NEXT_VALUE")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
+	private Long id;
 
-    private static final long serialVersionUID = 6839636201840623165L;
+	@Column(name="ITEM_ISBN")
+	private String isbn;
 
-    @Id
-    @Column(name="ORDER_PRODUCT_ID")
-    @TableGenerator(name = "TABLE_GEN", table = "BS_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "ORDER_ITEM_ID_NEXT_VALUE")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private Long id;
+	@Column(name="ITEM_NAME" , length=64 , nullable=false)
+	private String itemName;
 
-    @Column(name = "BOOK_ISBN", length = 13)
-    private String isbn;
+	@Column(name="ITEM_QUANTITY")
+	private int itemQuantity;
 
-    @Column (name="BOOK_NAME" , length=64 , nullable=false)
-    private String bookName;
+	@Column(name="ONETIME_CHARGE" , nullable=false )
+	private BigDecimal oneTimeCharge;
 
-    @Column (name="BOOK_QUANTITY")
-    private int bookQuantity;
+	@ManyToOne(targetEntity = Order.class)
+	@JoinColumn(name = "ORDER_ID", nullable = false)
+	private Order order;
+	
+	@OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL)
+	private Set<OrderItemPrice> prices = new HashSet<OrderItemPrice>();
+	
+	
+	public OrderItem() {
+	}
 
-    @ManyToOne(targetEntity = Order.class)
-    @JoinColumn(name = "ORDER_ID", nullable = false)
-    private Order order;
+	public Long getId() {
+		return id;
+	}
 
-    @Column (name="BOOK_PRICE" , nullable=false )
-    private BigDecimal bookPrice;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @Override
-    public Long getId() {
-        return id;
-    }
 
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getItemName() {
+		return itemName;
+	}
 
-    public String getIsbn() {
-        return isbn;
-    }
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
+	public int getItemQuantity() {
+		return itemQuantity;
+	}
 
-    public String getBookName() {
-        return bookName;
-    }
+	public void setItemQuantity(int itemQuantity) {
+		this.itemQuantity = itemQuantity;
+	}
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
-    }
 
-    public int getBookQuantity() {
-        return bookQuantity;
-    }
 
-    public void setBookQuantity(int bookQuantity) {
-        this.bookQuantity = bookQuantity;
-    }
+	public Order getOrder() {
+		return order;
+	}
 
-    public Order getOrder() {
-        return order;
-    }
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+	public Set<OrderItemPrice> getPrices() {
+		return prices;
+	}
 
-    public BigDecimal getBookPrice() {
-        return bookPrice;
-    }
+	public void setPrices(Set<OrderItemPrice> prices) {
+		this.prices = prices;
+	}
+	
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
 
-    public void setBookPrice(BigDecimal bookPrice) {
-        this.bookPrice = bookPrice;
-    }
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setOneTimeCharge(BigDecimal oneTimeCharge) {
+		this.oneTimeCharge = oneTimeCharge;
+	}
+
+	public BigDecimal getOneTimeCharge() {
+		return oneTimeCharge;
+	}
+	
 }

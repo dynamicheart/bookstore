@@ -1,11 +1,9 @@
 package com.dynamicheart.bookstore.core.services.order.orderitem;
 
-import com.dynamicheart.bookstore.core.model.order.orderitem.OrderItem;
 import com.dynamicheart.bookstore.core.repositories.order.orderitem.OrderItemRepository;
 import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

@@ -1,0 +1,70 @@
+{
+    "permission": [
+      {
+        "type": "STORE_ADMIN",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN"
+          ]
+        }
+      },
+      {
+        "type": "SUPERADMIN",
+        "group": { "name": ["SUPERADMIN"] }
+      },
+      {
+        "type": "ADMIN",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN"
+          ]
+        }
+      },
+      {
+        "type": "AUTH",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN",
+            "ADMIN_CATALOGUE",
+            "ADMIN_ORDER"
+          ]
+        }
+      },
+      {
+        "type": "BOOKS",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN",
+            "ADMIN_CATALOGUE"
+          ]
+        }
+      },
+      {
+        "type": "ORDER",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN",
+            "ADMIN_ORDER"
+          ]
+        }
+      },
+      {
+        "type": "CUSTOMER",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN"
+          ]
+        }
+      },
+      {
+        "type": "AUTH_CUSTOMER",
+        "group": { "name": ["CUSTOMER" ]}
+      }
+    ]
+  }

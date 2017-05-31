@@ -15,7 +15,7 @@ import java.util.List;
 
 @Entity
 @EntityListeners(value = AuditListener.class)
-@Table(name = "PERMISSION", schema= SchemaConstant.BOOKSTORE_SHECMA)
+@Table(name = "PERMISSION", schema= SchemaConstant.BOOKSTORE_SCHEMA)
 public class Permission extends BookstoreEntity<Integer, Permission> implements Auditable {
 
 	private static final long serialVersionUID = 3193773046645311913L;
@@ -40,7 +40,7 @@ public class Permission extends BookstoreEntity<Integer, Permission> implements 
 	private String permissionName;
 	
 	@ManyToMany(fetch= FetchType.LAZY, cascade = {CascadeType.REFRESH})
-	@JoinTable(name = "PERMISSION_GROUP", schema=SchemaConstant.BOOKSTORE_SHECMA, joinColumns = {
+	@JoinTable(name = "PERMISSION_GROUP", schema=SchemaConstant.BOOKSTORE_SCHEMA, joinColumns = {
 			@JoinColumn(name = "PERMISSION_ID", nullable = false, updatable = false) }
 			, 
 			inverseJoinColumns = { @JoinColumn(name = "GROUP_ID",

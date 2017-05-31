@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @EntityListeners(value = AuditListener.class)
-@Table(name = "BS_GROUP", schema= SchemaConstant.BOOKSTORE_SHECMA)
+@Table(name = "BS_GROUP", schema= SchemaConstant.BOOKSTORE_SCHEMA)
 public class Group extends BookstoreEntity<Integer, Group> implements Auditable {
 
 	private static final long serialVersionUID = -5501508252681691905L;

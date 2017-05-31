@@ -1,7 +1,9 @@
 package com.dynamicheart.bookstore.core.model.catalog.book;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
+import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
+import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditListener;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditSection;
 import com.dynamicheart.bookstore.core.model.common.audit.Auditable;
@@ -20,7 +22,7 @@ import java.util.Set;
 
 @Entity
 @EntityListeners(value = AuditListener.class)
-@Table(name = "BOOK", schema=SchemaConstant.BOOKSTORE_SHECMA, uniqueConstraints =
+@Table(name = "BOOK", schema=SchemaConstant.BOOKSTORE_SCHEMA, uniqueConstraints =
 @UniqueConstraint(columnNames = {"ISBN"}))
 public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
@@ -35,8 +37,11 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
     @Embedded
     private AuditSection auditSection = new AuditSection();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "book")
-    private BookDescription description;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "book")
+    private Set<BookDescription> descriptions = new HashSet<BookDescription>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="book")
+    private Set<BookAvailability> availabilities = new HashSet<BookAvailability>();
 
     @Column(name="DATE_AVAILABLE")
     @Temporal(TemporalType.TIMESTAMP)
@@ -45,11 +50,9 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
     @Column(name="AVAILABLE")
     private boolean available = true;
 
-    @Column(name="PRICE")
-    private BigDecimal price;
-
-    @Column(name = "QUANTITY")
-    private Integer quantity = 0;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
+    @JoinColumn(name="PUBLISHER_ID", nullable=true)
+    private Publisher publisher;
 
     @Column(name = "REVIEW_AVG")
     private BigDecimal bookReviewAvg;
@@ -84,12 +87,20 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
         this.auditSection = auditSection;
     }
 
-    public BookDescription getDescription() {
-        return description;
+    public Set<BookDescription> getDescriptions() {
+        return descriptions;
     }
 
-    public void setDescription(BookDescription description) {
-        this.description = description;
+    public void setDescriptions(Set<BookDescription> descriptions) {
+        this.descriptions = descriptions;
+    }
+
+    public Set<BookAvailability> getAvailabilities() {
+        return availabilities;
+    }
+
+    public void setAvailabilities(Set<BookAvailability> availabilities) {
+        this.availabilities = availabilities;
     }
 
     public Date getDateAvailable() {
@@ -108,20 +119,12 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
         this.available = available;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Publisher getPublisher() {
+        return publisher;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 
     public BigDecimal getBookReviewAvg() {

@@ -16,7 +16,7 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "ORDERS", schema = SchemaConstant.BOOKSTORE_SHECMA)
+@Table(name = "ORDERS", schema = SchemaConstant.BOOKSTORE_SCHEMA)
 public class Order extends BookstoreEntity<Long, Order> {
 
     private static final long serialVersionUID = -3266122579306661932L;
@@ -44,11 +44,18 @@ public class Order extends BookstoreEntity<Long, Order> {
     @Column (name ="DATE_PURCHASED")
     private Date datePurchased;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column (name ="ORDER_DATE_FINISHED")
+    private Date orderDateFinished;
+
     @Column (name ="ORDER_TOTAL")
     private BigDecimal total;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItem> orderItems = new LinkedHashSet<OrderItem>();
+
+    @Column (name ="CUSTOMER_EMAIL_ADDRESS", length=50, nullable=false)
+    private String customerEmailAddress;
 
     @Override
     public Long getId() {
@@ -92,6 +99,14 @@ public class Order extends BookstoreEntity<Long, Order> {
         this.datePurchased = datePurchased;
     }
 
+    public Date getOrderDateFinished() {
+        return orderDateFinished;
+    }
+
+    public void setOrderDateFinished(Date orderDateFinished) {
+        this.orderDateFinished = orderDateFinished;
+    }
+
     public BigDecimal getTotal() {
         return total;
     }
@@ -106,5 +121,13 @@ public class Order extends BookstoreEntity<Long, Order> {
 
     public void setOrderItems(Set<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public String getCustomerEmailAddress() {
+        return customerEmailAddress;
+    }
+
+    public void setCustomerEmailAddress(String customerEmailAddress) {
+        this.customerEmailAddress = customerEmailAddress;
     }
 }

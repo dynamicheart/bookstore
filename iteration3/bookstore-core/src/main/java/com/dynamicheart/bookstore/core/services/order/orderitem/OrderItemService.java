@@ -1,6 +1,5 @@
 package com.dynamicheart.bookstore.core.services.order.orderitem;
 
-import com.dynamicheart.bookstore.core.model.order.orderitem.OrderItem;
 import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityService;
 
 import java.util.List;

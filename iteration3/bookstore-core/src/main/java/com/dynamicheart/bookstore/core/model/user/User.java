@@ -17,7 +17,7 @@ import java.util.List;
 
 @Entity
 @EntityListeners(value = AuditListener.class)
-@Table(name = "USER", schema= SchemaConstant.BOOKSTORE_SHECMA)
+@Table(name = "USER", schema= SchemaConstant.BOOKSTORE_SCHEMA)
 public class User extends BookstoreEntity<Long, User> implements Auditable {
 	
 	
@@ -45,7 +45,7 @@ public class User extends BookstoreEntity<Long, User> implements Auditable {
 	private String adminName;
 	
 	@ManyToMany(fetch= FetchType.LAZY, cascade = {CascadeType.REFRESH})
-	@JoinTable(name = "USER_GROUP", schema=SchemaConstant.BOOKSTORE_SHECMA, joinColumns = {
+	@JoinTable(name = "USER_GROUP", schema=SchemaConstant.BOOKSTORE_SCHEMA, joinColumns = {
 			@JoinColumn(name = "USER_ID", nullable = false, updatable = false) }
 			, 
 			inverseJoinColumns = { @JoinColumn(name = "GROUP_ID",
