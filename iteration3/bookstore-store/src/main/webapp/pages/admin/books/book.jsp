@@ -35,7 +35,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <form:form method="POST" commandName="book" action="${saveBook}">
+                            <form:form method="POST" enctype="multipart/form-data" commandName="book" action="${saveBook}">
 
                                 <form:errors id="book.error" path="*" cssClass="alert alert-error" element="div"/>
                                 <div id="bookError" class="alert alert-error" style="display:none;"></div>
@@ -47,36 +47,52 @@
                                     <s:message code="message.success" text="Request successful"/>
                                 </div>
 
-                                <form:hidden id="bookId" path="id"/>
+                                <form:hidden id="bookId" path="book.id"/>
 
                                 <div class="form-group">
                                     <label><s:message code="label.book.isbn" text="Book ISBN"/></label>
                                     <div>
-                                        <form:input cssClass="form-control" readonly="true" path="isbn"/>
+                                        <form:input cssClass="form-control" path="book.isbn"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label><s:message code="label.book.title" text="Book Title"/></label>
+                                    <label><s:message code="label.book.available" text="Book Available"/></label>
                                     <div>
-                                        <form:input cssClass="form-control" readonly="true" path="title"/>
+                                        <form:checkbox path="book.available" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label><s:message code="label.book.price" text="Book Price"/></label>
-                                    <div>
-                                        <form:input cssClass="form-control" readonly="true" path="price"/>
+                                    <label><s:message code="label.book.availableDate" text="Date Available"/></label>
+                                    <div class="input-group">
+                                        <form:input cssClass="form-control"  path="dateAvailable" />
+                                        <span class="input-group-addon"><i class="fa fa-table"></i></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label><s:message code="label.book.quantity" text="Book Quantity"/></label>
+                                    <label><s:message code="label.book.publisher" text="Publisher"/></label>
                                     <div>
-                                        <form:input cssClass="form-control" readonly="true" path="quantity"/>
+                                        <form:select items="${publishers}" cssClass="form-control" itemValue="id" itemLabel="descriptions[0].name" path="book.publisher.id">
+                                            <form:options/>
+                                        </form:select>
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label><s:message code="label.book.price" text="Price"/></label>
+                                    <div>
+                                        <form:input cssClass="form-control" path="bookPrice"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><s:message code="label.book.qtyavailable" text="Quantity Available"/></label>
+                                    <div>
+                                        <form:input cssClass="form-control" path="bookAvailability.productQuantity"/>
+                                    </div>
+                                </div>
 
                                 <hr>
 

@@ -114,7 +114,7 @@ public class UserServicesImpl implements WebUserServices{
 		  List<Group> groups = groupService.listGroup(GroupType.ADMIN);
 		  
 		  //creation of the super admin admin:password)
-		  com.dynamicheart.bookstore.core.model.user.User user = new com.dynamicheart.bookstore.core.model.user.User("admin",password,"admin@shopizer.com");
+		  com.dynamicheart.bookstore.core.model.user.User user = new com.dynamicheart.bookstore.core.model.user.User("admin",password,"admin@bookstore.com");
 		  user.setFirstName("Administrator");
 		  user.setLastName("User");
 		  

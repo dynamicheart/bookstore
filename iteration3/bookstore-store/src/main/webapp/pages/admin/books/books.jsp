@@ -26,8 +26,7 @@
                             <th>Id</th>
                             <th>ISBN</th>
                             <th>Title</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
+                            <th>Available</th>
                             <th width="10%">&nbsp;</th>
                         </tr>
                     </thead>
@@ -56,8 +55,7 @@
                 {"data": "id"},
                 {"data": "isbn"},
                 {"data": "title"},
-                {"data": "price"},
-                {"data": "quantity"},
+                {"data": "available"},
                 { "": "" }
             ],
             "columnDefs": [

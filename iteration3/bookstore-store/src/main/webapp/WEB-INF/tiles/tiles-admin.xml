@@ -5,6 +5,7 @@
 
 <tiles-definitions>
 	<definition name="admin-dashboard" template="/layout/admin/layout.jsp">
+        <put-attribute name="body" value="/pages/admin/home.jsp"/>
 	</definition>
  	<definition name="admin-customers" template="/layout/admin/layout.jsp">
   		<put-attribute name="body" value="/pages/admin/customers/customers.jsp" />

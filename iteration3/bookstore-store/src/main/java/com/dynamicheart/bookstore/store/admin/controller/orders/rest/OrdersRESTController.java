@@ -1,4 +1,4 @@
-package com.dynamicheart.orderstore.store.admin.controller.orders.rest;
+package com.dynamicheart.bookstore.store.admin.controller.orders.rest;
 
 import com.dynamicheart.bookstore.core.model.order.Order;
 import com.dynamicheart.bookstore.core.services.order.OrderService;

@@ -33,7 +33,7 @@ public class Customer extends BookstoreEntity<Long, Customer>{
     @Enumerated(value = EnumType.STRING)
     private CustomerGender gender;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name="CUSTOMER_DOB")
     private Date dateOfBirth;
 

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.HashSet;
 
 /**
  * Created by dynamicheart on 5/23/2017.
@@ -31,7 +32,11 @@ public class BookServiceImpl extends BookstoreEntityServiceImpl<Long, Book> impl
     public void saveOrUpdateBookDescription(Book book, BookDescription description)
             throws ServiceException {
 
-        book.setDescription(description);
+        if(book.getDescriptions()==null) {
+            book.setDescriptions(new HashSet<BookDescription>());
+        }
+
+        book.getDescriptions().add(description);
         description.setBook(book);
         update(book);
     }
@@ -39,5 +44,10 @@ public class BookServiceImpl extends BookstoreEntityServiceImpl<Long, Book> impl
     @Override
     public BookDescription getBookDescription(Book book) {
         return null;
+    }
+
+    @Override
+    public Book getByCode(String bookCode) {
+        return bookRepository.getByCode(bookCode);
     }
 }

@@ -94,5 +94,15 @@
 		</beans:property>
 	</beans:bean>
 
-	
+	<!-- in bookstore-store -->
+	<beans:bean id="coreConfiguration" class="com.dynamicheart.bookstore.core.utils.CoreConfiguration">
+		<beans:property name="properties" ref="bookstore-properties"/>
+	</beans:bean>
+
+    
+
+	<!-- JDBC User -->
+	<beans:bean id="userService" class="com.dynamicheart.bookstore.core.services.user.UserServiceImpl"/>
+
+
 </beans:beans>

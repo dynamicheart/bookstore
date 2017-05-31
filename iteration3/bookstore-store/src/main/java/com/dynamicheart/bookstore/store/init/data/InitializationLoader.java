@@ -99,9 +99,10 @@ public class InitializationLoader {
                             permissionService.create( permission);
                         }
 
-                        userDetailsService.createDefaultAdmin();
+
                     }
                 }
+                userDetailsService.createDefaultAdmin();
                 loadData();
             }
         }catch (Exception e){

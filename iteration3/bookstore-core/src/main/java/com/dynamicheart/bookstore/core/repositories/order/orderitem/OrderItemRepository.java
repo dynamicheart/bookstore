@@ -1,5 +1,6 @@
 package com.dynamicheart.bookstore.core.repositories.order.orderitem;
 
+import com.dynamicheart.bookstore.core.model.order.orderitem.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

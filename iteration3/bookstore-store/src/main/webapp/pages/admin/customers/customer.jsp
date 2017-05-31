@@ -75,12 +75,11 @@
                                     </div>
                                 </div>
 
-                                <form:hidden id="timestamp" path="dateOfBirth"/>
 
                                 <div class="form-group">
                                     <label><s:message code="label.customer.dateofbirth" text="Date Of Birth"/></label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" value="12-02-2012">
+                                        <form:input cssClass="form-control"  path="dateOfBirth" />
                                         <span class="input-group-addon"><i class="fa fa-table"></i></span>
                                     </div>
                                 </div>

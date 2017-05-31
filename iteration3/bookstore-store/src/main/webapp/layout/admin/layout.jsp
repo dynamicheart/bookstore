@@ -15,7 +15,8 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@page pageEncoding="UTF-8" %>
 
-<c:set value="/api/admin" var="homeUrl" scope="request"/>
+<c:set value="/admin/home" var="homeUrl" scope="request"/>
+<c:set value="/admin/logout" var="logoutUrl" scope="request"/>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -46,12 +47,21 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="<c:url value="${homeUrl}" />"><s:message code="label.storeadministration" text="Store administration"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="<c:url value="${logoutUrl}" />">
+                        <i class="fa fa-sign-out"></i>
+                        <s:message code="button.label.logout" text="Sign out"/>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

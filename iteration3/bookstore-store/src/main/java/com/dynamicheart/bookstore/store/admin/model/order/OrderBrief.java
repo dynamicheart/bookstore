@@ -15,11 +15,11 @@ public class OrderBrief implements Serializable{
 
     private Long id;
 
-    private Long customerId;
+    private String customerName;
 
     private BigDecimal total;
 
-    private Date datePurchased;
+    private Date date;
 
     private OrderStatus status;
 
@@ -31,12 +31,12 @@ public class OrderBrief implements Serializable{
         this.id = id;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public BigDecimal getTotal() {
@@ -47,12 +47,12 @@ public class OrderBrief implements Serializable{
         this.total = total;
     }
 
-    public Date getDatePurchased() {
-        return datePurchased;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDatePurchased(Date datePurchased) {
-        this.datePurchased = datePurchased;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public OrderStatus getStatus() {

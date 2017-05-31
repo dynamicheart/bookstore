@@ -24,10 +24,10 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>ISBN</th>
-                            <th>Title</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
+                            <th>Customer Name</th>
+                            <th>Total</th>
+                            <th>Order Date</th>
+                            <th>Status</th>
                             <th width="10%">&nbsp;</th>
                         </tr>
                     </thead>
@@ -54,10 +54,10 @@
                 "url": '<c:url value="${fetchUrl}" />'},
             "columns":[
                 {"data": "id"},
-                {"data": "isbn"},
-                {"data": "title"},
-                {"data": "price"},
-                {"data": "quantity"},
+                {"data": "customerName"},
+                {"data": "total"},
+                {"data": "date"},
+                {"data": "status"},
                 { "": "" }
             ],
             "columnDefs": [

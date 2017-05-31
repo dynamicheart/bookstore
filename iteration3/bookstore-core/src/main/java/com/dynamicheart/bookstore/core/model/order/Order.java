@@ -1,11 +1,13 @@
 package com.dynamicheart.bookstore.core.model.order;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
+import com.dynamicheart.bookstore.core.model.common.Billing;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
 import com.dynamicheart.bookstore.core.model.order.orderitem.OrderItem;
 import com.dynamicheart.bookstore.core.model.order.orderstatus.OrderStatus;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -50,6 +52,10 @@ public class Order extends BookstoreEntity<Long, Order> {
 
     @Column (name ="ORDER_TOTAL")
     private BigDecimal total;
+
+    @Valid
+    @Embedded
+    private Billing billing = null;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItem> orderItems = new LinkedHashSet<OrderItem>();
@@ -113,6 +119,14 @@ public class Order extends BookstoreEntity<Long, Order> {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public Billing getBilling() {
+        return billing;
+    }
+
+    public void setBilling(Billing billing) {
+        this.billing = billing;
     }
 
     public Set<OrderItem> getOrderItems() {

@@ -1,4 +1,4 @@
-package com.dynamicheart.orderstore.store.admin.controller.orders;
+package com.dynamicheart.bookstore.store.admin.controller.orders;
 
 
 import com.dynamicheart.bookstore.core.model.order.Order;

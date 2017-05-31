@@ -8,6 +8,7 @@ import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPrice;
 import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPriceDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.PublisherDescription;
+import com.dynamicheart.bookstore.core.model.common.Billing;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.customer.CustomerGender;
 import com.dynamicheart.bookstore.core.model.order.Order;
@@ -234,7 +235,7 @@ public class InitStoreData implements InitData{
 
         // PRODUCT 4
         Book book4 = new Book();
-        book4.setIsbn("SF333345");
+        book4.setIsbn("9788126531066");
         book4.setPublisher(sams);
 
         // Book description
@@ -273,7 +274,7 @@ public class InitStoreData implements InitData{
 
         // PRODUCT 5
         Book book5 = new Book();
-        book5.setIsbn("SF333346");
+        book5.setIsbn("9781849612954");
         book5.setPublisher(packt);
 
         // Book description
@@ -316,7 +317,7 @@ public class InitStoreData implements InitData{
         // PRODUCT 6
 
         Book book6 = new Book();
-        book6.setIsbn("LL333444");
+        book6.setIsbn("9787508657424");
         book6.setPublisher(novells);
 
         // Book description
@@ -368,6 +369,14 @@ public class InitStoreData implements InitData{
             }
         }
 
+        Billing billing = new Billing();
+        billing.setAddress("358 Du Languadoc");
+        billing.setCity("Boucherville");
+        billing.setCompany("CSTI Consulting");
+//		    billing.setCountryCode(canada.getIsoCode());
+        billing.setFirstName("Leonardo" );
+        billing.setLastName("DiCaprio" );
+        billing.setPostalCode("J4B-8J9");
 
         customerService.create(customer);
 
@@ -376,6 +385,7 @@ public class InitStoreData implements InitData{
         Order order = new Order();
         order.setDatePurchased(new Date());
         order.setLastModified(new Date());
+        order.setBilling(billing);
 
         order.setCustomerId(customer.getId());
         order.setCustomerEmailAddress("customer@bookstore.com");
@@ -399,9 +409,9 @@ public class InitStoreData implements InitData{
         OrderItem oitem = new OrderItem();
         oitem.setOneTimeCharge( new BigDecimal(19.99) );
         oitem.setOrder(order);
-        oitem.setItemName( "Product name" );
+        oitem.setItemName( "The Big Switch" );
         oitem.setItemQuantity(1);
-        oitem.setIsbn("TB12345" );
+        oitem.setIsbn("9787508657424" );
         oitem.getPrices().add(oitemprice ) ;
 
         oitemprice.setOrderItem(oitem);

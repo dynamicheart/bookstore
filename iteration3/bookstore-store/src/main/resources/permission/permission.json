@@ -29,12 +29,13 @@
             "SUPERADMIN",
             "ADMIN",
             "ADMIN_CATALOGUE",
+            "ADMIN_STORE",
             "ADMIN_ORDER"
           ]
         }
       },
       {
-        "type": "BOOKS",
+        "type": "PRODUCTS",
         "group": {
           "name": [
             "SUPERADMIN",
@@ -54,11 +55,62 @@
         }
       },
       {
+        "type": "CONTENT",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN",
+            "ADMIN_CONTENT"
+          ]
+        }
+      },
+      {
+        "type": "STORE",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN",
+            "ADMIN_STORE"
+          ]
+        }
+      },
+      {
+        "type": "TAX",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN",
+            "ADMIN_STORE"
+          ]
+        }
+      },
+      {
+        "type": "PAYMENT",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN",
+            "ADMIN_STORE"
+          ]
+        }
+      },
+      {
         "type": "CUSTOMER",
         "group": {
           "name": [
             "SUPERADMIN",
-            "ADMIN"
+            "ADMIN",
+            "ADMIN_STORE"
+          ]
+        }
+      },
+      {
+        "type": "SHIPPING",
+        "group": {
+          "name": [
+            "SUPERADMIN",
+            "ADMIN",
+            "ADMIN_STORE"
           ]
         }
       },

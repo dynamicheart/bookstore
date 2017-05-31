@@ -18,7 +18,7 @@ public class OrderItem extends BookstoreEntity<Long, OrderItem> {
 	
 	@Id
 	@Column(name="ORDER_ITEM_ID")
-	@TableGenerator(name = "TABLE_GEN", table = "SM_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "ORDER_ITEM_ID_NEXT_VALUE")
+	@TableGenerator(name = "TABLE_GEN", table = "BS_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "ORDER_ITEM_ID_NEXT_VALUE")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
 	private Long id;
 

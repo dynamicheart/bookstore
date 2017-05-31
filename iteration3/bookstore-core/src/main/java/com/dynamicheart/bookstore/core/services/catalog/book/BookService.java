@@ -12,4 +12,6 @@ public interface BookService extends BookstoreEntityService<Long, Book> {
     void saveOrUpdateBookDescription(Book book, BookDescription description) throws ServiceException;
 
     BookDescription getBookDescription(Book book);
+
+    Book getByCode(String bookCode);
 }
