@@ -11,7 +11,7 @@
         <div class="col-lg-12">
         <h3 class="page-header">
             <c:choose>
-                <c:when test="${book.id!=null && book.id>0}">
+                <c:when test="${book.book.id!=null && book.book.id>0}">
                     <s:message code="label.book.editbook" text="Edit Book"/>
                 </c:when>
                 <c:otherwise>
@@ -70,6 +70,14 @@
                                         <span class="input-group-addon"><i class="fa fa-table"></i></span>
                                     </div>
                                 </div>
+                                    <c:forEach items="${book.descriptions}" var="description" varStatus="counter">
+                                    <div class="form-group">
+                                        <label><s:message code="label.book.title" text="Title"/></label>
+                                        <div>
+                                            <form:input cssClass="form-control" id="name${counter.index}"  path="descriptions[${counter.index}].name" />
+                                        </div>
+                                    </div>
+                                    </c:forEach>
 
                                 <div class="form-group">
                                     <label><s:message code="label.book.publisher" text="Publisher"/></label>
@@ -90,7 +98,7 @@
                                 <div class="form-group">
                                     <label><s:message code="label.book.qtyavailable" text="Quantity Available"/></label>
                                     <div>
-                                        <form:input cssClass="form-control" path="bookAvailability.productQuantity"/>
+                                        <form:input cssClass="form-control" path="bookAvailability.bookQuantity"/>
                                     </div>
                                 </div>
 

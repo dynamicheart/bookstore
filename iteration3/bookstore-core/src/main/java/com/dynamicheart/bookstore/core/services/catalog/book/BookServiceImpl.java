@@ -50,4 +50,9 @@ public class BookServiceImpl extends BookstoreEntityServiceImpl<Long, Book> impl
     public Book getByCode(String bookCode) {
         return bookRepository.getByCode(bookCode);
     }
+
+    @Override
+    public Book getById(Long id){
+        return bookRepository.getById(id);
+    }
 }

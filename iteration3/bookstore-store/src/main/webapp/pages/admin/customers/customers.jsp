@@ -7,7 +7,7 @@
 
 <c:set value="/api/admin/customers" var="fetchUrl" scope="request"/>
 <c:set value="/admin/customer/detail" var="editUrl" scope="request"/>
-<c:set value="/api/admin/customer" var="deleteUrl" scope="request"/>
+<c:set value="/api/admin/customer/" var="deleteUrl" scope="request"/>
 
 <div class="tabbable">
 
@@ -93,8 +93,8 @@
                         dataType: "json",
                         cache: "false",
                         success:function(data){
-                            table.row( $(this).parents('tr') ).remove().draw(false);
-
+                            table.row( $(this).parents('tr') ).remove().draw(true);
+                            location.reload();
                         },
                         error:function(err){
                         }

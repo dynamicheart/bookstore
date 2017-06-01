@@ -13,13 +13,14 @@ import java.util.List;
 /**
  * Created by dynamicheart on 6/1/2017.
  */
-public class Book  implements Serializable{
+public class Book implements Serializable{
 
     private static final long serialVersionUID = 1619534688796132733L;
 
     @Valid
     private com.dynamicheart.bookstore.core.model.catalog.book.Book book;
 
+    @Valid
     private List<BookDescription> descriptions = new ArrayList<BookDescription>();
 
     @Valid

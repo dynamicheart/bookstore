@@ -1,6 +1,5 @@
 package com.dynamicheart.bookstore.store.admin.controller.books;
 
-import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPrice;
@@ -8,6 +7,7 @@ import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
 import com.dynamicheart.bookstore.core.services.catalog.book.publisher.PublisherService;
 import com.dynamicheart.bookstore.core.utils.BookPriceUtils;
+import com.dynamicheart.bookstore.store.admin.model.catalog.book.Book;
 import com.dynamicheart.bookstore.store.admin.model.web.Menu;
 import com.dynamicheart.bookstore.store.utils.DateUtil;
 import com.dynamicheart.bookstore.store.utils.LabelUtils;
@@ -50,10 +50,10 @@ public class BookController {
         return displayBook(id, model, request, response);
     }
 
-    @RequestMapping(value="/admin/books/viewEditBook.html", method=RequestMethod.GET)
+    @RequestMapping(value="/admin/book/viewDetail", method=RequestMethod.GET)
     public String displayBookEdit(@RequestParam("isbn") String isbn, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        Book dbBook = bookService.getByCode(isbn);
+        com.dynamicheart.bookstore.core.model.catalog.book.Book dbBook = bookService.getByCode(isbn);
 
         long bookId = -1;//non existent
         if(dbBook!=null) {
@@ -99,13 +99,13 @@ public class BookController {
         List<BookDescription> descriptions = new ArrayList<BookDescription>();
 
 
-        com.dynamicheart.bookstore.store.admin.model.catalog.book.Book book = new com.dynamicheart.bookstore.store.admin.model.catalog.book.Book();
+        Book book = new Book();
 
         //if request.attribute contains id then get this book from bookService
         if(id!=null && id!=0) {//edit mode
 
             //get from DB
-            Book dbBook = bookService.getById(id);
+            com.dynamicheart.bookstore.core.model.catalog.book.Book dbBook = bookService.getById(id);
             if(dbBook==null) {
                 return "redirect:/admin/books";
             }
@@ -148,7 +148,7 @@ public class BookController {
             BookDescription bookDescription = new BookDescription();
             descriptions.add(bookDescription);
 
-            Book bo = new Book();
+            com.dynamicheart.bookstore.core.model.catalog.book.Book bo = new com.dynamicheart.bookstore.core.model.catalog.book.Book();
             bo.setAvailable(true);
 
             BookAvailability bookAvailability = new BookAvailability();
@@ -161,7 +161,7 @@ public class BookController {
             book.setDateAvailable(DateUtil.formatDate(new Date()));
         }
 
-        model.addAttribute("book",book);
+        model.addAttribute("book", book);
         model.addAttribute("publishers", publishers);
         return "admin-book";
     }

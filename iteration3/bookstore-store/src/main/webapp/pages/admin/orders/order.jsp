@@ -11,11 +11,11 @@
         <div class="col-lg-12">
         <h3 class="page-header">
             <c:choose>
-                <c:when test="${book.id!=null && book.id>0}">
-                    <s:message code="label.book.editbook" text="Edit Book"/>
+                <c:when test="${order.id!=null && order.id>0}">
+                    <s:message code="label.order.editorder" text="Edit Order"/>
                 </c:when>
                 <c:otherwise>
-                    <s:message code="label.book.createbook" text="Create Book"/>
+                    <s:message code="label.order.createorder" text="Create Order"/>
                 </c:otherwise>
             </c:choose>
 
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <c:url var="saveBook" value="/admin/book/save"/>
+    <c:url var="saveOrder" value="/admin/order/save"/>
 
 
     <div class="row">
@@ -35,11 +35,11 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <form:form method="POST" commandName="book" action="${saveBook}">
+                            <form:form method="POST" commandName="order" action="${saveOrder}">
 
-                                <form:errors id="book.error" path="*" cssClass="alert alert-error" element="div"/>
-                                <div id="bookError" class="alert alert-error" style="display:none;"></div>
-                                <div id="bookSuccess" class="alert alert-success"
+                                <form:errors id="order.error" path="*" cssClass="alert alert-error" element="div"/>
+                                <div id="orderError" class="alert alert-error" style="display:none;"></div>
+                                <div id="orderSuccess" class="alert alert-success"
                                      style="
                                      <c:choose>
                                      <c:when test="${success!=null}">display:block;</c:when>
@@ -47,31 +47,32 @@
                                     <s:message code="message.success" text="Request successful"/>
                                 </div>
 
-                                <form:hidden id="bookId" path="id"/>
+                                <form:hidden id="orderId" path="order.id"/>
+                                <form:hidden path="order.customerId"/>
 
                                 <div class="form-group">
-                                    <label><s:message code="label.book.isbn" text="Book ISBN"/></label>
+                                    <label><s:message code="label.order.isbn" text="Order ISBN"/></label>
                                     <div>
                                         <form:input cssClass="form-control" readonly="true" path="isbn"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label><s:message code="label.book.title" text="Book Title"/></label>
+                                    <label><s:message code="label.order.title" text="Order Title"/></label>
                                     <div>
                                         <form:input cssClass="form-control" readonly="true" path="title"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label><s:message code="label.book.price" text="Book Price"/></label>
+                                    <label><s:message code="label.order.price" text="Order Price"/></label>
                                     <div>
                                         <form:input cssClass="form-control" readonly="true" path="price"/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label><s:message code="label.book.quantity" text="Book Quantity"/></label>
+                                    <label><s:message code="label.order.quantity" text="Order Quantity"/></label>
                                     <div>
                                         <form:input cssClass="form-control" readonly="true" path="quantity"/>
                                     </div>
