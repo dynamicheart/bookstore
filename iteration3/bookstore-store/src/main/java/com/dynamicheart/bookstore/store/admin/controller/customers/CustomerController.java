@@ -15,16 +15,14 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -46,16 +44,19 @@ public class CustomerController {
     @Named("passwordEncoder")
     private PasswordEncoder passwordEncoder;
 
-    /**
-     * Customer details
-     * @param model
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
-     */
-
     @RequestMapping(value="/admin/customer/detail", method= RequestMethod.GET)
+    public String displayCustomerEdit(@RequestParam("id") Long id, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        return displayCustomer(id, model, request, response);
+    }
+
+    @RequestMapping(value="/admin/customer/create", method= RequestMethod.GET)
+    public String displayCustomerCreate(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        return displayCustomer(null, model, request, response);
+    }
+
+
     public String displayCustomer(Long id, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         //display menu
@@ -111,6 +112,9 @@ public class CustomerController {
         }
 
         newCustomer.setEmailAddress(customer.getEmailAddress() );
+        newCustomer.setGender(customer.getGender());
+        newCustomer.setNick(customer.getNick());
+        newCustomer.setDateOfBirth(new Date());
 
         customerService.saveOrUpdate(newCustomer);
 

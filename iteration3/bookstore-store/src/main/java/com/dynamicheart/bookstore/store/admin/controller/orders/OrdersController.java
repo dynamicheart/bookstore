@@ -28,31 +28,6 @@ public class OrdersController {
     @Inject
     private OrderService orderService;
 
-    @RequestMapping(value="/admin/order/detail", method= RequestMethod.GET)
-    public String displayOrder(Long id, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        //display menu
-        this.setMenu(model, request);
-
-        Order order = null;
-
-        //if request.attribute contains id then get this order from orderService
-        if(id!=null && id!=0) {//edit mode
-
-            //get from DB
-            order = orderService.getById(id);
-            if(order==null) {
-                return "redirect:/admin/orders";
-            }
-
-        } else {
-            order = new Order();
-        }
-
-        model.addAttribute("order",order);
-        return "admin-order";
-    }
-
     /**
      * List of orders
      * @param model

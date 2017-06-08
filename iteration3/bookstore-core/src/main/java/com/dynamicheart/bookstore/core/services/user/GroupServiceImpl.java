@@ -5,7 +5,7 @@ import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.user.Group;
 import com.dynamicheart.bookstore.core.model.user.GroupType;
 import com.dynamicheart.bookstore.core.repositories.user.GroupRepository;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Service("groupService")
 public class GroupServiceImpl extends
-		BookstoreEntityServiceImpl<Integer, Group> implements GroupService {
+		BookstoreEntityServiceJpaImpl<Integer, Group> implements GroupService {
 
 	GroupRepository groupRepository;
 

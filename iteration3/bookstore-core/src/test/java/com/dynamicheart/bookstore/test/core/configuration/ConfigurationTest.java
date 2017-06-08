@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ImportResource;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan({"com.dynamicheart.bookstore.core.services","com.dynamicheart.bookstore.core.utils"})
-@ImportResource("spring/test-bookstore-context.xml")
+@ImportResource("spring/test-bookstore-core-context.xml")
 public class ConfigurationTest {
 
 }

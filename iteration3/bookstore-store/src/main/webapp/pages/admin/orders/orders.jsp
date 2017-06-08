@@ -7,6 +7,7 @@
 
 <c:set value="/api/admin/orders" var="fetchUrl" scope="request"/>
 <c:set value="/admin/order/detail" var="editUrl" scope="request"/>
+<c:set value="/admin/order/create" var="createUrl" scope="request"/>
 <c:set value="/api/admin/order" var="deleteUrl" scope="request"/>
 
 <div class="tabbable">
@@ -18,6 +19,16 @@
             <div>
 
                 <h3 class="page-header"><s:message code="label.order.list" text="Order List" /></h3>
+
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button class="btn btn-info dropdown-toggle" data-toggle="dropdown"><s:message code="label.generic.moreoptions" text="More options"/> ... <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="<c:url value="${createUrl}" />"><s:message code="label.order.create" text="Create"/></a></li>
+                        </ul>
+                    </div>
+                </div>
+
                 <br/><br/>
 
                 <table id="orderTable" class="display" cellspacing="0" width="100%">

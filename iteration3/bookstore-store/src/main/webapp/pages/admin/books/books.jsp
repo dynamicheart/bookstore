@@ -7,6 +7,7 @@
 
 <c:set value="/api/admin/books" var="fetchUrl" scope="request"/>
 <c:set value="/admin/book/detail" var="editUrl" scope="request"/>
+<c:set value="/admin/book/create" var="createUrl" scope="request"/>
 <c:set value="/api/admin/book/" var="deleteUrl" scope="request"/>
 
 <div class="tabbable">
@@ -19,6 +20,14 @@
 
                 <h3 class="page-header"><s:message code="label.book.list" text="Book List" /></h3>
                 <br/><br/>
+                <div class="pull-right">
+                <div class="btn-group">
+                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown"><s:message code="label.generic.moreoptions" text="More options"/> ... <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="<c:url value="${createUrl}" />"><s:message code="label.book.createbook" text="Create"/></a></li>
+                    </ul>
+                </div>
+                </div>
 
                 <table id="bookTable" class="display" cellspacing="0" width="100%">
                     <thead>

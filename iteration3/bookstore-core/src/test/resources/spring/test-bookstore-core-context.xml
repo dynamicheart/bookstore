@@ -17,13 +17,19 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/data/jpa
-    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">       
-        
-        
-
-  <beans:import resource="classpath:/spring/bookstore-core-context.xml" />
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 
-  <context:component-scan base-package="com.dynamicheart.bookstore.test" />
+    <!-- This is the entry XML point -->
+
+    <!-- datasource -->
+    <beans:import resource="classpath:/spring/datasource-c3p0.xml" />
+    <!-- cache -->
+    <beans:import resource="classpath:/spring/bookstore-core-ehcache.xml" />
+    <!-- DB, TX and properties -->
+    <beans:import resource="classpath:/spring/test-bookstore-core-config.xml" />
+    <!-- MongoDB -->
+    <beans:import resource="classpath:/spring/mongo-config.xml"/>
+   
 
 </beans:beans>

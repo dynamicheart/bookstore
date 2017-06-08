@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/data/jpa"
+             xmlns:util="http://www.springframework.org/schema/util"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:aop="http://www.springframework.org/schema/aop"
+             xmlns:tx="http://www.springframework.org/schema/tx"
+             xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
+    <context:annotation-config/>
+
+    <mongo:mongo host="localhost" port="27017"/>
+
+    <mongo:db-factory id="mongoDbFactory" dbname="bookstore" mongo-ref="mongo"/>
+
+    <beans:bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <beans:constructor-arg ref="mongoDbFactory"/>
+        <beans:constructor-arg ref="mappingMongoConverter" />
+    </beans:bean>
+
+    <beans:bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
+    <mongo:repositories base-package="com.dynamicheart.bookstore.core.repositories" mongo-template-ref="mongoTemplate"/>
+
+</beans:beans>

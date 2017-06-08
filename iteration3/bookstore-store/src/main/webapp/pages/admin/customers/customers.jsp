@@ -7,6 +7,7 @@
 
 <c:set value="/api/admin/customers" var="fetchUrl" scope="request"/>
 <c:set value="/admin/customer/detail" var="editUrl" scope="request"/>
+<c:set value="/admin/customer/create" var="createUrl" scope="request"/>
 <c:set value="/api/admin/customer/" var="deleteUrl" scope="request"/>
 
 <div class="tabbable">
@@ -19,6 +20,15 @@
 
                 <h3 class="page-header"><s:message code="label.customer.list" text="Customer List" /></h3>
                 <br/><br/>
+
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button class="btn btn-info dropdown-toggle" data-toggle="dropdown"><s:message code="label.generic.moreoptions" text="More options"/> ... <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="<c:url value="${createUrl}" />"><s:message code="label.customer.createcustomer" text="Create"/></a></li>
+                        </ul>
+                    </div>
+                </div>
 
                 <table id="customerTable" class="display" cellspacing="0" width="100%">
                     <thead>

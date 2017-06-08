@@ -67,11 +67,4 @@ public interface BookstoreEntityService<K extends Serializable & Comparable<K>, 
 	 * @return nombre d'entités
 	 */
 	Long count();
-	
-	/**
-	 * Flushe la session.
-	 */
-	void flush();
-	
-	Page<E> findPaginated(int page, int size);
 }

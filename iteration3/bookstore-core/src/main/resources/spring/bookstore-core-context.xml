@@ -28,6 +28,8 @@
     <beans:import resource="classpath:/spring/bookstore-core-ehcache.xml" />
     <!-- DB, TX and properties -->
     <beans:import resource="classpath:/spring/bookstore-core-config.xml" />
+    <!-- MongoDB -->
+    <beans:import resource="classpath:/spring/mongo-config.xml"/>
    
 
 </beans:beans>

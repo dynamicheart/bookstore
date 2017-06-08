@@ -4,14 +4,14 @@ package com.dynamicheart.bookstore.core.services.user;
 import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.user.User;
 import com.dynamicheart.bookstore.core.repositories.user.UserRepository;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
 
 @Service("userService")
-public class UserServiceImpl extends BookstoreEntityServiceImpl<Long, User>
+public class UserServiceImpl extends BookstoreEntityServiceJpaImpl<Long, User>
 		implements UserService {
 
 

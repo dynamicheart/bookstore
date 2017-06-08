@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Order implements Serializable{
 
-    private static final long serialVersionUID = -8952572281186211649L;
+    private static final long serialVersionUID = 7306023537663430139L;
 
     private Long Id;
 

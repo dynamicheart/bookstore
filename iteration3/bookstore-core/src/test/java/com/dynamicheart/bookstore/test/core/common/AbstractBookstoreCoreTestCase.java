@@ -5,6 +5,9 @@
  */
 package com.dynamicheart.bookstore.test.core.common;
 
+import com.dynamicheart.bookstore.core.repositories.catalog.book.BookRepository;
+import com.dynamicheart.bookstore.core.repositories.catalog.book.image.BookImageRepository;
+import com.dynamicheart.bookstore.core.services.catalog.book.image.BookImageService;
 import com.dynamicheart.bookstore.core.services.customer.CustomerService;
 import com.dynamicheart.bookstore.test.core.configuration.ConfigurationTest;
 import org.junit.runner.RunWith;
@@ -26,4 +29,6 @@ public class AbstractBookstoreCoreTestCase {
 	@Inject
 	protected CustomerService customerService;
 
+	@Inject
+	protected BookImageService bookImageService;
 }

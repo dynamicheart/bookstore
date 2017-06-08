@@ -25,4 +25,7 @@
     <definition name="admin-order" template="/layout/admin/layout.jsp">
         <put-attribute name="body" value="/pages/admin/orders/order.jsp" />
     </definition>
+    <definition name="admin-item" template="/layout/admin/layout.jsp">
+        <put-attribute name="body" value="/pages/admin/orders/item.jsp" />
+    </definition>
 </tiles-definitions>

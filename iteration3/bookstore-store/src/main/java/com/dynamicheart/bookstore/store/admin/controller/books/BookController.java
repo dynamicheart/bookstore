@@ -3,6 +3,7 @@ package com.dynamicheart.bookstore.store.admin.controller.books;
 import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPrice;
+import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPriceDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
 import com.dynamicheart.bookstore.core.services.catalog.book.publisher.PublisherService;
@@ -11,17 +12,25 @@ import com.dynamicheart.bookstore.store.admin.model.catalog.book.Book;
 import com.dynamicheart.bookstore.store.admin.model.web.Menu;
 import com.dynamicheart.bookstore.store.utils.DateUtil;
 import com.dynamicheart.bookstore.store.utils.LabelUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -49,6 +58,14 @@ public class BookController {
 
         return displayBook(id, model, request, response);
     }
+
+    @RequestMapping(value="/admin/book/create", method= RequestMethod.GET)
+    public String displayBookCreate(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        return displayBook(null, model, request, response);
+    }
+
+
 
     @RequestMapping(value="/admin/book/viewDetail", method=RequestMethod.GET)
     public String displayBookEdit(@RequestParam("isbn") String isbn, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -163,6 +180,129 @@ public class BookController {
 
         model.addAttribute("book", book);
         model.addAttribute("publishers", publishers);
+        return "admin-book";
+    }
+
+
+    @RequestMapping(value="/admin/book/save", method=RequestMethod.POST)
+    public String saveBook(@Valid @ModelAttribute("book") com.dynamicheart.bookstore.store.admin.model.catalog.book.Book  book, BindingResult result, Model model, HttpServletRequest request) throws Exception {
+
+
+        //display menu
+        setMenu(model,request);
+
+
+        List<Publisher> publishers = publisherService.list();
+
+
+        model.addAttribute("publishers", publishers);
+
+        //validate price
+        BigDecimal submitedPrice = null;
+        try {
+            submitedPrice = new BigDecimal(book.getBookPrice());
+        } catch (Exception e) {
+            ObjectError error = new ObjectError("bookPrice",messages.getMessage("NotEmpty.book.bookPrice"));
+            result.addError(error);
+        }
+        Date date = new Date();
+        if(!StringUtils.isBlank(book.getDateAvailable())) {
+            try {
+                date = DateUtil.getDate(book.getDateAvailable());
+                book.getBookAvailability().setBookDateAvailable(date);
+                book.setDateAvailable(DateUtil.formatDate(date));
+            } catch (Exception e) {
+                ObjectError error = new ObjectError("dateAvailable",messages.getMessage("message.invalid.date"));
+                result.addError(error);
+            }
+        }
+
+
+        if (result.hasErrors()) {
+            return "admin-book";
+        }
+
+        com.dynamicheart.bookstore.core.model.catalog.book.Book newBook = book.getBook();
+        BookAvailability newBookAvailability = null;
+        BookPrice newBookPrice = null;
+
+        Set<BookPriceDescription> bookPriceDescriptions = null;
+
+        //get tax class
+        //TaxClass taxClass = newBook.getTaxClass();
+        //TaxClass dbTaxClass = taxClassService.getById(taxClass.getId());
+        Set<BookPrice> prices = new HashSet<BookPrice>();
+        Set<BookAvailability> availabilities = new HashSet<BookAvailability>();
+
+        if(book.getBook().getId()!=null && book.getBook().getId().longValue()>0) {
+
+
+            //get actual book
+            newBook = bookService.getById(book.getBook().getId());
+            if(newBook == null) {
+                return "redirect:/admin/books";
+            }
+
+            //copy properties
+            newBook.setIsbn(book.getBook().getIsbn());
+            newBook.setAvailable(book.getBook().isAvailable());
+            newBook.setDateAvailable(date);
+            newBook.setPublisher(book.getBook().getPublisher());
+
+        }
+
+
+        if(newBookPrice==null) {
+            newBookPrice = new BookPrice();
+            newBookPrice.setDefaultPrice(true);
+            newBookPrice.setBookPriceAmount(submitedPrice);
+        }
+
+
+        if(bookPriceDescriptions==null) {
+            bookPriceDescriptions = new HashSet<BookPriceDescription>();
+            for(BookDescription description : book.getDescriptions()) {
+                BookPriceDescription ppd = new BookPriceDescription();
+                ppd.setBookPrice(newBookPrice);
+                ppd.setName(BookPriceDescription.DEFAULT_PRICE_DESCRIPTION);
+                bookPriceDescriptions.add(ppd);
+            }
+            newBookPrice.setDescriptions(bookPriceDescriptions);
+        }
+
+
+        if(newBookAvailability==null) {
+            newBookAvailability = new BookAvailability();
+        }
+
+
+        newBookAvailability.setBookQuantity(book.getBookAvailability().getBookQuantity());
+        newBookAvailability.setBookQuantityOrderMin(book.getBookAvailability().getBookQuantityOrderMin());
+        newBookAvailability.setBookQuantityOrderMax(book.getBookAvailability().getBookQuantityOrderMax());
+        newBookAvailability.setBook(newBook);
+        newBookAvailability.setPrices(prices);
+        availabilities.add(newBookAvailability);
+
+        newBookPrice.setBookAvailability(newBookAvailability);
+        prices.add(newBookPrice);
+
+        newBook.setAvailabilities(availabilities);
+
+        Set<BookDescription> descriptions = new HashSet<BookDescription>();
+        if(book.getDescriptions()!=null && book.getDescriptions().size()>0) {
+
+            for(BookDescription description : book.getDescriptions()) {
+                description.setBook(newBook);
+                descriptions.add(description);
+
+            }
+        }
+        newBook.setDescriptions(descriptions);
+        book.setDateAvailable(DateUtil.formatDate(date));
+
+        bookService.create(newBook);
+        model.addAttribute("success","success");
+
         return "admin-book";
     }
 }

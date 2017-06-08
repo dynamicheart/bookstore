@@ -103,7 +103,6 @@
                                 </div>
 
                                 <hr>
-
                                 <div class="form-actions">
                                     <div class="pull-right">
                                         <button type="submit" class="btn btn-success"><s:message

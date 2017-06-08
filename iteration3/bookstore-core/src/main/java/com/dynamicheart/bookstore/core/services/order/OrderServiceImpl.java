@@ -3,7 +3,7 @@ package com.dynamicheart.bookstore.core.services.order;
 import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.order.Order;
 import com.dynamicheart.bookstore.core.repositories.order.OrderRepository;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
  */
 
 @Service("orderService")
-public class OrderServiceImpl extends BookstoreEntityServiceImpl<Long, Order> implements OrderService {
+public class OrderServiceImpl extends BookstoreEntityServiceJpaImpl<Long, Order> implements OrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 
