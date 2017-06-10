@@ -20,8 +20,10 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -64,6 +66,7 @@ public class InitializationLoader {
     private ObjectMapper jacksonObjectMapper;
 
     @Inject
+    @Qualifier("webApplicationContext")
     private ResourceLoader resourceLoader;
 
     @PostConstruct
@@ -72,13 +75,11 @@ public class InitializationLoader {
             if(initializationDatabase.isEmpty()){
                 File permissionXML=resourceLoader.getResource("classpath:/permission/permission.json").getFile();
                 StreamSource xmlSource = new StreamSource(permissionXML);
-                //Permissions permissions= (Permissions) jaxb2Marshaller.unmarshal(xmlSource);
 
                 Permissions permissions= jacksonObjectMapper.readValue(permissionXML,Permissions.class);
 
                 LOGGER.info("Bookstore database is empty, populate it....");
 
-                //security groups and permissions
                 Map<String, Group> groupMap = new HashMap<String,Group>();
                 if(CollectionUtils.isNotEmpty(permissions.getStorePermission())){
                     for(StorePermission shopPermission : permissions.getStorePermission()){
@@ -110,7 +111,6 @@ public class InitializationLoader {
         }
     }
 
-
     private void loadData() throws ServiceException{
         String loadTestData = configuration.getProperty(ApplicationConstants.POPULATE_TEST_DATA);
         boolean loadData =  !StringUtils.isBlank(loadTestData) && loadTestData.equals(SystemConstants.CONFIG_VALUE_TRUE);
@@ -129,7 +129,6 @@ public class InitializationLoader {
             }
 
             initData.initInitialData();
-
             configuration = new SystemConfiguration();
             configuration.getAuditSection().setModifiedBy(SystemConstants.SYSTEM_USER);
             configuration.setKey(ApplicationConstants.TEST_DATA_LOADED);

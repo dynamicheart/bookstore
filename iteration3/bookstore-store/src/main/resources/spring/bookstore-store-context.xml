@@ -21,6 +21,8 @@
 	<beans:import resource="classpath:/spring/bookstore-security.xml" />
   	<!-- servlet-context -->
   	<beans:import resource="classpath:/spring/bookstore-servlet-context.xml" />
+	<!-- data init -->
+	<beans:import resource="classpath:/spring/bookstore-store-init.xml"/>
 	
 	
   

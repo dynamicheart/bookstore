@@ -19,9 +19,6 @@ public interface PermissionService extends BookstoreEntityService<Integer, Permi
 
 	Permission getById(Integer permissionId);
 
-
-//	void deletePermission(Permission permission) throws ServiceException;
-
 	List<Permission> getPermissions(List<Integer> groupIds) throws ServiceException;
 
 	void deletePermission(Permission permission) throws ServiceException;

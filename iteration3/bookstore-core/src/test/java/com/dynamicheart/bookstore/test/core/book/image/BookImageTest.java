@@ -23,7 +23,7 @@ public class BookImageTest extends AbstractBookstoreCoreTestCase{
         bookImage.setImageCrop(true);
         bookImage.setImageType(1);
         bookImage.setBookId(new Long(1));
-        bookImage.setImageContent(new Byte[]{});
+        bookImage.setImageContent(new byte[]{});
         bookImageService.save(bookImage);
 
         for(BookImage bookImage1: bookImageService.list()){

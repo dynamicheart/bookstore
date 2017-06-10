@@ -15,11 +15,8 @@ import java.util.List;
  */
 public abstract class BookstoreEntityServiceMongoImpl<K extends Serializable & Comparable<K>, E extends BookstoreEntity<K, ?>>
         implements BookstoreEntityService<K, E>  {
-    /**
-     * Classe de l'entité, déterminé à partir des paramètres generics.
-     */
-    private Class<E> objectClass;
 
+    private Class<E> objectClass;
 
     private MongoRepository<E, K> repository;
 
@@ -65,6 +62,10 @@ public abstract class BookstoreEntityServiceMongoImpl<K extends Serializable & C
 
     public Long count() {
         return repository.count();
+    }
+
+    public Page<E> findPaginated(int page, int size){
+        return repository.findAll(new PageRequest(page, size));
     }
 
 }

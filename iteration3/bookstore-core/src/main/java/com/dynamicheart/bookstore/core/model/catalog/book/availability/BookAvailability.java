@@ -38,6 +38,9 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATE_AVAILABLE")
 	private Date bookDateAvailable;
+
+	@Column(name="REGION")
+	private String region = SchemaConstant.ALL_REGIONS;
 	
 	@Column(name="STATUS")
 	private boolean bookStatus = true;
@@ -81,7 +84,15 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 		this.bookDateAvailable = CloneUtils.clone(bookDateAvailable);
 	}
 
-	public boolean getBookStatus() {
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public boolean getBookStatus() {
 		return bookStatus;
 	}
 

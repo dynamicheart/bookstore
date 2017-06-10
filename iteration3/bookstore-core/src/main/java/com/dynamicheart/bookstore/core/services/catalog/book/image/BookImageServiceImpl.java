@@ -1,5 +1,7 @@
 package com.dynamicheart.bookstore.core.services.catalog.book.image;
 
+import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
 import com.dynamicheart.bookstore.core.repositories.catalog.book.image.BookImageRepository;
 import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
@@ -22,5 +24,10 @@ public class BookImageServiceImpl extends BookstoreEntityServiceMongoImpl<Object
     public BookImageServiceImpl(BookImageRepository bookImageRepository) {
         super(bookImageRepository);
         this.bookImageRepository = bookImageRepository;
+    }
+
+    @Override
+    public void addBookImage(Book book, BookImage bookImage) throws ServiceException {
+
     }
 }

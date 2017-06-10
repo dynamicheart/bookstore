@@ -19,7 +19,6 @@ public class GroupServiceImpl extends
 
 	GroupRepository groupRepository;
 
-
 	@Inject
 	public GroupServiceImpl(GroupRepository groupRepository) {
 		super(groupRepository);

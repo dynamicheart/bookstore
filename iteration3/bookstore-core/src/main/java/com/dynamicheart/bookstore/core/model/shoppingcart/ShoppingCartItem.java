@@ -35,15 +35,11 @@ public class ShoppingCartItem extends BookstoreEntity<Long, ShoppingCartItem> im
 	@Column(name="QUANTITY")
 	private Integer quantity = new Integer(1);
 
-
 	@Embedded
 	private AuditSection auditSection = new AuditSection();
 	
 	@Column(name="BOOK_ID", nullable=false)
 	private Long bookId;
-	
-	@Transient
-	private boolean bookVirtual;
 	
 	@Transient
 	private BigDecimal itemPrice;//item final price including all rebates
@@ -53,7 +49,6 @@ public class ShoppingCartItem extends BookstoreEntity<Long, ShoppingCartItem> im
 	
 	@Transient
 	private FinalPrice finalPrice;//contains price details (raw prices)
-	
 
 	@Transient
 	private Book book;
@@ -170,15 +165,6 @@ public class ShoppingCartItem extends BookstoreEntity<Long, ShoppingCartItem> im
 
 	public void setObsolete(boolean obsolete) {
 		this.obsolete = obsolete;
-	}
-	
-
-	public boolean isBookVirtual() {
-		return bookVirtual;
-	}
-
-	public void setBookVirtual(boolean bookVirtual) {
-		this.bookVirtual = bookVirtual;
 	}
 
 }

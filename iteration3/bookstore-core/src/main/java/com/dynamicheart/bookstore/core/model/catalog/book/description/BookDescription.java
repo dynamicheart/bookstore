@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "BOOK_DESCRIPTION", schema= SchemaConstant.BOOKSTORE_SCHEMA, uniqueConstraints={
 	@UniqueConstraint(columnNames={
 			"BOOK_ID",
+            "LANGUAGE_ID"
 		})
 	}
 )
@@ -24,6 +25,14 @@ public class BookDescription extends Description {
 	@Column(name = "SEF_URL")
 	private String seUrl;
 
+    @Column(name = "META_TITLE")
+    private String metatagTitle;
+
+    @Column(name = "META_KEYWORDS")
+    private String metatagKeywords;
+
+    @Column(name = "META_DESCRIPTION")
+    private String metatagDescription;
 
 	public BookDescription() {
 	}
@@ -44,5 +53,27 @@ public class BookDescription extends Description {
 		this.seUrl = seUrl;
 	}
 
+    public String getMetatagTitle() {
+        return metatagTitle;
+    }
 
+    public void setMetatagTitle(String metatagTitle) {
+        this.metatagTitle = metatagTitle;
+    }
+
+    public String getMetatagKeywords() {
+        return metatagKeywords;
+    }
+
+    public void setMetatagKeywords(String metatagKeywords) {
+        this.metatagKeywords = metatagKeywords;
+    }
+
+    public String getMetatagDescription() {
+        return metatagDescription;
+    }
+
+    public void setMetatagDescription(String metatagDescription) {
+        this.metatagDescription = metatagDescription;
+    }
 }

@@ -31,12 +31,7 @@ public class ShoppingCart extends BookstoreEntity<Long, ShoppingCart> implements
 	@TableGenerator(name = "TABLE_GEN", table = "BS_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "SHP_CRT_SEQ_NEXT_VAL")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
 	private Long id;
-	
-	/**
-	 * Will be used to fetch shopping cart model from the controller
-	 * this is a unique code that should be attributed from the client (UI)
-	 * 
-	 */
+
 	@Column(name = "SHP_CART_CODE", unique=true, nullable=false)
 	private String shoppingCartCode;
 	

@@ -11,8 +11,7 @@ import javax.inject.Inject;
 
 @Component("cache")
 public class CacheUtils {
-	
-	
+
     @Inject
     @Qualifier("serviceCache")
     private Cache cache;
@@ -30,7 +29,6 @@ public class CacheUtils {
 		cache.put(keyName, object);
 		
 	}
-	
 
 	public Object getFromCache(String keyName) throws Exception {
 
@@ -43,7 +41,6 @@ public class CacheUtils {
 		
 	}
 
-	
 	public void shutDownCache() throws Exception {
 		
 	}

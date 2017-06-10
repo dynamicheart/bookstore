@@ -3,6 +3,7 @@ package com.dynamicheart.bookstore.core.model.common;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditListener;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditSection;
 import com.dynamicheart.bookstore.core.model.common.audit.Auditable;
+import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -24,7 +25,11 @@ public class Description implements Auditable, Serializable {
 	
 	@Embedded
 	private AuditSection auditSection = new AuditSection();
-	
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "LANGUAGE_ID")
+	private Language language;
+
 	@NotEmpty
 	@Column(name="NAME", nullable = false, length=120)
 	private String name;
@@ -53,7 +58,15 @@ public class Description implements Auditable, Serializable {
 		this.auditSection = auditSection;
 	}
 
-	public String getName() {
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public String getName() {
 		return name;
 	}
 

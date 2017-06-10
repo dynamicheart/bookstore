@@ -4,6 +4,7 @@ import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.repositories.catalog.book.BookRepository;
+import com.dynamicheart.bookstore.core.services.catalog.category.CategoryService;
 import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by dynamicheart on 5/23/2017.
@@ -22,6 +24,9 @@ public class BookServiceImpl extends BookstoreEntityServiceJpaImpl<Long, Book> i
     private static final Logger LOGGER = LoggerFactory.getLogger(BookServiceImpl.class);
 
     BookRepository bookRepository;
+
+    @Inject
+    CategoryService categoryService;
 
     @Inject
     public BookServiceImpl(BookRepository bookRepository) {
@@ -59,5 +64,12 @@ public class BookServiceImpl extends BookstoreEntityServiceJpaImpl<Long, Book> i
 
     public List<Book> list(){
         return bookRepository.list();
+    }
+
+    @Override
+    public List<Book> getBooks(List<Long> categoryIds) throws ServiceException {
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        Set ids = new HashSet(categoryIds);
+        return bookRepository.getBooksListByCategories(ids);
     }
 }

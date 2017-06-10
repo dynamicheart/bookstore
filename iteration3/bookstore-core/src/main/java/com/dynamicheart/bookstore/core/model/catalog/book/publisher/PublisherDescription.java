@@ -24,12 +24,6 @@ public class PublisherDescription extends Description {
 	@Column(name = "PUBLISHER_URL")
 	private String url;
 	
-	@Column(name = "URL_CLICKED")
-	private Integer urlClicked;
-	
-	@Column(name = "DATE_LAST_CLICK")
-	private Date dateLastClick;
-	
 	public PublisherDescription() {
 	}
 
@@ -39,22 +33,6 @@ public class PublisherDescription extends Description {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public Integer getUrlClicked() {
-		return urlClicked;
-	}
-
-	public void setUrlClicked(Integer urlClicked) {
-		this.urlClicked = urlClicked;
-	}
-
-	public Date getDateLastClick() {
-		return dateLastClick;
-	}
-
-	public void setDateLastClick(Date dateLastClick) {
-		this.dateLastClick = dateLastClick;
 	}
 
 	public Publisher getPublisher() {
