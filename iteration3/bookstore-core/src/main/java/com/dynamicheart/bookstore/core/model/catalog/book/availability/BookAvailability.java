@@ -25,35 +25,38 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 	@TableGenerator(name = "TABLE_GEN", table = "BS_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "BOOK_AVAIL_SEQ_NEXT_VAL")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
 	private Long id;
-	
+
 
 	@ManyToOne(targetEntity = Book.class)
 	@JoinColumn(name = "BOOK_ID", nullable = false)
 	private Book book;
-	
+
 	@NotNull
 	@Column(name="QUANTITY")
 	private Integer bookQuantity = 0;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATE_AVAILABLE")
 	private Date bookDateAvailable;
-	
+
+	@Column(name="REGION")
+	private String region = SchemaConstant.ALL_REGIONS;
+
 	@Column(name="STATUS")
 	private boolean bookStatus = true;
-	
+
 	@Column(name="QUANTITY_ORD_MIN")
 	private Integer bookQuantityOrderMin = 0;
-	
+
 	@Column(name="QUANTITY_ORD_MAX")
 	private Integer bookQuantityOrderMax = 0;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="bookAvailability", cascade = CascadeType.ALL)
 	private Set<BookPrice> prices = new HashSet<BookPrice>();
-	
+
 	@Transient
 	public BookPrice defaultPrice() {
-		
+
 		for(BookPrice price : prices) {
 			if(price.isDefaultPrice()) {
 				return price;
@@ -61,7 +64,7 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 		}
 		return new BookPrice();
 	}
-	
+
 	public BookAvailability() {
 	}
 
@@ -79,6 +82,14 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 
 	public void setBookDateAvailable(Date bookDateAvailable) {
 		this.bookDateAvailable = CloneUtils.clone(bookDateAvailable);
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
 	public boolean getBookStatus() {
@@ -133,5 +144,5 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 	public void setPrices(Set<BookPrice> prices) {
 		this.prices = prices;
 	}
-	
+
 }

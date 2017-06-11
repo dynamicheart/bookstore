@@ -28,12 +28,6 @@ public class OrdersController {
     @Inject
     private OrderService orderService;
 
-    /**
-     * List of orders
-     * @param model
-     * @return
-     * @throws Exception
-     */
     @RequestMapping(value="/admin/orders", method= RequestMethod.GET)
     public String displayOrders(Model model, HttpServletRequest request) throws Exception {
 

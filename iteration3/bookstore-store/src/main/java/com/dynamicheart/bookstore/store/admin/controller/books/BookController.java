@@ -185,7 +185,7 @@ public class BookController {
 
 
     @RequestMapping(value="/admin/book/save", method=RequestMethod.POST)
-    public String saveBook(@Valid @ModelAttribute("book") com.dynamicheart.bookstore.store.admin.model.catalog.book.Book  book, BindingResult result, Model model, HttpServletRequest request) throws Exception {
+    public String saveBook(@Valid @ModelAttribute("book") com.dynamicheart.bookstore.store.admin.model.catalog.book.Book  book, BindingResult result, Model model, HttpServletRequest request, Locale locale) throws Exception {
 
 
         //display menu
@@ -202,7 +202,7 @@ public class BookController {
         try {
             submitedPrice = new BigDecimal(book.getBookPrice());
         } catch (Exception e) {
-            ObjectError error = new ObjectError("bookPrice",messages.getMessage("NotEmpty.book.bookPrice"));
+            ObjectError error = new ObjectError("bookPrice",messages.getMessage("NotEmpty.book.bookPrice", locale));
             result.addError(error);
         }
         Date date = new Date();
@@ -212,7 +212,7 @@ public class BookController {
                 book.getBookAvailability().setBookDateAvailable(date);
                 book.setDateAvailable(DateUtil.formatDate(date));
             } catch (Exception e) {
-                ObjectError error = new ObjectError("dateAvailable",messages.getMessage("message.invalid.date"));
+                ObjectError error = new ObjectError("dateAvailable",messages.getMessage("message.invalid.date", locale));
                 result.addError(error);
             }
         }

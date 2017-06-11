@@ -145,4 +145,7 @@ public class BookPrice extends BookstoreEntity<Long, BookPrice> {
 		this.code = code;
 	}
 
+	public String getCode() {
+		return code;
+	}
 }

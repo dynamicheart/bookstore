@@ -82,7 +82,7 @@ public class CustomerController {
     }
 
     @RequestMapping(value="/admin/customer/save", method=RequestMethod.POST)
-    public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, Model model, HttpServletRequest request) throws Exception{
+    public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, Model model, HttpServletRequest request, Locale locale) throws Exception{
 
         String email_regEx = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b";
         Pattern pattern = Pattern.compile(email_regEx);
@@ -92,11 +92,11 @@ public class CustomerController {
             java.util.regex.Matcher matcher = pattern.matcher(customer.getEmailAddress());
 
             if(!matcher.find()) {
-                ObjectError error = new ObjectError("customerEmailAddress",messages.getMessage("Email.customer.EmailAddress"));
+                ObjectError error = new ObjectError("customerEmailAddress",messages.getMessage("Email.customer.EmailAddress", locale));
                 result.addError(error);
             }
         }else{
-            ObjectError error = new ObjectError("customerEmailAddress",messages.getMessage("NotEmpty.customer.EmailAddress"));
+            ObjectError error = new ObjectError("customerEmailAddress",messages.getMessage("NotEmpty.customer.EmailAddress", locale));
             result.addError(error);
         }
 

@@ -11,15 +11,9 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-/**
- * @param <T> entity type
- */
 public abstract class BookstoreEntityServiceJpaImpl<K extends Serializable & Comparable<K>, E extends BookstoreEntity<K, ?>>
 	implements BookstoreEntityService<K, E> {
-	
-	/**
-	 * Classe de l'entité, déterminé à partir des paramètres generics.
-	 */
+
 	private Class<E> objectClass;
 
 
