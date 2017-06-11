@@ -37,10 +37,6 @@ public class BookPrice extends BookstoreEntity<Long, BookPrice> {
 	@Column(name = "BOOK_PRICE_AMOUNT", nullable=false)
 	private BigDecimal bookPriceAmount = new BigDecimal(0);
 
-	@Column(name = "BOOK_PRICE_TYPE", length=20)
-	@Enumerated(value = EnumType.STRING)
-	private BookPriceType bookPriceType = BookPriceType.ONE_TIME;
-
 	@Column(name = "DEFAULT_PRICE")
 	private boolean defaultPrice = false;
 
@@ -148,18 +144,5 @@ public class BookPrice extends BookstoreEntity<Long, BookPrice> {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setBookPriceType(BookPriceType bookPriceType) {
-		this.bookPriceType = bookPriceType;
-	}
-
-	public BookPriceType getBookPriceType() {
-		return bookPriceType;
-	}
-
 
 }

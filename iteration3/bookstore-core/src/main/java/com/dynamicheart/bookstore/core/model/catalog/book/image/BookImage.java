@@ -16,7 +16,7 @@ import java.io.InputStream;
 
 @Document(collection = "BOOK_IMAGE")
 public class BookImage extends BookstoreEntity<ObjectId, BookImage>{
-    
+
     private static final long serialVersionUID = 2776268357880333124L;
 
     @Id
@@ -41,7 +41,7 @@ public class BookImage extends BookstoreEntity<ObjectId, BookImage>{
     private String bookImageUrl;
 
     @Field("IMAGE_CONTENT")
-    private Byte[] imageContent;
+    private byte[] imageContent;
 
     @Field("IMAGE_CROP")
     private boolean imageCrop;
@@ -95,11 +95,11 @@ public class BookImage extends BookstoreEntity<ObjectId, BookImage>{
         this.bookImageUrl = bookImageUrl;
     }
 
-    public Byte[] getImageContent() {
+    public byte[] getImageContent() {
         return imageContent;
     }
 
-    public void setImageContent(Byte[] imageContent) {
+    public void setImageContent(byte[] imageContent) {
         this.imageContent = imageContent;
     }
 

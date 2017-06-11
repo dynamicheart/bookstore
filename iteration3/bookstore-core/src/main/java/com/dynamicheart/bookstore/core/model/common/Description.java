@@ -3,6 +3,7 @@ package com.dynamicheart.bookstore.core.model.common;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditListener;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditSection;
 import com.dynamicheart.bookstore.core.model.common.audit.Auditable;
+import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -21,28 +22,32 @@ public class Description implements Auditable, Serializable {
 	@TableGenerator(name = "TABLE_GEN", table = "BS_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "DESCRIPTION_SEQ_NEXT_VAL")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
 	private Long id;
-	
+
 	@Embedded
 	private AuditSection auditSection = new AuditSection();
-	
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "LANGUAGE_ID")
+	private Language language;
+
 	@NotEmpty
 	@Column(name="NAME", nullable = false, length=120)
 	private String name;
-	
+
 	@Column(name="TITLE", length=100)
 	private String title;
-	
+
 	@Column(name="DESCRIPTION")
 	@Type(type = "org.hibernate.type.TextType")
 	private String description;
-	
+
 	public Description() {
 	}
-	
+
 	public Description(String name) {
 		this.setName(name);
 	}
-	
+
 	@Override
 	public AuditSection getAuditSection() {
 		return auditSection;
@@ -51,6 +56,14 @@ public class Description implements Auditable, Serializable {
 	@Override
 	public void setAuditSection(AuditSection auditSection) {
 		this.auditSection = auditSection;
+	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
 	}
 
 	public String getName() {

@@ -4,10 +4,12 @@ import com.dynamicheart.bookstore.core.constants.SchemaConstant;
 import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
+import com.dynamicheart.bookstore.core.model.catalog.catagory.Category;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditListener;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditSection;
 import com.dynamicheart.bookstore.core.model.common.audit.Auditable;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -42,6 +44,22 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="book")
     private Set<BookAvailability> availabilities = new HashSet<BookAvailability>();
+
+    @ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
+    @JoinTable(name = "BOOK_CATEGORY", schema=SchemaConstant.BOOKSTORE_SCHEMA, joinColumns = {
+            @JoinColumn(name = "BOOK_ID", nullable = false, updatable = false) }
+            ,
+            inverseJoinColumns = { @JoinColumn(name = "CATEGORY_ID",
+                    nullable = false, updatable = false) }
+    )
+    @Cascade({
+            org.hibernate.annotations.CascadeType.DETACH,
+            org.hibernate.annotations.CascadeType.LOCK,
+            org.hibernate.annotations.CascadeType.REFRESH,
+            org.hibernate.annotations.CascadeType.REPLICATE
+
+    })
+    private Set<Category> categories = new HashSet<Category>();
 
     @Column(name="DATE_AVAILABLE")
     @Temporal(TemporalType.TIMESTAMP)
@@ -101,6 +119,14 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
     public void setAvailabilities(Set<BookAvailability> availabilities) {
         this.availabilities = availabilities;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public Date getDateAvailable() {
