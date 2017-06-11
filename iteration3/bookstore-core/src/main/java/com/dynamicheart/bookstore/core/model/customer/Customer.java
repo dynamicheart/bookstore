@@ -1,13 +1,18 @@
 package com.dynamicheart.bookstore.core.model.customer;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
+import com.dynamicheart.bookstore.core.model.catalog.book.review.BookReview;
+import com.dynamicheart.bookstore.core.model.common.Billing;
+import com.dynamicheart.bookstore.core.model.common.Delivery;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
+import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.model.user.Group;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +52,23 @@ public class Customer extends BookstoreEntity<Long, Customer>{
 
     @Column(name="CUSTOMER_PASSWORD", length=60)
     private String password;
+
+    @Column(name="CUSTOMER_ANONYMOUS")
+    private boolean anonymous;
+
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Language.class)
+    @JoinColumn(name = "LANGUAGE_ID", nullable=false)
+    private Language defaultLanguage;
+
+    @OneToMany(mappedBy = "customer", targetEntity = BookReview.class)
+    private List<BookReview> reviews = new ArrayList<BookReview>();
+
+    @Embedded
+    private Delivery delivery = null;
+
+    @Valid
+    @Embedded
+    private Billing billing = null;
 
     @ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinTable(name = "CUSTOMER_GROUP", schema=SchemaConstant.BOOKSTORE_SCHEMA, joinColumns = {
@@ -121,5 +143,45 @@ public class Customer extends BookstoreEntity<Long, Customer>{
 
     public void setGroups(List<Group> groups) {
         this.groups = groups;
+    }
+
+    public boolean isAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(boolean anonymous) {
+        this.anonymous = anonymous;
+    }
+
+    public Language getDefaultLanguage() {
+        return defaultLanguage;
+    }
+
+    public void setDefaultLanguage(Language defaultLanguage) {
+        this.defaultLanguage = defaultLanguage;
+    }
+
+    public List<BookReview> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<BookReview> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
+    public Billing getBilling() {
+        return billing;
+    }
+
+    public void setBilling(Billing billing) {
+        this.billing = billing;
     }
 }
