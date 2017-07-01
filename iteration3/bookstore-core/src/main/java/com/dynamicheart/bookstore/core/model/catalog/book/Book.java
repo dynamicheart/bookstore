@@ -61,22 +61,12 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
     })
     private Set<Category> categories = new HashSet<Category>();
 
-    @Column(name="DATE_AVAILABLE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateAvailable = new Date();
-
     @Column(name="AVAILABLE")
     private boolean available = true;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinColumn(name="PUBLISHER_ID", nullable=true)
     private Publisher publisher;
-
-    @Column(name = "REVIEW_AVG")
-    private BigDecimal bookReviewAvg;
-
-    @Column(name = "REVIEW_COUNT")
-    private Integer bookReviewCount;
 
     @NotEmpty
     @Column(name = "ISBN", nullable = false, length = 13)
@@ -129,14 +119,6 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
         this.categories = categories;
     }
 
-    public Date getDateAvailable() {
-        return dateAvailable;
-    }
-
-    public void setDateAvailable(Date dateAvailable) {
-        this.dateAvailable = dateAvailable;
-    }
-
     public boolean isAvailable() {
         return available;
     }
@@ -151,22 +133,6 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
-    }
-
-    public BigDecimal getBookReviewAvg() {
-        return bookReviewAvg;
-    }
-
-    public void setBookReviewAvg(BigDecimal bookReviewAvg) {
-        this.bookReviewAvg = bookReviewAvg;
-    }
-
-    public Integer getBookReviewCount() {
-        return bookReviewCount;
-    }
-
-    public void setBookReviewCount(Integer bookReviewCount) {
-        this.bookReviewCount = bookReviewCount;
     }
 
     public String getIsbn() {

@@ -2,10 +2,9 @@ package com.dynamicheart.bookstore.core.services.catalog.book;
 
 import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
-import com.dynamicheart.bookstore.core.model.catalog.book.price.FinalPrice;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.reference.currency.Currency;
-import com.dynamicheart.bookstore.core.utils.BookPriceUtils;
+import com.dynamicheart.bookstore.core.utils.BookAvailabilityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,20 +18,18 @@ import java.util.Locale;
 public class PricingServiceImpl implements PricingService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(PricingServiceImpl.class);
-	
 
 	@Inject
-	private BookPriceUtils priceUtil;
+	private BookAvailabilityUtils priceUtil;
 	
 	@Override
-	public FinalPrice calculateBookPrice(Book book) throws ServiceException {
-		return priceUtil.getFinalPrice(book);
+	public BigDecimal calculateBookPrice(Book book) throws ServiceException {
+		return priceUtil.getPrice(book);
 	}
 	
 	@Override
-	public FinalPrice calculateBookPrice(Book book, Customer customer) throws ServiceException {
-		/** TODO add rules for price calculation **/
-		return priceUtil.getFinalPrice(book);
+	public BigDecimal calculateBookPrice(Book book, Customer customer) throws ServiceException {
+		return priceUtil.getPrice(book);
 	}
 	
 	@Override

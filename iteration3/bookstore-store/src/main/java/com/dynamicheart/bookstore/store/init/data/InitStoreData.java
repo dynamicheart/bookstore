@@ -5,17 +5,13 @@ import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
-import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPrice;
-import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPriceDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.PublisherDescription;
-import com.dynamicheart.bookstore.core.model.common.Billing;
 import com.dynamicheart.bookstore.core.model.common.Delivery;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.customer.CustomerGender;
 import com.dynamicheart.bookstore.core.model.order.Order;
 import com.dynamicheart.bookstore.core.model.order.orderitem.OrderItem;
-import com.dynamicheart.bookstore.core.model.order.orderitem.OrderItemPrice;
 import com.dynamicheart.bookstore.core.model.order.orderstatus.OrderStatus;
 import com.dynamicheart.bookstore.core.model.user.Group;
 import com.dynamicheart.bookstore.core.model.user.GroupType;
@@ -134,24 +130,13 @@ public class InitStoreData implements InitData{
 
         // Availability
         BookAvailability availability = new BookAvailability();
-        availability.setBookDateAvailable(date);
         availability.setBookQuantity(100);
         availability.setBook(book);// associate with book
 
+        
+        BigDecimal dprice = new BigDecimal(39.99);
 
-
-        BookPrice dprice = new BookPrice();
-        dprice.setDefaultPrice(true);
-        dprice.setBookPriceAmount(new BigDecimal(39.99));
-        dprice.setBookAvailability(availability);
-
-        BookPriceDescription dpd = new BookPriceDescription();
-        dpd.setName("Base price");
-        dpd.setBookPrice(dprice);
-
-        dprice.getDescriptions().add(dpd);
-
-        availability.getPrices().add(dprice);
+        availability.setBookPrice(dprice);
         book.getAvailabilities().add(availability);
 
         // Book description
@@ -189,22 +174,12 @@ public class InitStoreData implements InitData{
 
         // Availability
         BookAvailability availability2 = new BookAvailability();
-        availability2.setBookDateAvailable(date);
         availability2.setBookQuantity(100);
         availability2.setBook(book2);// associate with book
 
-        BookPrice dprice2 = new BookPrice();
-        dprice2.setDefaultPrice(true);
-        dprice2.setBookPriceAmount(new BigDecimal(29.99));
-        dprice2.setBookAvailability(availability2);
+        BigDecimal dprice2 = new BigDecimal(29.99);
 
-        dpd = new BookPriceDescription();
-        dpd.setName("Base price");
-        dpd.setBookPrice(dprice2);
-
-        dprice2.getDescriptions().add(dpd);
-
-        availability2.getPrices().add(dprice2);
+        availability2.setBookPrice(dprice2);
         book2.getAvailabilities().add(availability2);
 
         bookService.create(book2);
@@ -233,22 +208,12 @@ public class InitStoreData implements InitData{
 
         // Availability
         BookAvailability availability3 = new BookAvailability();
-        availability3.setBookDateAvailable(date);
         availability3.setBookQuantity(100);
         availability3.setBook(book3);// associate with book
 
-        BookPrice dprice3 = new BookPrice();
-        dprice3.setDefaultPrice(true);
-        dprice3.setBookPriceAmount(new BigDecimal(19.99));
-        dprice3.setBookAvailability(availability3);
+        BigDecimal dprice3 = new BigDecimal(19.99);
 
-        dpd = new BookPriceDescription();
-        dpd.setName("Base price");
-        dpd.setBookPrice(dprice3);
-
-        dprice3.getDescriptions().add(dpd);
-
-        availability3.getPrices().add(dprice3);
+        availability3.setBookPrice(dprice3);
         book3.getAvailabilities().add(availability3);
 
 
@@ -279,23 +244,13 @@ public class InitStoreData implements InitData{
 
         // Availability
         BookAvailability availability4 = new BookAvailability();
-        availability4.setBookDateAvailable(date);
         availability4.setBookQuantity(100);
         availability4.setBook(book4);// associate with book
 
 
-        BookPrice dprice4 = new BookPrice();
-        dprice4.setDefaultPrice(true);
-        dprice4.setBookPriceAmount(new BigDecimal(18.99));
-        dprice4.setBookAvailability(availability4);
+        BigDecimal dprice4 = new BigDecimal(18.99);
 
-        dpd = new BookPriceDescription();
-        dpd.setName("Base price");
-        dpd.setBookPrice(dprice4);
-
-        dprice4.getDescriptions().add(dpd);
-
-        availability4.getPrices().add(dprice4);
+        availability4.setBookPrice(dprice4);
         book4.getAvailabilities().add(availability4);
 
         bookService.create(book4);
@@ -325,24 +280,14 @@ public class InitStoreData implements InitData{
 
         // Availability
         BookAvailability availability5 = new BookAvailability();
-        availability5.setBookDateAvailable(date);
         availability5.setBookQuantity(100);
         availability5.setBook(book5);// associate with book
 
         // bookAvailabilityService.create(availability5);
 
-        BookPrice dprice5 = new BookPrice();
-        dprice5.setDefaultPrice(true);
-        dprice5.setBookPriceAmount(new BigDecimal(18.99));
-        dprice5.setBookAvailability(availability5);
+        BigDecimal dprice5 = new BigDecimal(18.99);
 
-        dpd = new BookPriceDescription();
-        dpd.setName("Base price");
-        dpd.setBookPrice(dprice5);
-
-        dprice5.getDescriptions().add(dpd);
-
-        availability5.getPrices().add(dprice5);
+        availability5.setBookPrice(dprice5);
         book5.getAvailabilities().add(availability5);
 
         bookService.create(book5);
@@ -380,24 +325,14 @@ public class InitStoreData implements InitData{
 
         // Availability
         BookAvailability availability6 = new BookAvailability();
-        availability6.setBookDateAvailable(date);
         availability6.setBookQuantity(100);
         availability6.setBook(book6);// associate with book
 
         //bookAvailabilityService.create(availability6);
 
-        BookPrice dprice6 = new BookPrice();
-        dprice6.setDefaultPrice(true);
-        dprice6.setBookPriceAmount(new BigDecimal(18.99));
-        dprice6.setBookAvailability(availability6);
+        BigDecimal dprice6 = new BigDecimal(18.99);
 
-        dpd = new BookPriceDescription();
-        dpd.setName("Base price");
-        dpd.setBookPrice(dprice6);
-
-        dprice6.getDescriptions().add(dpd);
-
-        availability6.getPrices().add(dprice6);
+        availability6.setBookPrice(dprice6);
         book6.getAvailabilities().add(availability6);
 
         bookService.create(book6);
@@ -424,17 +359,9 @@ public class InitStoreData implements InitData{
         delivery.setFirstName("Leonardo" );
         delivery.setLastName("DiCaprio" );
         delivery.setPostalCode("J4B-8J9" );
-
-        Billing billing = new Billing();
-        billing.setAddress("358 Du Languadoc");
-        billing.setCity("Boucherville");
-        billing.setCompany("CSTI Consulting");
-        billing.setFirstName("Leonardo" );
-        billing.setLastName("DiCaprio" );
-        billing.setPostalCode("J4B-8J9");
+        
 
         customer.setDelivery(delivery);
-        customer.setBilling(billing);
         customerService.create(customer);
 
 
@@ -442,24 +369,14 @@ public class InitStoreData implements InitData{
         Order order = new Order();
         order.setDatePurchased(new Date());
         order.setLastModified(new Date());
-        order.setBilling(billing);
-
+        
         order.setCustomerId(customer.getId());
         order.setCustomerEmailAddress("customer@bookstore.com");
         order.setOrderDateFinished(new Date());//committed date
 
 
         order.setStatus( OrderStatus.DELIVERED);
-        order.setTotal(new BigDecimal(23.99));
-
-
-        //OrderItemPrice
-        OrderItemPrice oitemprice = new OrderItemPrice();
-        oitemprice.setDefaultPrice(true);
-        oitemprice.setItemPrice(new BigDecimal(19.99) );
-        oitemprice.setItemPriceCode("baseprice" );
-        oitemprice.setItemPriceName("Base Price" );
-        //oitemprice.setBookPriceSpecialAmount(new BigDecimal(13.99) );
+        order.setTotal(new BigDecimal(199.99));
 
 
         //OrderItem
@@ -469,11 +386,8 @@ public class InitStoreData implements InitData{
         oitem.setItemName( "The Big Switch" );
         oitem.setItemQuantity(1);
         oitem.setIsbn("9787508657424" );
-        oitem.getPrices().add(oitemprice ) ;
 
-        oitemprice.setOrderItem(oitem);
         order.getOrderItems().add(oitem);
-
 
         orderService.create(order);
 

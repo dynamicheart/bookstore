@@ -1,9 +1,7 @@
 package com.dynamicheart.bookstore.store.admin.model.order;
 
-import com.dynamicheart.bookstore.core.model.common.Billing;
 import com.dynamicheart.bookstore.core.model.order.orderstatus.OrderStatus;
 
-import javax.persistence.Embedded;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -22,9 +20,6 @@ public class Order implements Serializable{
     private String datePurchased = "";
 
     private  com.dynamicheart.bookstore.core.model.order.Order order;
-
-    @Embedded
-    private com.dynamicheart.bookstore.core.model.common.Billing billing = null;
 
     public Long getId() {
         return Id;
@@ -58,11 +53,4 @@ public class Order implements Serializable{
         this.order = order;
     }
 
-    public Billing getBilling() {
-        return billing;
-    }
-
-    public void setBilling(Billing billing) {
-        this.billing = billing;
-    }
 }

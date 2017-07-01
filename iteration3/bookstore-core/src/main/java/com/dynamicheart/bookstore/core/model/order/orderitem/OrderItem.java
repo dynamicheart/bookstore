@@ -37,11 +37,7 @@ public class OrderItem extends BookstoreEntity<Long, OrderItem> {
 	@ManyToOne(targetEntity = Order.class)
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	private Order order;
-	
-	@OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL)
-	private Set<OrderItemPrice> prices = new HashSet<OrderItemPrice>();
-	
-	
+
 	public OrderItem() {
 	}
 
@@ -79,16 +75,7 @@ public class OrderItem extends BookstoreEntity<Long, OrderItem> {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
 
-	public Set<OrderItemPrice> getPrices() {
-		return prices;
-	}
-
-	public void setPrices(Set<OrderItemPrice> prices) {
-		this.prices = prices;
-	}
-	
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}

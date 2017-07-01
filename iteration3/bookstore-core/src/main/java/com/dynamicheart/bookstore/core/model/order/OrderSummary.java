@@ -9,10 +9,9 @@ import java.util.List;
 
 
 public class OrderSummary implements Serializable {
+	private static final long serialVersionUID = 7366741839080056115L;
 
 	private OrderSummaryType orderSummaryType = OrderSummaryType.ORDERTOTAL;
-
-	private static final long serialVersionUID = 1L;
 
 	private List<ShoppingCartItem> books = new ArrayList<ShoppingCartItem>();
 

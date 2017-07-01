@@ -3,7 +3,6 @@ package com.dynamicheart.bookstore.core.model.shoppingcart;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
-import com.dynamicheart.bookstore.core.model.catalog.book.price.FinalPrice;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditListener;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditSection;
 import com.dynamicheart.bookstore.core.model.common.audit.Auditable;
@@ -35,7 +34,6 @@ public class ShoppingCartItem extends BookstoreEntity<Long, ShoppingCartItem> im
 	@Column(name="QUANTITY")
 	private Integer quantity = new Integer(1);
 
-
 	@Embedded
 	private AuditSection auditSection = new AuditSection();
 	
@@ -43,24 +41,16 @@ public class ShoppingCartItem extends BookstoreEntity<Long, ShoppingCartItem> im
 	private Long bookId;
 	
 	@Transient
-	private boolean bookVirtual;
+	private BigDecimal itemPrice;
 	
 	@Transient
-	private BigDecimal itemPrice;//item final price including all rebates
-	
-	@Transient
-	private BigDecimal subTotal;//item final price * quantity
-	
-	@Transient
-	private FinalPrice finalPrice;//contains price details (raw prices)
-	
+	private BigDecimal subTotal;
 
 	@Transient
 	private Book book;
 	
 	@Transient
 	private boolean obsolete = false;
-
 
 	public ShoppingCartItem(ShoppingCart shoppingCart, Book book) {
 		this.book = book;
@@ -155,14 +145,6 @@ public class ShoppingCartItem extends BookstoreEntity<Long, ShoppingCartItem> im
 	public BigDecimal getSubTotal() {
 		return subTotal;
 	}
-
-	public void setFinalPrice(FinalPrice finalPrice) {
-		this.finalPrice = finalPrice;
-	}
-
-	public FinalPrice getFinalPrice() {
-		return finalPrice;
-	}
 	
 	public boolean isObsolete() {
 		return obsolete;
@@ -171,14 +153,4 @@ public class ShoppingCartItem extends BookstoreEntity<Long, ShoppingCartItem> im
 	public void setObsolete(boolean obsolete) {
 		this.obsolete = obsolete;
 	}
-	
-
-	public boolean isBookVirtual() {
-		return bookVirtual;
-	}
-
-	public void setBookVirtual(boolean bookVirtual) {
-		this.bookVirtual = bookVirtual;
-	}
-
 }

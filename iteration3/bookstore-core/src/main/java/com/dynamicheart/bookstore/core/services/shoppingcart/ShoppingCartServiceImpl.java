@@ -3,7 +3,6 @@ package com.dynamicheart.bookstore.core.services.shoppingcart;
 
 import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
-import com.dynamicheart.bookstore.core.model.catalog.book.price.FinalPrice;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.shoppingcart.ShoppingCart;
 import com.dynamicheart.bookstore.core.model.shoppingcart.ShoppingCartItem;
@@ -221,8 +220,8 @@ public class ShoppingCartServiceImpl extends BookstoreEntityServiceJpaImpl<Long,
 
 		ShoppingCartItem item = new ShoppingCartItem(book);
 
-		FinalPrice price = pricingService.calculateBookPrice(book);
-		item.setItemPrice(price.getFinalPrice());
+		BigDecimal price = pricingService.calculateBookPrice(book);
+		item.setItemPrice(price);
 		return item;
 
 	}
@@ -241,9 +240,8 @@ public class ShoppingCartServiceImpl extends BookstoreEntityServiceJpaImpl<Long,
 
 		item.setBook(book);
 
-		FinalPrice price = pricingService.calculateBookPrice(book);
-		item.setItemPrice(price.getFinalPrice());
-		item.setFinalPrice(price);
+		BigDecimal price = pricingService.calculateBookPrice(book);
+		item.setItemPrice(price);
 
 		BigDecimal subTotal = item.getItemPrice().multiply(new BigDecimal(item.getQuantity().intValue()));
 		item.setSubTotal(subTotal);
@@ -257,8 +255,8 @@ public class ShoppingCartServiceImpl extends BookstoreEntityServiceJpaImpl<Long,
 		Set<ShoppingCartItem> items = cart.getLineItems();
 		for (ShoppingCartItem item : items) {
 			Book book = item.getBook();
-			FinalPrice finalPrice = pricingService.calculateBookPrice(book);
-			if (finalPrice.getFinalPrice().longValue() > 0) {
+			BigDecimal price = pricingService.calculateBookPrice(book);
+			if (price.longValue() > 0) {
 				return false;
 			}
 		}

@@ -2,11 +2,11 @@ package com.dynamicheart.bookstore.store.admin.model.catalog.book;
 
 import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
-import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPrice;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.Valid;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +27,10 @@ public class Book implements Serializable{
     private BookAvailability bookAvailability;
 
     @Valid
-    private BookPrice price;
+    private BigDecimal price;
 
     @NotEmpty
     private String bookPrice = "0";
-
-    private String dateAvailable;
 
     private BookDescription description = null;
 
@@ -60,11 +58,11 @@ public class Book implements Serializable{
         this.bookAvailability = bookAvailability;
     }
 
-    public BookPrice getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BookPrice price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -74,14 +72,6 @@ public class Book implements Serializable{
 
     public void setBookPrice(String bookPrice) {
         this.bookPrice = bookPrice;
-    }
-
-    public String getDateAvailable() {
-        return dateAvailable;
-    }
-
-    public void setDateAvailable(String dateAvailable) {
-        this.dateAvailable = dateAvailable;
     }
 
     public BookDescription getDescription() {

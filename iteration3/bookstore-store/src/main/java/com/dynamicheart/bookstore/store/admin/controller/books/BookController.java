@@ -3,11 +3,10 @@ package com.dynamicheart.bookstore.store.admin.controller.books;
 import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPrice;
-import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPriceDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
 import com.dynamicheart.bookstore.core.services.catalog.book.publisher.PublisherService;
-import com.dynamicheart.bookstore.core.utils.BookPriceUtils;
+import com.dynamicheart.bookstore.core.utils.BookAvailabilityUtils;
 import com.dynamicheart.bookstore.store.admin.model.catalog.book.Book;
 import com.dynamicheart.bookstore.store.admin.model.web.Menu;
 import com.dynamicheart.bookstore.store.utils.DateUtil;
@@ -17,19 +16,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -51,7 +47,7 @@ public class BookController {
     private LabelUtils messages;
 
     @Inject
-    private BookPriceUtils priceUtil;
+    private BookAvailabilityUtils bookAvailabilityUtils;
 
     @RequestMapping(value="/admin/book/detail", method= RequestMethod.GET)
     public String displayBookEdit(@RequestParam("id") Long id, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -120,7 +116,6 @@ public class BookController {
 
         //if request.attribute contains id then get this book from bookService
         if(id!=null && id!=0) {//edit mode
-
             //get from DB
             com.dynamicheart.bookstore.core.model.catalog.book.Book dbBook = bookService.getById(id);
             if(dbBook==null) {
@@ -132,34 +127,23 @@ public class BookController {
             
             descriptions.add(bookDescriptions.iterator().next());
 
-            BookAvailability bookAvailability = null;
-            BookPrice bookPrice = null;
+            BookAvailability bookAvailability = bookAvailabilityUtils.getBookAvailability(dbBook);
 
-            Set<BookAvailability> availabilities = dbBook.getAvailabilities();
-            if(availabilities != null && availabilities.size() > 0){
-                bookAvailability = availabilities.iterator().next();
-                Set<BookPrice> prices = bookAvailability.getPrices();
-                if(prices != null && prices.size() > 0){
-                    bookPrice = prices.iterator().next();
-                    book.setBookPrice(priceUtil.getAdminFormatedAmount(bookPrice.getBookPriceAmount()));
+            BigDecimal bookPrice = null;
+
+            if(bookAvailability != null) {
+                if(bookAvailability.getBookPrice() != null){
+                    bookPrice = bookAvailability.getBookPrice();
+                    book.setBookPrice(bookAvailabilityUtils.getAdminFormatedAmount(bookPrice));
                 }
-            }
-
-            if(bookAvailability == null) {
+            }else {
                 bookAvailability = new BookAvailability();
             }
 
-            if(bookPrice==null) {
-                bookPrice = new BookPrice();
-            }
 
             book.setBookAvailability(bookAvailability);
             book.setPrice(bookPrice);
             book.setDescriptions(descriptions);
-
-
-            book.setDateAvailable(DateUtil.formatDate(dbBook.getDateAvailable()));
-            
 
         } else {
             BookDescription bookDescription = new BookDescription();
@@ -169,13 +153,10 @@ public class BookController {
             bo.setAvailable(true);
 
             BookAvailability bookAvailability = new BookAvailability();
-            BookPrice bookPrice = new BookPrice();
 
             book.setBookAvailability(bookAvailability);
-            book.setPrice(bookPrice);
             book.setBook(bo);
             book.setDescriptions(descriptions);
-            book.setDateAvailable(DateUtil.formatDate(new Date()));
         }
 
         model.addAttribute("book", book);
@@ -259,31 +240,16 @@ public class BookController {
         }
 
 
-        if(bookPriceDescriptions==null) {
-            bookPriceDescriptions = new HashSet<BookPriceDescription>();
-            for(BookDescription description : book.getDescriptions()) {
-                BookPriceDescription ppd = new BookPriceDescription();
-                ppd.setBookPrice(newBookPrice);
-                ppd.setName(BookPriceDescription.DEFAULT_PRICE_DESCRIPTION);
-                bookPriceDescriptions.add(ppd);
-            }
-            newBookPrice.setDescriptions(bookPriceDescriptions);
-        }
-
-
         if(newBookAvailability==null) {
             newBookAvailability = new BookAvailability();
         }
 
 
         newBookAvailability.setBookQuantity(book.getBookAvailability().getBookQuantity());
-        newBookAvailability.setBookQuantityOrderMin(book.getBookAvailability().getBookQuantityOrderMin());
-        newBookAvailability.setBookQuantityOrderMax(book.getBookAvailability().getBookQuantityOrderMax());
         newBookAvailability.setBook(newBook);
         newBookAvailability.setPrices(prices);
         availabilities.add(newBookAvailability);
 
-        newBookPrice.setBookAvailability(newBookAvailability);
         prices.add(newBookPrice);
 
         newBook.setAvailabilities(availabilities);

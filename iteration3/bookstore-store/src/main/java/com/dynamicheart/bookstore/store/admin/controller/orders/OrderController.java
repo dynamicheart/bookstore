@@ -1,10 +1,8 @@
 package com.dynamicheart.bookstore.store.admin.controller.orders;
 
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
-import com.dynamicheart.bookstore.core.model.common.Billing;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.order.orderitem.OrderItem;
-import com.dynamicheart.bookstore.core.model.order.orderstatus.OrderStatus;
 import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
 import com.dynamicheart.bookstore.core.services.customer.CustomerService;
 import com.dynamicheart.bookstore.core.services.order.OrderService;
@@ -12,14 +10,11 @@ import com.dynamicheart.bookstore.store.admin.model.order.Order;
 import com.dynamicheart.bookstore.store.admin.model.web.Menu;
 import com.dynamicheart.bookstore.store.utils.DateUtil;
 import com.dynamicheart.bookstore.store.utils.LabelUtils;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * Created by dynamicheart on 5/29/2017.
@@ -87,7 +81,6 @@ public class OrderController {
 
     private String displayOrder(Long orderId, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        //display menu
         setMenu(model,request);
 
         Order order = new Order();
@@ -124,12 +117,10 @@ public class OrderController {
 
             }
             order.setOrder( dbOrder );
-            order.setBilling( dbOrder.getBilling() );
             orderItems = dbOrder.getOrderItems();
 
         }else{
             order.setDatePurchased(DateUtil.formatDate(new Date()));
-            order.setBilling(new Billing());
             order.setOrder(new com.dynamicheart.bookstore.core.model.order.Order());
         }
 
@@ -141,7 +132,6 @@ public class OrderController {
 
     private void setMenu(Model model, HttpServletRequest request) throws Exception {
 
-        //display menu
         Map<String,String> activeMenus = new HashMap<String,String>();
         activeMenus.put("0rder", "0rder");
 
@@ -157,7 +147,6 @@ public class OrderController {
     @RequestMapping(value="/admin/order/save", method=RequestMethod.POST)
     public String saveOrder(@Valid @ModelAttribute("order") com.dynamicheart.bookstore.store.admin.model.order.Order entityOrder, BindingResult result, Model model, HttpServletRequest request) throws Exception {
 
-        //set the id if fails
         entityOrder.setId(entityOrder.getOrder().getId());
 
         List<Customer> customers = customerService.list();
@@ -174,14 +163,11 @@ public class OrderController {
 
 
             if (result.hasErrors()) {
-                //  somehow we lose data, so reset Order detail info.
                 entityOrder.getOrder().setOrderItems(orderItems);
 
                 return "admin-order";
-		/*	"admin-orders-edit";  */
             }
 
-            newOrder.setBilling(entityOrder.getOrder().getBilling());
             newOrder.setCustomerId(entityOrder.getOrder().getCustomerId());
             newOrder.setStatus(entityOrder.getOrder().getStatus());
             newOrder.setCustomerEmailAddress("213123@qq.com");
@@ -190,21 +176,18 @@ public class OrderController {
 
             orderService.saveOrUpdate(newOrder);
             entityOrder.setOrder(newOrder);
-            entityOrder.setBilling(newOrder.getBilling());
             model.addAttribute("order", entityOrder);
 
             Long customerId = newOrder.getCustomerId();
         }else{
             com.dynamicheart.bookstore.core.model.order.Order newOrder = new com.dynamicheart.bookstore.core.model.order.Order();
             newOrder.setStatus(entityOrder.getOrder().getStatus());
-            newOrder.setBilling(entityOrder.getOrder().getBilling());
             newOrder.setCustomerId(entityOrder.getOrder().getCustomerId());
             newOrder.setCustomerEmailAddress("213123@qq.com");
             newOrder.setDatePurchased(new Date());
             newOrder.setLastModified(new Date());
             orderService.create(newOrder);
             entityOrder.setOrder(newOrder);
-            entityOrder.setBilling(newOrder.getBilling());
             model.addAttribute("order", entityOrder);
         }
 
@@ -212,6 +195,5 @@ public class OrderController {
         model.addAttribute("customers",customers);
 
         return  "admin-order";
-	    /*	"admin-orders-edit";  */
     }
 }

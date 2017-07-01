@@ -3,15 +3,11 @@ package com.dynamicheart.bookstore.core.model.catalog.book.availability;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
-import com.dynamicheart.bookstore.core.model.catalog.book.price.BookPrice;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
-import com.dynamicheart.bookstore.core.utils.CloneUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.math.BigDecimal;
 
 
 @Entity
@@ -26,7 +22,6 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
 	private Long id;
 
-
 	@ManyToOne(targetEntity = Book.class)
 	@JoinColumn(name = "BOOK_ID", nullable = false)
 	private Book book;
@@ -35,35 +30,13 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 	@Column(name="QUANTITY")
 	private Integer bookQuantity = 0;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="DATE_AVAILABLE")
-	private Date bookDateAvailable;
+	@NotNull
+	@Column(name = "PRICE")
+	private BigDecimal bookPrice;
 
 	@Column(name="REGION")
 	private String region = SchemaConstant.ALL_REGIONS;
 
-	@Column(name="STATUS")
-	private boolean bookStatus = true;
-
-	@Column(name="QUANTITY_ORD_MIN")
-	private Integer bookQuantityOrderMin = 0;
-
-	@Column(name="QUANTITY_ORD_MAX")
-	private Integer bookQuantityOrderMax = 0;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="bookAvailability", cascade = CascadeType.ALL)
-	private Set<BookPrice> prices = new HashSet<BookPrice>();
-
-	@Transient
-	public BookPrice defaultPrice() {
-
-		for(BookPrice price : prices) {
-			if(price.isDefaultPrice()) {
-				return price;
-			}
-		}
-		return new BookPrice();
-	}
 
 	public BookAvailability() {
 	}
@@ -76,12 +49,12 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 		this.bookQuantity = bookQuantity;
 	}
 
-	public Date getBookDateAvailable() {
-		return CloneUtils.clone(bookDateAvailable);
+	public BigDecimal getBookPrice() {
+		return bookPrice;
 	}
 
-	public void setBookDateAvailable(Date bookDateAvailable) {
-		this.bookDateAvailable = CloneUtils.clone(bookDateAvailable);
+	public void setBookPrice(BigDecimal bookPrice) {
+		this.bookPrice = bookPrice;
 	}
 
 	public String getRegion() {
@@ -91,31 +64,6 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 	public void setRegion(String region) {
 		this.region = region;
 	}
-
-	public boolean getBookStatus() {
-		return bookStatus;
-	}
-
-	public void setBookStatus(boolean bookStatus) {
-		this.bookStatus = bookStatus;
-	}
-
-	public Integer getBookQuantityOrderMin() {
-		return bookQuantityOrderMin;
-	}
-
-	public void setBookQuantityOrderMin(Integer bookQuantityOrderMin) {
-		this.bookQuantityOrderMin = bookQuantityOrderMin;
-	}
-
-	public Integer getBookQuantityOrderMax() {
-		return bookQuantityOrderMax;
-	}
-
-	public void setBookQuantityOrderMax(Integer bookQuantityOrderMax) {
-		this.bookQuantityOrderMax = bookQuantityOrderMax;
-	}
-
 
 	@Override
 	public Long getId() {
@@ -133,16 +81,6 @@ public class BookAvailability extends BookstoreEntity<Long, BookAvailability> {
 
 	public void setBook(Book book) {
 		this.book = book;
-	}
-
-
-
-	public Set<BookPrice> getPrices() {
-		return prices;
-	}
-
-	public void setPrices(Set<BookPrice> prices) {
-		this.prices = prices;
 	}
 
 }

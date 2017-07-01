@@ -5,11 +5,8 @@
 
 <tiles-definitions>
  	
- 	<definition name="landing.*" template="/pages/shop/templates/{1}/catalogLayout.jsp">
- 		<put-attribute name="header" value="/pages/shop/templates/{1}/sections/header.jsp" />
-  		<put-attribute name="navbar" value="/pages/shop/templates/{1}/sections/navbar.jsp" /> 
-  		<put-attribute name="body" value="/pages/shop/templates/{1}/pages/landing.jsp" />
-  		<put-attribute name="footer" value="/pages/shop/templates/{1}/sections/footer.jsp" />
-  	</definition>
+ 	<definition name="store-home" template="/pages/store/template/layout.jsp">
+		<put-attribute name="" value=""/>
+	</definition>
   	
 </tiles-definitions>

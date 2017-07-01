@@ -12,6 +12,7 @@ import com.dynamicheart.bookstore.core.model.common.audit.Auditable;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,6 +43,9 @@ public class ShoppingCart extends BookstoreEntity<Long, ShoppingCart> implements
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "shoppingCart")
 	private Set<ShoppingCartItem> lineItems = new HashSet<ShoppingCartItem>();
+
+	@Column(name = "SHP_CART_TOTAL")
+	private BigDecimal total = new BigDecimal(0);
 	
 	@Column(name = "CUSTOMER_ID", nullable = true)
 	private Long customerId;
@@ -87,6 +91,15 @@ public class ShoppingCart extends BookstoreEntity<Long, ShoppingCart> implements
 		this.lineItems = lineItems;
 	}
 
+    public BigDecimal getTotal() {
+
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
     public String getShoppingCartCode()
     {
         return shoppingCartCode;
@@ -96,7 +109,6 @@ public class ShoppingCart extends BookstoreEntity<Long, ShoppingCart> implements
     {
         this.shoppingCartCode = shoppingCartCode;
     }
-
 
 	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;

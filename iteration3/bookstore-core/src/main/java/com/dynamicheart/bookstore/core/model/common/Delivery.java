@@ -3,7 +3,6 @@ package com.dynamicheart.bookstore.core.model.common;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Transient;
 
 @Embeddable
 public class Delivery {
@@ -14,41 +13,20 @@ public class Delivery {
 	@Column(name ="DELIVERY_FIRST_NAME", length=64)
 	private String firstName;
 
-
-	@Column(name ="DELIVERY_COMPANY", length=100)
-	private String company;
-	
-	@Column(name ="DELIVERY_STREET_ADDRESS", length=256)
-	private String address;
+	@Column(name ="DELIVERY_STATE", length=100)
+	private String province;
 
 	@Column(name ="DELIVERY_CITY", length=100)
 	private String city;
+
+	@Column(name ="DELIVERY_STREET_ADDRESS", length=256)
+	private String address;
 	
 	@Column(name ="DELIVERY_POSTCODE", length=20)
 	private String postalCode;
 	
-	@Column(name ="DELIVERY_STATE", length=100)
-	private String state;
-	
 	@Column(name="DELIVERY_TELEPHONE", length=32)
-	private String telephone;
-	
-	@Transient
-	private String latitude = null;
-	
-
-
-	@Transient
-	private String longitude = null;
-
-
-	public String getCompany() {
-		return company;
-	}
-
-	public void setCompany(String company) {
-		this.company = company;
-	}
+	private String phone;
 
 	public String getAddress() {
 		return address;
@@ -74,20 +52,20 @@ public class Delivery {
 		this.postalCode = postalCode;
 	}
 
-	public String getState() {
-		return state;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getTelephone() {
-		return telephone;
+	public String getPhone() {
+		return phone;
 	}	
 	
 	public String getLastName() {
@@ -104,21 +82,5 @@ public class Delivery {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-	}
-	
-	public String getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-
-	public String getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
 	}
 }
