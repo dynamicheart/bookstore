@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <label><s:message code="label.bookContainer.isbn" text="Book"/></label>
                                     <div>
-                                        <form:select items="${books}" cssClass="form-control" itemValue="isbn" itemLabel="descriptions[0].name" path="isbn">
+                                        <form:select items="${books}" cssClass="form-control" itemValue="isbn" itemLabel="descriptions[0].bookImage" path="isbn">
                                             <form:options/>
                                         </form:select>
                                     </div>

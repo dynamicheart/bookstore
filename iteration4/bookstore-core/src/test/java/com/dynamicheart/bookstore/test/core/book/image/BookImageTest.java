@@ -21,7 +21,7 @@ public class BookImageTest extends AbstractBookstoreCoreTestCase{
         bookImage.setBookImageUrl("/book/test.png");
         bookImage.setDefaultImage(false);
         bookImage.setImageCrop(true);
-        bookImage.setImageType(1);
+        bookImage.setImageSize(1);
         bookImage.setBookId(1L);
         bookImage.setImageContent(new byte[]{});
         bookImageService.save(bookImage);

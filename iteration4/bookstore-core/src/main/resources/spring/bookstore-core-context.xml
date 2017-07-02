@@ -30,6 +30,8 @@
     <beans:import resource="classpath:/spring/bookstore-core-config.xml" />
     <!-- MongoDB -->
     <beans:import resource="classpath:/spring/mongo-config.xml"/>
+    <!-- module -->
+    <beans:import resource="bookstore-core-module.xml"/>
    
 
 </beans:beans>

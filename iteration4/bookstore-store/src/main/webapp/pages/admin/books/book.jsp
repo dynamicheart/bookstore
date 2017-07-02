@@ -68,7 +68,7 @@
                                     <div class="form-group">
                                         <label><s:message code="label.book.title" text="Title"/></label>
                                         <div>
-                                            <form:input cssClass="form-control" id="name${counter.index}"  path="descriptions[${counter.index}].name" />
+                                            <form:input cssClass="form-control" id="bookImage${counter.index}"  path="descriptions[${counter.index}].bookImage" />
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -76,7 +76,7 @@
                                 <div class="form-group">
                                     <label><s:message code="label.book.publisher" text="Publisher"/></label>
                                     <div>
-                                        <form:select items="${publishers}" cssClass="form-control" itemValue="id" itemLabel="descriptions[0].name" path="bookContainer.publisher.id">
+                                        <form:select items="${publishers}" cssClass="form-control" itemValue="id" itemLabel="descriptions[0].bookImage" path="bookContainer.publisher.id">
                                             <form:options/>
                                         </form:select>
                                     </div>

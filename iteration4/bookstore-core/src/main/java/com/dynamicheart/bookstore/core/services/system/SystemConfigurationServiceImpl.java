@@ -3,14 +3,14 @@ package com.dynamicheart.bookstore.core.services.system;
 import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.system.SystemConfiguration;
 import com.dynamicheart.bookstore.core.repositories.system.SystemConfigurationRepository;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
 @Service("systemConfigurationService")
 public class SystemConfigurationServiceImpl extends
-		BookstoreEntityServiceJpaImpl<Long, SystemConfiguration> implements
+        BookstoreEntityServiceImpl<Long, SystemConfiguration> implements
 		SystemConfigurationService {
 
 	

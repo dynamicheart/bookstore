@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public abstract class BookstoreEntityServiceJpaImpl<K extends Serializable & Comparable<K>, E extends BookstoreEntity<K, ?>>
+public abstract class BookstoreEntityServiceImpl<K extends Serializable & Comparable<K>, E extends BookstoreEntity<K, ?>>
 	implements BookstoreEntityService<K, E> {
 
 	private Class<E> objectClass;
@@ -20,7 +20,7 @@ public abstract class BookstoreEntityServiceJpaImpl<K extends Serializable & Com
     private JpaRepository<E, K> repository;
 
 	@SuppressWarnings("unchecked")
-	public BookstoreEntityServiceJpaImpl(JpaRepository<E, K> repository) {
+	public BookstoreEntityServiceImpl(JpaRepository<E, K> repository) {
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
 		this.objectClass = (Class<E>) genericSuperclass.getActualTypeArguments()[1];
 		this.repository = repository;

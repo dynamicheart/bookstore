@@ -5,7 +5,7 @@ import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.repositories.catalog.book.BookRepository;
 import com.dynamicheart.bookstore.core.services.catalog.category.CategoryService;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.Set;
  */
 
 @Service("bookService")
-public class BookServiceImpl extends BookstoreEntityServiceJpaImpl<Long, Book> implements BookService{
+public class BookServiceImpl extends BookstoreEntityServiceImpl<Long, Book> implements BookService{
     private static final Logger LOGGER = LoggerFactory.getLogger(BookServiceImpl.class);
 
     BookRepository bookRepository;

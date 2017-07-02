@@ -91,7 +91,7 @@
 
             <div class="form-group">
                 <div>
-                    <input class="form-control" type="text" id="username" name="username"
+                    <input class="form-control" type="text" id="username" bookImage="username"
                            placeholder="<s:message code="label.generic.username" text="Username"/>">
                 </div>
             </div>
@@ -99,7 +99,7 @@
 
             <div class="form-group">
                 <div>
-                    <input class="form-control" type="password" id="password" name="password"
+                    <input class="form-control" type="password" id="password" bookImage="password"
                            placeholder="<s:message code="label.generic.password" text="Password"/>">
                 </div>
             </div>

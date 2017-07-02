@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ehcache name="com.dynamicheart.bookstore.core.cache"
+<ehcache bookImage="com.dynamicheart.bookstore.core.cache"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
 	
@@ -16,7 +16,7 @@
             memoryStoreEvictionPolicy="LRU" />
             
             
-     <cache name="com.dynamicheart.bookstore.OBJECT_CACHE"
+     <cache bookImage="com.dynamicheart.bookstore.OBJECT_CACHE"
            maxElementsInMemory="10000"
            eternal="false"
            overflowToDisk="false"

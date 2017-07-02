@@ -63,7 +63,7 @@
                                 <form:hidden id="orderId" path="order.id"/>
 
                                 <div class="form-group">
-                                    <label><s:message code="label.customer.name" text="Customer"/></label>
+                                    <label><s:message code="label.customer.bookImage" text="Customer"/></label>
                                     <div>
                                         <form:select items="${customers}" cssClass="form-control" itemValue="id"
                                                      itemLabel="nick" path="order.customerId">
@@ -122,7 +122,7 @@
                         </div>
                         <c:if test="${order.order.id!=null && order.order.id>0}">
                             <div class="col-lg-6">
-                                <label><s:message code="label.customer.name" text="Order Items"/></label>
+                                <label><s:message code="label.customer.bookImage" text="Order Items"/></label>
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                     <tr>

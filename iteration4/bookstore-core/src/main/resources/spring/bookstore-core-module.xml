@@ -6,7 +6,6 @@
              xmlns:context="http://www.springframework.org/schema/context"
              xmlns:aop="http://www.springframework.org/schema/aop"
              xmlns:tx="http://www.springframework.org/schema/tx"
-             xmlns:mongo="http://www.springframework.org/schema/data/mongo"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/tx
@@ -18,24 +17,32 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/data/jpa
-    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-    http://www.springframework.org/schema/data/mongo
-    http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <context:annotation-config/>
-
-    <mongo:mongo host="localhost" port="27017"/>
-
-    <mongo:db-factory id="mongoDbFactory" dbname="bookstore" mongo-ref="mongo"/>
-
-    <beans:bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <beans:constructor-arg ref="mongoDbFactory"/>
-        <beans:constructor-arg ref="mappingMongoConverter" />
+    <!-- cms -->
+    <!-- Product images manager -->
+    <beans:bean id="bookFileManager"
+                class="com.dynamicheart.bookstore.core.modules.cms.book.BookFileManagerImpl">
+        <beans:property name="uploadImage">
+            <beans:ref bean="cmsProductImage" />
+        </beans:property>
+        <beans:property name="getImage">
+            <beans:ref bean="cmsProductImage" />
+        </beans:property>
+        <beans:property name="removeImage">
+            <beans:ref bean="cmsProductImage" />
+        </beans:property>
+        <beans:property name="configuration">
+            <beans:ref bean="coreConfiguration" />
+        </beans:property>
     </beans:bean>
 
-    <beans:bean id="gridFsTemplate" class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
-        <beans:constructor-arg ref="mongoDbFactory" />
-        <beans:constructor-arg ref="mappingMongoConverter" />
+
+    <!-- CMS implementation for product images -->
+    <beans:bean id="cmsProductImage"
+                class="com.dynamicheart.bookstore.core.modules.cms.book.mongodb.CmsImageFileManagerImpl" factory-method="getInstance" >
+        <beans:property name="gridFsTemplate" ref="gridFsTemplate"/>
     </beans:bean>
+
 
 </beans:beans>

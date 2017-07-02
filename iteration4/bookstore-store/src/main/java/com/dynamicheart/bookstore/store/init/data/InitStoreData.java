@@ -7,7 +7,6 @@ import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescri
 import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.PublisherDescription;
-import com.dynamicheart.bookstore.core.model.common.Delivery;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.customer.CustomerGender;
 import com.dynamicheart.bookstore.core.model.order.Order;
@@ -32,6 +31,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -162,7 +162,7 @@ public class InitStoreData implements InitData{
         try {
             ClassPathResource classPathResource = new ClassPathResource("/demo/spring.png");
             InputStream inStream = classPathResource.getInputStream();
-            this.saveFile(inStream, "spring.png", book);
+            this.saveBookImage(inStream, "spring.png", book);
         } catch(Exception e) {
             LOGGER.error("Error while reading demo file spring.png",e);
         }
@@ -199,7 +199,7 @@ public class InitStoreData implements InitData{
         try {
             ClassPathResource classPathResource = new ClassPathResource("/demo/node.jpg");
             InputStream inStream = classPathResource.getInputStream();
-            this.saveFile(inStream, "node.jpg", book2);
+            this.saveBookImage(inStream, "node.jpg", book2);
         } catch(Exception e) {
             LOGGER.error("Error while reading demo file node.jpg",e);
         }
@@ -235,7 +235,7 @@ public class InitStoreData implements InitData{
         try {
             ClassPathResource classPathResource = new ClassPathResource("/demo/paas.JPG");
             InputStream inStream = classPathResource.getInputStream();
-            this.saveFile(inStream, "paas.JPG", book3);
+            this.saveBookImage(inStream, "paas.JPG", book3);
         } catch(Exception e) {
             LOGGER.error("Error while reading demo file paas.jpg",e);
         }
@@ -271,7 +271,7 @@ public class InitStoreData implements InitData{
         try {
             ClassPathResource classPathResource = new ClassPathResource("/demo/android.jpg");
             InputStream inStream = classPathResource.getInputStream();
-            this.saveFile(inStream, "android.jpg", book4);
+            this.saveBookImage(inStream, "android.jpg", book4);
         } catch(Exception e) {
             LOGGER.error("Error while reading demo file android.jpg",e);
         }
@@ -310,7 +310,7 @@ public class InitStoreData implements InitData{
         try {
             ClassPathResource classPathResource = new ClassPathResource("/demo/android2.jpg");
             InputStream inStream = classPathResource.getInputStream();
-            this.saveFile(inStream, "android2.jpg", book5);
+            this.saveBookImage(inStream, "android2.jpg", book5);
         } catch(Exception e) {
             LOGGER.error("Error while reading demo file android2.jpg",e);
         }
@@ -334,7 +334,7 @@ public class InitStoreData implements InitData{
 
             ClassPathResource classPathResource = new ClassPathResource("/demo/google.jpg");
             InputStream inStream = classPathResource.getInputStream();
-            this.saveFile(inStream, "google.jpg", book6);
+            this.saveBookImage(inStream, "google.jpg", book6);
         } catch(Exception e) {
             LOGGER.error("Error while reading demo file google.jpg",e);
         }
@@ -370,15 +370,6 @@ public class InitStoreData implements InitData{
             }
         }
 
-        Delivery delivery = new Delivery();
-        delivery.setAddress("358 Du Languadoc");
-        delivery.setCity( "Boucherville" );
-        delivery.setFirstName("Leonardo" );
-        delivery.setLastName("DiCaprio" );
-        delivery.setPostalCode("J4B-8J9" );
-        
-
-        customer.setDelivery(delivery);
         customerService.create(customer);
 
 
@@ -411,19 +402,20 @@ public class InitStoreData implements InitData{
         LOGGER.info("Ending the initialization of test data");
     }
 
-    private void saveFile(InputStream fis, String name, Book book) throws Exception {
+    private void saveBookImage(InputStream fis, String name, Book book) throws Exception {
         if(fis==null) {
             return;
         }
 
         final byte[] is = IOUtils.toByteArray( fis );
+        final ByteArrayInputStream inputStream = new ByteArrayInputStream( is );
+
 
 
         BookImage bookImage = new BookImage();
         bookImage.setBookImage(name);
-        bookImage.setBookId(book.getId());
+        bookImage.setBookIsbn(book.getIsbn());
         bookImage.setImageContent(is);
-
 
         bookImageService.create(bookImage);
     }

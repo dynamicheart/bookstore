@@ -1,7 +1,6 @@
 package com.dynamicheart.bookstore.core.model.customer;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
-import com.dynamicheart.bookstore.core.model.common.Delivery;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.model.user.Group;
@@ -10,7 +9,6 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,9 +55,6 @@ public class Customer extends BookstoreEntity<Long, Customer>{
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Language.class)
     @JoinColumn(name = "LANGUAGE_ID", nullable=false)
     private Language defaultLanguage;
-
-    @Embedded
-    private Delivery delivery = null;
 
     @ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinTable(name = "CUSTOMER_GROUP", schema=SchemaConstant.BOOKSTORE_SCHEMA, joinColumns = {
@@ -150,14 +145,6 @@ public class Customer extends BookstoreEntity<Long, Customer>{
 
     public void setDefaultLanguage(Language defaultLanguage) {
         this.defaultLanguage = defaultLanguage;
-    }
-
-    public Delivery getDelivery() {
-        return delivery;
-    }
-
-    public void setDelivery(Delivery delivery) {
-        this.delivery = delivery;
     }
 
 }
