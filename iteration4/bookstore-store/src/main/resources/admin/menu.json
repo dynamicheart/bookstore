@@ -1,0 +1,61 @@
+{
+  "menus": [
+    {
+      "menu": {
+        "code": "Home",
+        "icon": "fa-home",
+        "url": "/admin/home",
+        "role": "AUTH",
+        "order": 0
+      }
+    },
+    {
+      "menu": {
+        "code": "Book",
+        "icon": "fa-book",
+        "url": "/admin/books",
+        "role": "BOOK",
+        "order": 1
+      }
+    },
+    {
+      "menu": {
+        "code": "Customer",
+        "icon": "fa-user-o",
+        "url": "/admin/customers",
+        "role": "CUSTOMER",
+        "order": 2
+      }
+    },
+    {
+      "menu": {
+        "code": "Order",
+        "icon": "fa-shopping-cart",
+        "url": "/admin/orders",
+        "role": "ORDER",
+        "order": 3,
+        "menus": [
+          {
+            "menu": {
+              "code": "order-items",
+              "url": "/admin/orders/items",
+              "role": "ORDER",
+              "order": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "menu": {
+        "code": "Statistic",
+        "icon": "fa-bar-chart",
+        "url": "/admin/statistic",
+        "role": "STATISTIC",
+        "order": 4
+      }
+    }
+  ]
+}
+
+

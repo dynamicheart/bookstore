@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE tiles-definitions PUBLIC  
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="admin-dashboard" template="/layout/admin/layout.jsp">
+        <put-attribute name="body" value="/pages/admin/home.jsp"/>
+	</definition>
+ 	<definition name="admin-customers" template="/layout/admin/layout.jsp">
+  		<put-attribute name="body" value="/pages/admin/customers/customers.jsp" />
+  	</definition>
+	<definition name="admin-customer" template="/layout/admin/layout.jsp">
+		<put-attribute name="body" value="/pages/admin/customers/customer.jsp" />
+	</definition>
+	<definition name="admin-books" template="/layout/admin/layout.jsp">
+		<put-attribute name="body" value="/pages/admin/books/books.jsp" />
+	</definition>
+    <definition name="admin-book" template="/layout/admin/layout.jsp">
+        <put-attribute name="body" value="/pages/admin/books/book.jsp" />
+    </definition>
+    <definition name="admin-orders" template="/layout/admin/layout.jsp">
+        <put-attribute name="body" value="/pages/admin/orders/orders.jsp" />
+    </definition>
+    <definition name="admin-order" template="/layout/admin/layout.jsp">
+        <put-attribute name="body" value="/pages/admin/orders/order.jsp" />
+    </definition>
+    <definition name="admin-item" template="/layout/admin/layout.jsp">
+        <put-attribute name="body" value="/pages/admin/orders/item.jsp" />
+    </definition>
+</tiles-definitions>

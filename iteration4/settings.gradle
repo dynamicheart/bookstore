@@ -1,0 +1,5 @@
+rootProject.name = 'bookstore'
+
+include 'bookstore-store'
+include 'bookstore-core'
+
