@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
@@ -27,7 +28,7 @@ public class ImagesController {
 	
 	@RequestMapping("/static/books/{bookISBN}/{imageSize}/{imageName}.{extension}")
 	public @ResponseBody
-    byte[] printImage(@PathVariable final String bookISBN, @PathVariable final String imageSize, @PathVariable final String imageName, @PathVariable final String extension, HttpServletRequest request) throws IOException {
+    byte[] printImage(@PathVariable final String bookISBN, @PathVariable final String imageSize, @PathVariable final String imageName, @PathVariable final String extension, HttpServletRequest request, HttpServletResponse response) throws IOException {
         
 		// example small book image -> /static/books/TB12345/SMALL/book1.jpg
 
@@ -40,14 +41,14 @@ public class ImagesController {
         OutputContentFile image = null;
         try {
             image = bookImageService.getBookImage(bookISBN, new StringBuilder().append(imageName).append(".").append(extension).toString(), size);
+            response.setContentType(image.getMimeType());
         } catch (ServiceException e) {
             LOGGER.error("Cannot retrieve image " + imageName, e);
         }
         if(image!=null) {
             return image.getFile().toByteArray();
         } else {
-            image = bookImageService.getDefaultImage(size);
-            return image.getFile().toByteArray();
+            return new byte[]{};
         }
 	}
 }

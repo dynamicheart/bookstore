@@ -53,6 +53,7 @@ public class BookFileManagerImpl extends BookFileManager {
     public void addBookImage(BookImage bookImage, ImageContentFile contentImage) throws ServiceException {
         try {
 
+
             /** copy to input stream **/
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             // Fake code simulating the copy
@@ -72,7 +73,11 @@ public class BookFileManagerImpl extends BookFileManager {
 
             BufferedImage bufferedImage = ImageIO.read(is2);
             contentImage.setFile(is1);
-            
+
+            //set Mine Type
+            FileNameMap fileNameMap = URLConnection.getFileNameMap();
+            contentImage.setMimeType(fileNameMap.getContentTypeFor(contentImage.getFileName()));
+
             //upload original -- L
             contentImage.setFileContentType(FileContentType.BOOKLG);
             uploadImage.addBookImage(bookImage, contentImage);
@@ -84,7 +89,6 @@ public class BookFileManagerImpl extends BookFileManager {
             if(!StringUtils.isBlank(slargeImageHeight) && !StringUtils.isBlank(slargeImageWidth)) {
 
 
-                FileNameMap fileNameMap = URLConnection.getFileNameMap();
 
                 String contentType = fileNameMap.getContentTypeFor(contentImage.getFileName());
                 String extension = null;
@@ -128,6 +132,7 @@ public class BookFileManagerImpl extends BookFileManager {
                 ImageContentFile largeContentImage = new ImageContentFile();
                 largeContentImage.setFileContentType(FileContentType.BOOK);
                 largeContentImage.setFileName(bookImage.getBookImage());
+                largeContentImage.setMimeType(contentType);
                 largeContentImage.setFile(isLarge);
 
 
@@ -136,6 +141,7 @@ public class BookFileManagerImpl extends BookFileManager {
                 tempLarge.delete();
             } else {
                 contentImage.setFileContentType(FileContentType.BOOK);
+                contentImage.setMimeType(fileNameMap.getContentTypeFor(contentImage.getFileName()));
                 uploadImage.addBookImage(bookImage, contentImage);
             }
             
@@ -150,7 +156,7 @@ public class BookFileManagerImpl extends BookFileManager {
 
     @Override
     public OutputContentFile getBookImage(String bookIsbn, String imageName) throws ServiceException {
-        return null;
+        return getBookImage(bookIsbn, imageName);
     }
 
     @Override
@@ -160,12 +166,12 @@ public class BookFileManagerImpl extends BookFileManager {
 
     @Override
     public OutputContentFile getBookImage(BookImage bookImage) throws ServiceException {
-        return null;
+        return getImage.getBookImage(bookImage);
     }
 
     @Override
     public List<OutputContentFile> getImages(Book book) throws ServiceException {
-        return null;
+        return getImage.getImages(book);
     }
 
 

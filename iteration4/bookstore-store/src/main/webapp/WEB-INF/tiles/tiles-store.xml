@@ -5,8 +5,7 @@
 
 <tiles-definitions>
  	
- 	<definition bookImage="store-home" template="/pages/store/template/layout.jsp">
-		<put-attribute bookImage="" value=""/>
+ 	<definition name="store-home" template="/pages/store/template/layout.jsp">
 	</definition>
   	
 </tiles-definitions>

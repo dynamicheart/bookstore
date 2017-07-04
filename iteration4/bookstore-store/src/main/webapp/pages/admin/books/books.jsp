@@ -106,6 +106,7 @@
                             location.reload();
                         },
                         error:function(err){
+                          alert("服务器或网络错误，无法提交");
                         }
                     });
                 }

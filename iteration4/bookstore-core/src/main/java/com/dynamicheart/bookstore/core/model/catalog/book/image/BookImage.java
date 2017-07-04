@@ -29,9 +29,6 @@ public class BookImage extends BookstoreEntity<Long, BookImage>{
     @Column(name = "DEFAULT_IMAGE")
     private boolean defaultImage = true;
 
-    @Column(name = "IMAGE_SIZE")
-    private BookImageSize imageSize = BookImageSize.SMALL;
-
     @ManyToOne(targetEntity = Book.class)
     @JoinColumn(name = "BOOK_ID", nullable = false)
     private Book book;
@@ -62,14 +59,6 @@ public class BookImage extends BookstoreEntity<Long, BookImage>{
 
     public void setDefaultImage(boolean defaultImage) {
         this.defaultImage = defaultImage;
-    }
-
-    public BookImageSize getImageSize() {
-        return imageSize;
-    }
-
-    public void setImageSize(BookImageSize imageSize) {
-        this.imageSize = imageSize;
     }
 
     public Book getBook() {

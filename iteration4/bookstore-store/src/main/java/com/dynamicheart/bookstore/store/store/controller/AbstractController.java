@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.dynamicheart.bookstore.store.store;
+package com.dynamicheart.bookstore.store.store.controller;
 
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.store.constants.Constants;

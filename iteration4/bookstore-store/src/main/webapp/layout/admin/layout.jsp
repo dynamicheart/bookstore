@@ -29,9 +29,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title><s:message code="label.storeadministration" text="Store administration"/></title>
-    <meta bookImage="viewport" content="width=device-width, initial-scale=1.0">
-    <meta bookImage="description" content="">
-    <meta bookImage="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
     <link rel="icon" href="<c:url value="/static/favicon.ico"/>">
 
@@ -84,7 +84,7 @@
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-            <tiles:insertAttribute bookImage="body"/>
+            <tiles:insertAttribute name="body"/>
 
             <footer class="footer">
                 <div class="container">

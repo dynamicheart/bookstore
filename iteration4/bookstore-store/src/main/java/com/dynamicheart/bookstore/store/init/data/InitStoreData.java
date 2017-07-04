@@ -7,6 +7,8 @@ import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescri
 import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.PublisherDescription;
+import com.dynamicheart.bookstore.core.model.content.FileContentType;
+import com.dynamicheart.bookstore.core.model.content.ImageContentFile;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.customer.CustomerGender;
 import com.dynamicheart.bookstore.core.model.order.Order;
@@ -409,14 +411,16 @@ public class InitStoreData implements InitData{
 
         final byte[] is = IOUtils.toByteArray( fis );
         final ByteArrayInputStream inputStream = new ByteArrayInputStream( is );
-
-
+        final ImageContentFile cmsContentImage = new ImageContentFile();
+        cmsContentImage.setFileName( name );
+        cmsContentImage.setFile( inputStream );
+        cmsContentImage.setFileContentType(FileContentType.BOOK);
 
         BookImage bookImage = new BookImage();
         bookImage.setBookImage(name);
-        bookImage.setBookIsbn(book.getIsbn());
-        bookImage.setImageContent(is);
+        bookImage.setBook(book);
 
-        bookImageService.create(bookImage);
+
+        bookImageService.addBookImage(book, bookImage, cmsContentImage);
     }
 }

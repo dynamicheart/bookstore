@@ -16,7 +16,7 @@
             memoryStoreEvictionPolicy="LRU" />
             
             
-     <cache bookImage="com.dynamicheart.bookstore.OBJECT_CACHE"
+     <cache name="com.dynamicheart.bookstore.OBJECT_CACHE"
            maxElementsInMemory="10000"
            eternal="false"
            overflowToDisk="false"
