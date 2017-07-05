@@ -129,14 +129,13 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
         qs.append("where categs.id in (:cid)");
 
         qs.append("and pd.language.id=:lang and papd.language.id=:lang ");
-        qs.append("and p.available=true and p.dateAvailable<=:dt ");
+        qs.append("and p.available=true");
 
         String hql = qs.toString();
         Query q = this.em.createQuery(hql);
 
         q.setParameter("cid", categoryIds);
         q.setParameter("lang", language.getId());
-        q.setParameter("dt", new Date());
 
 
 

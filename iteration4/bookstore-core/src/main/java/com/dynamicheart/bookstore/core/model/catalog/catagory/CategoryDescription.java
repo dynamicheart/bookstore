@@ -27,26 +27,6 @@ public class CategoryDescription extends Description {
 	@Column(name="SEF_URL", length=120)
 	private String seUrl;
 	
-	@Column(name = "CATEGORY_HIGHLIGHT")
-	private String categoryHighlight;
-
-	public String getCategoryHighlight() {
-		return categoryHighlight;
-	}
-
-	public void setCategoryHighlight(String categoryHighlight) {
-		this.categoryHighlight = categoryHighlight;
-	}
-
-	@Column(name="META_TITLE", length=120)
-	private String metatagTitle;
-	
-	@Column(name="META_KEYWORDS")
-	private String metatagKeywords;
-	
-	@Column(name="META_DESCRIPTION")
-	private String metatagDescription;
-	
 	public CategoryDescription() {
 	}
 	
@@ -62,30 +42,6 @@ public class CategoryDescription extends Description {
 
 	public void setSeUrl(String seUrl) {
 		this.seUrl = seUrl;
-	}
-
-	public String getMetatagTitle() {
-		return metatagTitle;
-	}
-
-	public void setMetatagTitle(String metatagTitle) {
-		this.metatagTitle = metatagTitle;
-	}
-
-	public String getMetatagKeywords() {
-		return metatagKeywords;
-	}
-
-	public void setMetatagKeywords(String metatagKeywords) {
-		this.metatagKeywords = metatagKeywords;
-	}
-
-	public String getMetatagDescription() {
-		return metatagDescription;
-	}
-
-	public void setMetatagDescription(String metatagDescription) {
-		this.metatagDescription = metatagDescription;
 	}
 
 	public Category getCategory() {

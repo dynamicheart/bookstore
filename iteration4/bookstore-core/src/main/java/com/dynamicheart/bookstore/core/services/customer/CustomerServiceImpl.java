@@ -3,7 +3,7 @@ package com.dynamicheart.bookstore.core.services.customer;
 import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.repositories.customer.CustomerRepository;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
  */
 
 @Service("customerService")
-public class CustomerServiceImpl extends BookstoreEntityServiceJpaImpl<Long, Customer> implements CustomerService {
+public class CustomerServiceImpl extends BookstoreEntityServiceImpl<Long, Customer> implements CustomerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImpl.class);
 

@@ -1,6 +1,5 @@
 package com.dynamicheart.bookstore.core.services.order;
 
-import com.dynamicheart.bookstore.core.constants.Constants;
 import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.order.*;
@@ -8,7 +7,7 @@ import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.model.shoppingcart.ShoppingCart;
 import com.dynamicheart.bookstore.core.model.shoppingcart.ShoppingCartItem;
 import com.dynamicheart.bookstore.core.repositories.order.OrderRepository;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +23,7 @@ import java.util.*;
  */
 
 @Service("orderService")
-public class OrderServiceImpl extends BookstoreEntityServiceJpaImpl<Long, Order> implements OrderService {
+public class OrderServiceImpl extends BookstoreEntityServiceImpl<Long, Order> implements OrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 

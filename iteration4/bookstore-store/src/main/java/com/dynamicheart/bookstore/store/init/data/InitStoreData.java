@@ -5,9 +5,11 @@ import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
+import com.dynamicheart.bookstore.core.model.catalog.catagory.Category;
+import com.dynamicheart.bookstore.core.model.catalog.catagory.CategoryDescription;
+import com.dynamicheart.bookstore.core.model.content.InputContentFile;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.PublisherDescription;
-import com.dynamicheart.bookstore.core.model.common.Delivery;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.customer.CustomerGender;
 import com.dynamicheart.bookstore.core.model.order.Order;
@@ -16,15 +18,17 @@ import com.dynamicheart.bookstore.core.model.order.orderstatus.OrderStatus;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.model.user.Group;
 import com.dynamicheart.bookstore.core.model.user.GroupType;
+import com.dynamicheart.bookstore.core.modules.cms.FileManager;
 import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
 import com.dynamicheart.bookstore.core.services.catalog.book.image.BookImageService;
 import com.dynamicheart.bookstore.core.services.catalog.book.publisher.PublisherService;
+import com.dynamicheart.bookstore.core.services.catalog.category.CategoryService;
 import com.dynamicheart.bookstore.core.services.customer.CustomerService;
 import com.dynamicheart.bookstore.core.services.order.OrderService;
 import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
 import com.dynamicheart.bookstore.core.services.user.GroupService;
 import com.dynamicheart.bookstore.store.constants.Constants;
-import org.apache.commons.io.IOUtils;
+import com.mongodb.BasicDBObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -34,6 +38,9 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.net.FileNameMap;
+import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +66,9 @@ public class InitStoreData implements InitData{
     private BookService bookService;
 
     @Inject
+    protected CategoryService categoryService;
+
+    @Inject
     private BookImageService bookImageService;
 
     @Inject
@@ -70,11 +80,153 @@ public class InitStoreData implements InitData{
     @Inject
     private LanguageService languageService;
 
+    @Inject
+    private FileManager fileManager;
+
 
     @Override
     public void initInitialData() throws ServiceException {
         LOGGER.info("Starting the initialization of test data");
         Language en = languageService.getByCode("en");
+
+        Category book = new Category();
+        book.setCode("computerbooks");
+        book.setVisible(true);
+
+        CategoryDescription bookEnglishDescription = new CategoryDescription();
+        bookEnglishDescription.setName("Computer Books");
+        bookEnglishDescription.setCategory(book);
+        bookEnglishDescription.setLanguage(en);
+        bookEnglishDescription.setSeUrl("computer-books");
+
+
+        List<CategoryDescription> descriptions = new ArrayList<CategoryDescription>();
+        descriptions.add(bookEnglishDescription);
+
+        book.setDescriptions(descriptions);
+
+        categoryService.create(book);
+
+        Category novs = new Category();
+        novs.setCode("novels");
+        novs.setVisible(false);
+
+        CategoryDescription novsEnglishDescription = new CategoryDescription();
+        novsEnglishDescription.setName("Novels");
+        novsEnglishDescription.setCategory(novs);
+        novsEnglishDescription.setLanguage(en);
+        novsEnglishDescription.setSeUrl("novels");
+
+
+        List<CategoryDescription> descriptions2 = new ArrayList<CategoryDescription>();
+        descriptions2.add(novsEnglishDescription);
+
+        novs.setDescriptions(descriptions2);
+
+        categoryService.create(novs);
+
+        Category tech = new Category();
+        tech.setCode("tech");
+
+        CategoryDescription techEnglishDescription = new CategoryDescription();
+        techEnglishDescription.setName("Technology");
+        techEnglishDescription.setCategory(tech);
+        techEnglishDescription.setLanguage(en);
+        techEnglishDescription.setSeUrl("technology");
+
+        List<CategoryDescription> descriptions4 = new ArrayList<CategoryDescription>();
+        descriptions4.add(techEnglishDescription);
+
+        tech.setDescriptions(descriptions4);
+
+        tech.setParent(book);
+
+        categoryService.create(tech);
+        categoryService.addChild(book, tech);
+
+        Category web = new Category();
+        web.setCode("web");
+        web.setVisible(true);
+
+        CategoryDescription webEnglishDescription = new CategoryDescription();
+        webEnglishDescription.setName("Web");
+        webEnglishDescription.setCategory(web);
+        webEnglishDescription.setLanguage(en);
+        webEnglishDescription.setSeUrl("the-web");
+
+
+        List<CategoryDescription> descriptions3 = new ArrayList<CategoryDescription>();
+        descriptions3.add(webEnglishDescription);
+
+        web.setDescriptions(descriptions3);
+
+        web.setParent(book);
+
+        categoryService.create(web);
+        categoryService.addChild(book, web);
+
+
+
+        Category fiction = new Category();
+        fiction.setCode("fiction");
+        fiction.setVisible(true);
+
+        CategoryDescription fictionEnglishDescription = new CategoryDescription();
+        fictionEnglishDescription.setName("Fiction");
+        fictionEnglishDescription.setCategory(fiction);
+        fictionEnglishDescription.setLanguage(en);
+        fictionEnglishDescription.setSeUrl("fiction");
+
+        List<CategoryDescription> fictiondescriptions = new ArrayList<CategoryDescription>();
+        fictiondescriptions.add(fictionEnglishDescription);
+
+        fiction.setDescriptions(fictiondescriptions);
+
+        fiction.setParent(novs);
+
+        categoryService.create(fiction);
+        categoryService.addChild(novs, fiction);
+
+
+        Category business = new Category();
+        business.setCode("business");
+        business.setVisible(true);
+
+        CategoryDescription businessEnglishDescription = new CategoryDescription();
+        businessEnglishDescription.setName("Business");
+        businessEnglishDescription.setCategory(business);
+        businessEnglishDescription.setLanguage(en);
+        businessEnglishDescription.setSeUrl("business");
+
+        List<CategoryDescription> businessdescriptions = new ArrayList<CategoryDescription>();
+        businessdescriptions.add(businessEnglishDescription);
+
+        business.setDescriptions(businessdescriptions);
+
+
+        categoryService.create(business);
+
+
+
+        Category cloud = new Category();
+        cloud.setCode("cloud");
+        cloud.setVisible(true);
+
+        CategoryDescription cloudEnglishDescription = new CategoryDescription();
+        cloudEnglishDescription.setName("Cloud computing");
+        cloudEnglishDescription.setCategory(cloud);
+        cloudEnglishDescription.setLanguage(en);
+        cloudEnglishDescription.setSeUrl("cloud-computing");
+
+        List<CategoryDescription> clouddescriptions = new ArrayList<CategoryDescription>();
+        clouddescriptions.add(cloudEnglishDescription);
+
+        cloud.setDescriptions(clouddescriptions);
+
+        cloud.setParent(tech);
+
+        categoryService.create(cloud);
+        categoryService.addChild(tech, cloud);
 
         Publisher oreilley = new Publisher();
         oreilley.setCode("oreilley");
@@ -134,35 +286,38 @@ public class InitStoreData implements InitData{
 
         // BOOK 1
 
-        Book book = new Book();
-        book.setIsbn("711541730X");
-        book.setPublisher(manning);
+        Book book1 = new Book();
+        book1.setIsbn("711541730X");
+        book1.setPublisher(manning);
 
         // Availability
         BookAvailability availability = new BookAvailability();
         availability.setBookQuantity(100);
-        availability.setBook(book);// associate with book
+        availability.setBook(book1);// associate with book
 
         
         BigDecimal dprice = new BigDecimal(39.99);
 
         availability.setBookPrice(dprice);
-        book.getAvailabilities().add(availability);
+        book1.getAvailabilities().add(availability);
 
         // BookContainer description
         BookDescription description = new BookDescription();
         description.setName("Spring in Action");
         description.setLanguage(en);
         description.setSeUrl("Spring-in-Action");
-        description.setBook(book);
+        description.setBook(book1);
 
-        book.getDescriptions().add(description);
+        book1.getDescriptions().add(description);
 
-        bookService.create(book);
+        book1.getCategories().add(tech);
+        book1.getCategories().add(web);
+
+        bookService.create(book1);
         try {
             ClassPathResource classPathResource = new ClassPathResource("/demo/spring.png");
             InputStream inStream = classPathResource.getInputStream();
-            this.saveFile(inStream, "spring.png", book);
+            this.saveFile(inStream, "spring.png", book1);
         } catch(Exception e) {
             LOGGER.error("Error while reading demo file spring.png",e);
         }
@@ -183,6 +338,8 @@ public class InitStoreData implements InitData{
 
         book2.getDescriptions().add(description);
 
+        book2.getCategories().add(tech);
+        book2.getCategories().add(web);
 
         // Availability
         BookAvailability availability2 = new BookAvailability();
@@ -218,6 +375,8 @@ public class InitStoreData implements InitData{
         description.setSeUrl("programming-for-paas");
 
         book3.getDescriptions().add(description);
+
+        book3.getCategories().add(cloud);
 
         // Availability
         BookAvailability availability3 = new BookAvailability();
@@ -255,6 +414,8 @@ public class InitStoreData implements InitData{
 
         book4.getDescriptions().add(description);
 
+        book4.getCategories().add(tech);
+
 
         // Availability
         BookAvailability availability4 = new BookAvailability();
@@ -291,7 +452,7 @@ public class InitStoreData implements InitData{
 
         book5.getDescriptions().add(description);
 
-
+        book5.getCategories().add(tech);
 
         // Availability
         BookAvailability availability5 = new BookAvailability();
@@ -330,6 +491,9 @@ public class InitStoreData implements InitData{
         description.setSeUrl("the-big-switch");
 
         book6.getDescriptions().add(description);
+
+        book6.getCategories().add(business);
+
         try {
 
             ClassPathResource classPathResource = new ClassPathResource("/demo/google.jpg");
@@ -370,15 +534,7 @@ public class InitStoreData implements InitData{
             }
         }
 
-        Delivery delivery = new Delivery();
-        delivery.setAddress("358 Du Languadoc");
-        delivery.setCity( "Boucherville" );
-        delivery.setFirstName("Leonardo" );
-        delivery.setLastName("DiCaprio" );
-        delivery.setPostalCode("J4B-8J9" );
-        
 
-        customer.setDelivery(delivery);
         customerService.create(customer);
 
 
@@ -416,15 +572,21 @@ public class InitStoreData implements InitData{
             return;
         }
 
-        final byte[] is = IOUtils.toByteArray( fis );
+        final FileNameMap fileNameMap = URLConnection.getFileNameMap();
 
+        InputContentFile file = new InputContentFile();
+        file.setFile(fis);
+        file.setFileName(name);
+        file.setMimeType(fileNameMap.getContentTypeFor(name));
+        try{
+            String resourceId = fileManager.addFile(file);
 
-        BookImage bookImage = new BookImage();
-        bookImage.setBookImage(name);
-        bookImage.setBookId(book.getId());
-        bookImage.setImageContent(is);
-
-
-        bookImageService.create(bookImage);
+            BookImage image = new BookImage();
+            image.setBook(book);
+            image.setDefaultImage(true);
+            image.setResourceId(resourceId);
+            bookImageService.save(image);
+        }catch (Exception ignore){
+        }
     }
 }

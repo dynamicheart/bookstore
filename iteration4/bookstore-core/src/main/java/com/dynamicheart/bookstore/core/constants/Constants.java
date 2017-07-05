@@ -22,11 +22,6 @@ public class Constants {
 	public final static String OT_ITEM_PRICE_MODULE_CODE = "itemprice";
 	public final static String OT_SUBTOTAL_MODULE_CODE = "subtotal";
 	public final static String OT_TOTAL_MODULE_CODE = "total";
-	public final static String OT_SHIPPING_MODULE_CODE = "shipping";
-	public final static String OT_HANDLING_MODULE_CODE = "handling";
-	public final static String OT_TAX_MODULE_CODE = "tax";
-	public final static String OT_REFUND_MODULE_CODE = "refund";
-	public final static String OT_DISCOUNT_TITLE = "order.total.discount";
 	
 	public final static Locale DEFAULT_LOCALE = Locale.US;
 	public final static Currency DEFAULT_CURRENCY = Currency.getInstance(Locale.US);

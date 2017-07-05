@@ -2,9 +2,8 @@ package com.dynamicheart.bookstore.core.services.catalog.book.image;
 
 import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
 import com.dynamicheart.bookstore.core.repositories.catalog.book.image.BookImageRepository;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceMongoImpl;
-import org.bson.types.ObjectId;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -14,8 +13,7 @@ import javax.inject.Inject;
  */
 
 @Service("bookImage")
-public class BookImageServiceImpl extends BookstoreEntityServiceMongoImpl<ObjectId, BookImage> implements BookImageService{
-
+public class BookImageServiceImpl extends BookstoreEntityServiceImpl<Long, BookImage> implements BookImageService{
     private BookImageRepository bookImageRepository;
 
     @Inject

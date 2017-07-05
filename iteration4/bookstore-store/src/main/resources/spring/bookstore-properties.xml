@@ -14,15 +14,8 @@
    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 
-    <!--
-        image template bootstrap 350 x 376
-        image template bootstrap3 350 x 376
-        image template exotica 400 x 400
-     -->
-
 
     <util:properties id="bookstore-properties">
-        <prop key="MULTIPLE_PRICE_AVAILABILITY">false</prop>
         <prop key="INDEX_PRODUCTS">true</prop>
         <!-- Images -->
         <prop key="PRODUCT_IMAGE_WIDTH_SIZE">400</prop>
@@ -37,33 +30,12 @@
 
         <prop key="POPULATE_TEST_DATA">true</prop>
         <prop key="SHOP_SCHEME">http</prop>
-        <!-- when removing the context path from the url put that value to blank (nothing) otherwise put the uri for the web app eg /sm-shop -->
+        <!-- when removing the context path from the url put that value to blank (nothing) otherwise put the uri for the web app eg /bs-shop -->
         <prop key="CONTEXT_PATH"></prop>
         <prop key="URL_EXTENSION">.html</prop>
-        <!-- #https://www.google.com/recaptcha/admin/create -->
-        <!-- to be used with localhost
-        <prop key="shopizer.recapatcha_public_key">6LefQwsTAAAAAJWgJfNq_LgUwYunqct2x-EBr_CY</prop>
-        <prop key="shopizer.recapatcha_private_key">6LefQwsTAAAAAM667PyQxTLkSfQ4P0YYeN5DQDTc</prop>
-        <prop key="shopizer.recapatcha_url"><![CDATA[https://www.google.com/recaptcha/api/siteverify]]></prop>
-        -->
-        <prop key="PAYPAL_EXPRESSCHECKOUT_SANDBOX">
-            <![CDATA[https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=]]></prop>
-        <prop key="PAYPAL_EXPRESSCHECKOUT_PRODUCTION">
-            <![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=]]></prop>
-        <prop key="PAYPAL_EXPRESSCHECKOUT_REGULAR"><![CDATA[_express-checkout&token=]]></prop>
-        <prop key="PAYPAL_EXPRESSCHECKOUT_MOBILE"><![CDATA[_express-checkout-mobile&token=]]></prop>
-
 
     </util:properties>
 
-
-    <!-- templates -->
-    <!-- Add new templates in the list, should point to pages/shop/templates and resources/templates -->
-    <util:list id="templates" value-type="java.lang.String">
-        <value>bootstrap</value>
-        <value>bootstrap3</value>
-        <value>exoticamobilia</value>
-    </util:list>
 
     <bean id="initData" class="com.dynamicheart.bookstore.store.init.data.InitStoreData"/>
 

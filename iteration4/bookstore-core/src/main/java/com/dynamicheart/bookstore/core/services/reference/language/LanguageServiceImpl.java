@@ -4,7 +4,7 @@ import com.dynamicheart.bookstore.core.constants.Constants;
 import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.repositories.reference.language.LanguageRepository;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import com.dynamicheart.bookstore.core.utils.CacheUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @Service("languageService")
-public class LanguageServiceImpl extends BookstoreEntityServiceJpaImpl<Integer, Language>
+public class LanguageServiceImpl extends BookstoreEntityServiceImpl<Integer, Language>
 	implements LanguageService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(LanguageServiceImpl.class);

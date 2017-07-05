@@ -8,13 +8,7 @@ public class ServiceException extends Exception {
 
 	private static final long serialVersionUID = 5165264042881396352L;
 	private int exceptionType = 0;//regular error
-	
 
-
-
-	public final static int EXCEPTION_VALIDATION = 99;
-	public final static int EXCEPTION_PAYMENT_DECLINED = 100;
-	public final static int EXCEPTION_TRANSACTION_DECLINED = 101;
 	
 	private String messageCode = null;
 

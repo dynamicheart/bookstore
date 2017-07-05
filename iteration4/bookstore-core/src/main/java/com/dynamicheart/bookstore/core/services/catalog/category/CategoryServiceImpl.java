@@ -8,7 +8,7 @@ import com.dynamicheart.bookstore.core.model.catalog.catagory.CategoryDescriptio
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.repositories.catalog.category.CategoryRepository;
 import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service("categoryService")
-public class CategoryServiceImpl extends BookstoreEntityServiceJpaImpl<Long, Category> implements CategoryService {
+public class CategoryServiceImpl extends BookstoreEntityServiceImpl<Long, Category> implements CategoryService {
 	
 	 private CategoryRepository categoryRepository;
 	

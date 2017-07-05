@@ -1,74 +1,45 @@
 package com.dynamicheart.bookstore.core.model.catalog.book.image;
 
+import com.dynamicheart.bookstore.core.constants.SchemaConstant;
+import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Transient;
-import java.io.InputStream;
+import javax.persistence.*;
 
 /**
- * Created by dynamicheart on 6/2/2017.
+ * Created by dynamicheart on 7/5/2017.
  */
 
-@Document(collection = "BOOK_IMAGE")
-public class BookImage extends BookstoreEntity<ObjectId, BookImage>{
+@Entity
+@Table(name = "BOOK_IMAGE", schema= SchemaConstant.BOOKSTORE_SCHEMA)
+public class BookImage extends BookstoreEntity<Long, BookImage> {
 
     private static final long serialVersionUID = 2776268357880333124L;
 
     @Id
-    private ObjectId id;
+    @Column(name = "BOOK_IMAGE_ID")
+    @TableGenerator(name = "TABLE_GEN", table = "BS_SEQUENCER", pkColumnName = "SEQ_NAME", valueColumnName = "SEQ_COUNT", pkColumnValue = "BOOK_IMG_SEQ_NEXT_VAL")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
+    private Long id;
 
-    @Field("BOOK_IMAGE")
-    private String bookImage;
-
-    @Field("DEFAULT_IMAGE")
+    @Column(name = "DEFAULT_IMAGE")
     private boolean defaultImage = true;
 
-    /**
-     * default to 0 for images managed by the system
-     */
-    @Field("IMAGE_TYPE")
-    private int imageType;
+    @ManyToOne(targetEntity = Book.class)
+    @JoinColumn(name = "BOOK_ID", nullable = false)
+    private Book book;
 
-    /**
-     * Refers to images not accessible through the system. It may also be a video.
-     */
-    @Field("BOOK_IMAGE_URL")
-    private String bookImageUrl;
-
-    @Field("IMAGE_CONTENT")
-    private byte[] imageContent;
-
-    @Field("IMAGE_CROP")
-    private boolean imageCrop;
-
-    @Field("BOOK_ID")
-    @Indexed(unique = true)
-    private Long bookId;
-
-    @Transient
-    private InputStream image = null;
+    @Column(name = "RESOURCE_ID")
+    private String resourceId;
 
     @Override
-    public ObjectId getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(ObjectId id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getBookImage() {
-        return bookImage;
-    }
-
-    public void setBookImage(String bookImage) {
-        this.bookImage = bookImage;
     }
 
     public boolean isDefaultImage() {
@@ -79,51 +50,19 @@ public class BookImage extends BookstoreEntity<ObjectId, BookImage>{
         this.defaultImage = defaultImage;
     }
 
-    public int getImageType() {
-        return imageType;
+    public Book getBook() {
+        return book;
     }
 
-    public void setImageType(int imageType) {
-        this.imageType = imageType;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
-    public String getBookImageUrl() {
-        return bookImageUrl;
+    public String getResourceId() {
+        return resourceId;
     }
 
-    public void setBookImageUrl(String bookImageUrl) {
-        this.bookImageUrl = bookImageUrl;
-    }
-
-    public byte[] getImageContent() {
-        return imageContent;
-    }
-
-    public void setImageContent(byte[] imageContent) {
-        this.imageContent = imageContent;
-    }
-
-    public boolean isImageCrop() {
-        return imageCrop;
-    }
-
-    public void setImageCrop(boolean imageCrop) {
-        this.imageCrop = imageCrop;
-    }
-
-    public Long getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
-    }
-
-    public InputStream getImage() {
-        return image;
-    }
-
-    public void setImage(InputStream image) {
-        this.image = image;
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
     }
 }

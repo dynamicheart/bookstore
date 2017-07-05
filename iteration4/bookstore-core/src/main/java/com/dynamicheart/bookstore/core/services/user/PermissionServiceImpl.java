@@ -6,7 +6,7 @@ import com.dynamicheart.bookstore.core.model.user.Permission;
 import com.dynamicheart.bookstore.core.model.user.PermissionCriteria;
 import com.dynamicheart.bookstore.core.model.user.PermissionList;
 import com.dynamicheart.bookstore.core.repositories.user.PermissionRepository;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,7 +17,7 @@ import java.util.Set;
 
 @Service("permissionService")
 public class PermissionServiceImpl extends
-		BookstoreEntityServiceJpaImpl<Integer, Permission> implements
+        BookstoreEntityServiceImpl<Integer, Permission> implements
 		PermissionService {
 
 	private PermissionRepository permissionRepository;

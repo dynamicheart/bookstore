@@ -10,7 +10,7 @@ import com.dynamicheart.bookstore.core.repositories.shoppingcart.ShoppingCartIte
 import com.dynamicheart.bookstore.core.repositories.shoppingcart.ShoppingCartRepository;
 import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
 import com.dynamicheart.bookstore.core.services.catalog.book.PricingService;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service("shoppingCartService")
-public class ShoppingCartServiceImpl extends BookstoreEntityServiceJpaImpl<Long, ShoppingCart>
+public class ShoppingCartServiceImpl extends BookstoreEntityServiceImpl<Long, ShoppingCart>
 		implements ShoppingCartService {
 
 	private ShoppingCartRepository shoppingCartRepository;

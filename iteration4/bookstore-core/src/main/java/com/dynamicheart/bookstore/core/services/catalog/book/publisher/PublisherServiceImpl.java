@@ -4,7 +4,7 @@ import com.dynamicheart.bookstore.core.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.PublisherDescription;
 import com.dynamicheart.bookstore.core.repositories.catalog.book.publisher.PublisherRepository;
-import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceJpaImpl;
+import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.HashSet;
 
 @Service("publisherService")
 public class PublisherServiceImpl extends
-		BookstoreEntityServiceJpaImpl<Long, Publisher> implements PublisherService {
+        BookstoreEntityServiceImpl<Long, Publisher> implements PublisherService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PublisherServiceImpl.class);
 
