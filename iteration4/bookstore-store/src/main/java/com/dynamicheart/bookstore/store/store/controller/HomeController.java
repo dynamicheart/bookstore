@@ -1,7 +1,6 @@
-package com.dynamicheart.bookstore.store.store;
+package com.dynamicheart.bookstore.store.store.controller;
 
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
-import com.dynamicheart.bookstore.core.services.catalog.book.PricingService;
 import com.dynamicheart.bookstore.store.constants.Constants;
 import com.dynamicheart.bookstore.store.model.store.Breadcrumb;
 import com.dynamicheart.bookstore.store.model.store.BreadcrumbItem;
@@ -35,6 +34,24 @@ public class HomeController {
 	public String displayLanding(Model model, HttpServletRequest request, HttpServletResponse response, Locale locale) throws Exception {
 		
 		Language language = (Language)request.getAttribute(Constants.LANGUAGE);
+
+		/** Rebuild breadcrumb **/
+		BreadcrumbItem item = new BreadcrumbItem();
+		item.setItemType(BreadcrumbItemType.HOME);
+		item.setLabel(messages.getMessage(Constants.HOME_MENU_KEY, locale));
+		item.setUrl(Constants.HOME_URL);
+
+		Breadcrumb breadCrumb = new Breadcrumb();
+		breadCrumb.setLanguage(language);
+
+		List<BreadcrumbItem> items = new ArrayList<BreadcrumbItem>();
+		items.add(item);
+
+		breadCrumb.setBreadCrumbs(items);
+		request.getSession().setAttribute(Constants.BREADCRUMB, breadCrumb);
+		request.setAttribute(Constants.BREADCRUMB, breadCrumb);
+		/** **/
+
 
 		return "store-home";
 	}

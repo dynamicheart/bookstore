@@ -1,4 +1,4 @@
-package com.dynamicheart.bookstore.store.admin.controller.orders.rest;
+package com.dynamicheart.bookstore.store.admin.service.orders;
 
 import org.springframework.web.bind.annotation.RestController;
 

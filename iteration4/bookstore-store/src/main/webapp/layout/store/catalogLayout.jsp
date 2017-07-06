@@ -87,11 +87,17 @@
                     <a href="#" class="list-group-item active">Science</a>
                     <a href="#" class="list-group-item">Computer</a>
                 </div>
-            </div><!--/.sidebar-offcanvas-->
-        </div><!--/row-->
+            </div>
+        </div>
     </div>
 
+    <tiles:insertAttribute name="sideBar" ignore="true"/>
+    <tiles:insertAttribute name="body" ignore="true"/>
+
+
+
     <hr>
+
     <footer class="footer">
         <div class="container">
             <p class="text-muted">&copy; dynamicheart 2017-<%=Calendar.getInstance().get(Calendar.YEAR)%>

@@ -4,9 +4,8 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
- 	
- 	<definition name="store-home" template="/pages/store/template/layout.jsp">
-		<put-attribute name="" value=""/>
+ 	<definition name="store-home" template="/layout/store/catalogLayout.jsp">
+		<put-attribute name="body" value="pages/store/template/pages/home.jsp" />
 	</definition>
   	
 </tiles-definitions>

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class BreadcrumbItem implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6238942575588278616L;
 
 	private Long id;
 
@@ -17,26 +17,32 @@ public class BreadcrumbItem implements Serializable {
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getLabel() {
 		return label;
 	}
+
 	public void setLabel(String label) {
 		this.label = label;
 	}
+
 	public String getUrl() {
 		return url;
 	}
+
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 	public BreadcrumbItemType getItemType() {
 		return itemType;
 	}
+
 	public void setItemType(BreadcrumbItemType itemType) {
 		this.itemType = itemType;
 	}
-
 }

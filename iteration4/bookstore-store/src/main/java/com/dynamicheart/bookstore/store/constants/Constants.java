@@ -20,6 +20,9 @@ public class Constants {
     public final static String HOME_URL = "/store";
     public final static String ADMIN_URI = "/admin";
     public final static String STORE_URI = "/store";
+    public final static String REF = "ref";
+    public final static String REF_C = "c:";
+    public final static String REF_SPLITTER = ":";
 
     public final static String GROUP_ADMIN = "ADMIN";
     public final static String PERMISSION_AUTHENTICATED = "AUTH";

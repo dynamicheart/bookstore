@@ -1,7 +1,7 @@
-package com.dynamicheart.bookstore.store.admin.controller.books.rest;
+package com.dynamicheart.bookstore.store.admin.service.orders;
 
-import com.dynamicheart.bookstore.core.model.catalog.book.Book;
-import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
+import com.dynamicheart.bookstore.core.model.order.Order;
+import com.dynamicheart.bookstore.core.services.order.OrderService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,31 +11,30 @@ import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.dynamicheart.bookstore.store.utils.BriefUtils.getBookBriefs;
+import static com.dynamicheart.bookstore.store.utils.BriefUtils.getOrderBriefs;
 
 /**
  * Created by dynamicheart on 5/29/2017.
  */
 
 @RestController
-public class BookRESTController {
-    
+public class OrdersRESTController {
     @Inject
-    private BookService bookService;
+    private OrderService orderService;
 
     @RequestMapping(
-            value = "api/admin/books",
+            value = "api/admin/orders",
             params = {"draw", "start","length"},
             method = RequestMethod.GET
     )
     public @ResponseBody
-    Map<String, Object> pageBooks(
+    Map<String, Object> pageOrders(
             @RequestParam("draw") int draw,
             @RequestParam("start") int start,
             @RequestParam("length") int length){
         Map<String, Object> result = new HashMap<>();
-        Page<Book> pages = bookService.findPaginated(start/length, length);
-        result.put("data", getBookBriefs(pages.getContent()));
+        Page<Order> pages = orderService.findPaginated(start/length, length);
+        result.put("data", getOrderBriefs(pages.getContent()));
         result.put("draw",draw);
         result.put("recordsTotal",pages.getTotalElements());
         result.put("recordsFiltered",pages.getTotalElements());
@@ -43,19 +42,19 @@ public class BookRESTController {
     }
 
     @RequestMapping(
-            value="api/admin/book/{id}",
+            value="api/admin/order/{id}",
             method=RequestMethod.DELETE
     )
     public @ResponseBody
-    ResponseEntity<String> deleteBook(
+    ResponseEntity<String> deleteOrder(
             @PathVariable("id") Long id){
         try {
-            Book book = bookService.getById(id);
+            Order order = orderService.getById(id);
 
-            if(book == null) {
+            if(order == null) {
                 return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
             } else {
-                bookService.delete(book);
+                orderService.delete(order);
                 return new ResponseEntity<String>(HttpStatus.OK);
             }
         } catch (Exception e) {
