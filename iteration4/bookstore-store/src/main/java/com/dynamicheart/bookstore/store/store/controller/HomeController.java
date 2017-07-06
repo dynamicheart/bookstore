@@ -30,7 +30,7 @@ public class HomeController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 	private final static String HOME_LINK_CODE="HOME";
 	
-	@RequestMapping(value={Constants.STORE_URI + "/home",Constants.STORE_URI +"/", Constants.STORE_URI}, method= RequestMethod.GET)
+	@RequestMapping(value={Constants.STORE_URI + "/home",Constants.STORE_URI +"/", Constants.STORE_URI, "/", ""}, method= RequestMethod.GET)
 	public String displayLanding(Model model, HttpServletRequest request, HttpServletResponse response, Locale locale) throws Exception {
 		
 		Language language = (Language)request.getAttribute(Constants.LANGUAGE);

@@ -32,8 +32,8 @@
 	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<beans:property name="basenames">
 			<beans:list>
-				<beans:value>bundles/bookstore</beans:value>
-				<beans:value>bundles/messages</beans:value>
+				<beans:value>classpath:bundles/bookstore</beans:value>
+				<beans:value>classpath:bundles/messages</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="defaultEncoding" value="UTF-8"/>

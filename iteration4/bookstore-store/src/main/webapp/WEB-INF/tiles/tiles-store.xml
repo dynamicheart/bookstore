@@ -5,7 +5,7 @@
 
 <tiles-definitions>
  	<definition name="store-home" template="/layout/store/catalogLayout.jsp">
-		<put-attribute name="body" value="pages/store/template/pages/home.jsp" />
+		<put-attribute name="body" value="/pages/store/template/pages/home.jsp" />
 	</definition>
   	
 </tiles-definitions>

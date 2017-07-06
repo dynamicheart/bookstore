@@ -91,7 +91,6 @@
         </div>
     </div>
 
-    <tiles:insertAttribute name="sideBar" ignore="true"/>
     <tiles:insertAttribute name="body" ignore="true"/>
 
 
