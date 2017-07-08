@@ -5,8 +5,8 @@ import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
-import com.dynamicheart.bookstore.core.model.catalog.catagory.Category;
-import com.dynamicheart.bookstore.core.model.catalog.catagory.CategoryDescription;
+import com.dynamicheart.bookstore.core.model.catalog.category.Category;
+import com.dynamicheart.bookstore.core.model.catalog.category.CategoryDescription;
 import com.dynamicheart.bookstore.core.model.content.InputContentFile;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.PublisherDescription;
@@ -28,7 +28,6 @@ import com.dynamicheart.bookstore.core.services.order.OrderService;
 import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
 import com.dynamicheart.bookstore.core.services.user.GroupService;
 import com.dynamicheart.bookstore.store.constants.Constants;
-import com.mongodb.BasicDBObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -494,15 +493,6 @@ public class InitStoreData implements InitData{
 
         book6.getCategories().add(business);
 
-        try {
-
-            ClassPathResource classPathResource = new ClassPathResource("/demo/google.jpg");
-            InputStream inStream = classPathResource.getInputStream();
-            this.saveFile(inStream, "google.jpg", book6);
-        } catch(Exception e) {
-            LOGGER.error("Error while reading demo file google.jpg",e);
-        }
-
         // Availability
         BookAvailability availability6 = new BookAvailability();
         availability6.setBookQuantity(100);
@@ -516,6 +506,15 @@ public class InitStoreData implements InitData{
         book6.getAvailabilities().add(availability6);
 
         bookService.create(book6);
+
+        try {
+
+            ClassPathResource classPathResource = new ClassPathResource("/demo/google.jpg");
+            InputStream inStream = classPathResource.getInputStream();
+            this.saveFile(inStream, "google.jpg", book6);
+        } catch(Exception e) {
+            LOGGER.error("Error while reading demo file google.jpg",e);
+        }
 
 
         Customer customer = new Customer();

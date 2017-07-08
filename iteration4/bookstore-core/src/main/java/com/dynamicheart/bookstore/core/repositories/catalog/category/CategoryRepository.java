@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.core.repositories.catalog.category;
 
-import com.dynamicheart.bookstore.core.model.catalog.catagory.Category;
+import com.dynamicheart.bookstore.core.model.catalog.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

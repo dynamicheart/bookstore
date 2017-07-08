@@ -12,7 +12,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ page import="java.util.Calendar" %>
-<%@page contentType="text/html; charset=UTF-8" %>
+<%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -41,7 +41,7 @@
 <body>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
@@ -76,24 +76,7 @@
 
 <div class="container">
 
-    <div class="row row-offcanvas row-offcanvas-left">
-
-        <div class="col-xs-12 col-sm-9">
-            <p class="pull-left visible-xs">
-                <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-            </p>
-            <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">Science</a>
-                    <a href="#" class="list-group-item">Computer</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <tiles:insertAttribute name="body" ignore="true"/>
-
-
+    <tiles:insertAttribute name="body"/>
 
     <hr>
 

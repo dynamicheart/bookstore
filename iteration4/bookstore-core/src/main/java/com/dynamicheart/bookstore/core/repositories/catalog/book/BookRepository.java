@@ -16,6 +16,6 @@ public interface BookRepository extends JpaRepository<Book, Long>, BookRepositor
     @Query(value = "select distinct b from Book as b join fetch b.descriptions bd ", countQuery = "select count(distinct b) from Book b")
     Page<Book> findAll(Pageable pageable);
 
-    @Query("select distinct b from Book as b join fetch b.descriptions bd")
+    @Query("select distinct b from Book as b join fetch b.availabilities ba join fetch b.descriptions bd left join fetch b.categories categs left join fetch b.images images left join fetch b.publisher publi left join fetch publi.descriptions publid ")
     List<Book> list();
 }

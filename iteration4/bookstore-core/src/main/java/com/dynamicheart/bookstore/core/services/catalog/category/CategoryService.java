@@ -2,8 +2,8 @@ package com.dynamicheart.bookstore.core.services.catalog.category;
 
 
 import com.dynamicheart.bookstore.core.exception.ServiceException;
-import com.dynamicheart.bookstore.core.model.catalog.catagory.Category;
-import com.dynamicheart.bookstore.core.model.catalog.catagory.CategoryDescription;
+import com.dynamicheart.bookstore.core.model.catalog.category.Category;
+import com.dynamicheart.bookstore.core.model.catalog.category.CategoryDescription;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityService;
 

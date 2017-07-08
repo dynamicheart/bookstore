@@ -30,4 +30,7 @@ public class Constants {
     public final static String GROUP_SUPERADMIN = "SUPERADMIN";
     public final static String GROUP_CUSTOMER = "CUSTOMER";
     public final static String ANONYMOUS_CUSTOMER = "ANONYMOUS_CUSTOMER";
+
+
+    public final static String STATIC_URI = "/static/image/";
 }

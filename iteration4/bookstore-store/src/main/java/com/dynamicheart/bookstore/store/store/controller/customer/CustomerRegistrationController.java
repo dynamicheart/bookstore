@@ -40,6 +40,9 @@ public class CustomerRegistrationController {
     @Inject
     private LabelUtils messages;
 
+    @Inject
+    private AuthenticationManager customerAuthenticationManager;
+
 
     @RequestMapping(value="/registration", method= RequestMethod.GET)
     public String displayRegistration(final Model model, final HttpServletRequest request, final HttpServletResponse response) throws Exception {

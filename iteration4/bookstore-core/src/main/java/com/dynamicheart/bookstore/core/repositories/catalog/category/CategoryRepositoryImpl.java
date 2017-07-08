@@ -1,11 +1,10 @@
 package com.dynamicheart.bookstore.core.repositories.catalog.category;
 
-import com.dynamicheart.bookstore.core.model.catalog.catagory.Category;
+import com.dynamicheart.bookstore.core.model.catalog.category.Category;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.Date;
 import java.util.List;
 
 

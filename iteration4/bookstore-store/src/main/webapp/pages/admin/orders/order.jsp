@@ -130,7 +130,7 @@
                                                                                text="Item"/></th>
                                         <th colspan="1" width="15%"><s:message code="label.quantity"
                                                                                text="Quantity"/></th>
-                                        <th width="15%"><s:message code="label.order.price" text="Price"/></th>
+                                        <th width="15%"><s:message code="label.order.displayPrice" text="Price"/></th>
                                         <th width="15%"><s:message code="label.order.total" text="Total"/></th>
                                     </tr>
                                     </thead>

@@ -1,4 +1,4 @@
-package com.dynamicheart.bookstore.core.model.catalog.catagory;
+package com.dynamicheart.bookstore.core.model.catalog.category;
 
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;

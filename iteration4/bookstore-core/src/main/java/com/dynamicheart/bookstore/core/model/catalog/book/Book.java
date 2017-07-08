@@ -3,8 +3,9 @@ package com.dynamicheart.bookstore.core.model.catalog.book;
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
 import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
+import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
-import com.dynamicheart.bookstore.core.model.catalog.catagory.Category;
+import com.dynamicheart.bookstore.core.model.catalog.category.Category;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditListener;
 import com.dynamicheart.bookstore.core.model.common.audit.AuditSection;
 import com.dynamicheart.bookstore.core.model.common.audit.Auditable;
@@ -13,8 +14,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,6 +43,9 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="book")
     private Set<BookAvailability> availabilities = new HashSet<BookAvailability>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "book")//cascade is set to remove because book save requires logic to create physical image first and then save the image id in the database, cannot be done in cascade
+    private Set<BookImage> images = new HashSet<BookImage>();
 
     @ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinTable(name = "BOOK_CATEGORY", schema=SchemaConstant.BOOKSTORE_SCHEMA, joinColumns = {
@@ -111,6 +113,14 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
         this.availabilities = availabilities;
     }
 
+    public Set<BookImage> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<BookImage> images) {
+        this.images = images;
+    }
+
     public Set<Category> getCategories() {
         return categories;
     }
@@ -141,5 +151,25 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public BookDescription getBookDescription() {
+        if(this.getDescriptions()!=null && this.getDescriptions().size()>0) {
+            return this.getDescriptions().iterator().next();
+        }
+        return null;
+    }
+
+    public BookImage getBookImage() {
+        BookImage bookImage = null;
+        if(this.getImages()!=null && this.getImages().size()>0) {
+            for(BookImage image : this.getImages()) {
+                bookImage = image;
+                if(bookImage.isDefaultImage()) {
+                    break;
+                }
+            }
+        }
+        return bookImage;
     }
 }

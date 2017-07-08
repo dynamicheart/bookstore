@@ -83,7 +83,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label><s:message code="label.book.price" text="Price"/></label>
+                                    <label><s:message code="label.book.displayPrice" text="Price"/></label>
                                     <div>
                                         <form:input cssClass="form-control" path="displayPrice"/>
                                     </div>

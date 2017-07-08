@@ -6,13 +6,15 @@ import java.util.List;
 
 public class ReadableCategory extends CategoryEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -6945354245243350377L;
+
 	private CategoryDescription description;//one category based on language
+
 	//private ReadableCategory parent;
-	private int productCount;
+
+	private int bookCount;
+
 	private List<ReadableCategory> children = new ArrayList<ReadableCategory>();
 	
 	
@@ -23,11 +25,11 @@ public class ReadableCategory extends CategoryEntity implements Serializable {
 		return description;
 	}
 
-	public int getProductCount() {
-		return productCount;
+	public int getBookCount() {
+		return bookCount;
 	}
-	public void setProductCount(int productCount) {
-		this.productCount = productCount;
+	public void setBookCount(int bookCount) {
+		this.bookCount = bookCount;
 	}
 	public List<ReadableCategory> getChildren() {
 		return children;

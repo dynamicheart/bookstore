@@ -1,19 +1,20 @@
-<%
-    response.setCharacterEncoding("UTF-8");
-    response.setHeader("Cache-Control","no-cache");
-    response.setHeader("Pragma","no-cache");
-    response.setDateHeader ("Expires", -1);
-%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@page contentType="text/html"%>
-<%@page pageEncoding="UTF-8"%>
-
 <div id="mainContent" class="container">
-    <jsp:include page="/pages/store/template/sessions/breadcrumb.jsp" />
+    <c:forEach items="${books.getBooks()}" var="book">
+        <div class="col-sm-3 col-lg-3 col-md-3">
+            <div class="thumbnail">
+                <img class="img-responsive" src="${book.getDefaultImage().getImageUrl()}" alt="Chania">
+                <div class="caption">
+                    <p><a class="book-card-name" href="#">${book.getDescription().getName()}</a></p>
+                    <p  class="book-card-author">${book.getPublisher().getDescription().getName()}</p>
+                    <h4 class="book-card-price">${book.getDisplayPrice()}</h4>
+                </div>
+            </div>
+        </div>
+    </c:forEach>
 </div>

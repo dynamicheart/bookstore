@@ -9,7 +9,6 @@ response.setDateHeader ("Expires", -1);
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="/WEB-INF/Bookstore-tags.tld" prefix="sm" %>
  
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
