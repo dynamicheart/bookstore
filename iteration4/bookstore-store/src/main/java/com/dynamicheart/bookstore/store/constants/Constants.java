@@ -33,4 +33,11 @@ public class Constants {
 
 
     public final static String STATIC_URI = "/static/image/";
+
+
+    public final static String CUSTOMER = "CUSTOMER";
+
+    public final static String SHOPPING_CART = "SHOPPING_CART";
+    public final static String COOKIE_NAME_USER = "user";
+    public final static String COOKIE_NAME_CART = "cart";
 }

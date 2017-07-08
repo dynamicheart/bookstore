@@ -520,7 +520,6 @@ public class InitStoreData implements InitData{
         Customer customer = new Customer();
         customer.setNick("customer");
         customer.setGender(CustomerGender.M);
-        customer.setDateOfBirth(new Date());
         customer.setDefaultLanguage(en);
         customer.setEmailAddress("customer@bookstore.com");
         String password = passwordEncoder.encode("password");

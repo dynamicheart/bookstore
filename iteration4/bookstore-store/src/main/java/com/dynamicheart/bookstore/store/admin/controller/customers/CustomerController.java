@@ -114,7 +114,6 @@ public class CustomerController {
         newCustomer.setEmailAddress(customer.getEmailAddress() );
         newCustomer.setGender(customer.getGender());
         newCustomer.setNick(customer.getNick());
-        newCustomer.setDateOfBirth(new Date());
 
         customerService.saveOrUpdate(newCustomer);
 

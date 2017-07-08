@@ -38,6 +38,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
+<c:set var="home_url" value="${pageContext.request.contextPath}"/>
+
 <body>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -50,7 +52,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Online Bookstore</a>
+            <a class="navbar-brand" href="${home_url}">Online Bookstore</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">

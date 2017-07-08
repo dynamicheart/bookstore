@@ -34,10 +34,6 @@ public class Customer extends BookstoreEntity<Long, Customer>{
     @Enumerated(value = EnumType.STRING)
     private CustomerGender gender;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name="CUSTOMER_DOB")
-    private Date dateOfBirth;
-
     @Email
     @NotEmpty
     @Column(name="CUSTOMER_EMAIL_ADDRESS", length=96, nullable=false)
@@ -89,14 +85,6 @@ public class Customer extends BookstoreEntity<Long, Customer>{
 
     public void setGender(CustomerGender gender) {
         this.gender = gender;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
     }
 
     public String getEmailAddress() {

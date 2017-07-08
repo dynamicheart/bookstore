@@ -10,6 +10,12 @@
 
 	<global-method-security secured-annotations="enabled" jsr250-annotations="enabled" pre-post-annotations="enabled"/>
 
+
+	<!-- JDBC Customer details -->
+	<beans:bean id="customerDetailsService"
+				class="com.dynamicheart.bookstore.store.store.security.CustomerServicesImpl">
+	</beans:bean>
+
 	<!-- JDBC User details -->
 	<beans:bean id="userDetailsService"
 				class="com.dynamicheart.bookstore.store.admin.security.UserServicesImpl">
@@ -73,6 +79,32 @@
 		<access-denied-handler ref="adminAccessDenied"/>
 	</http>
 
+
+	<http pattern="/store/**" auto-config="true" use-expressions="true" authentication-manager-ref="customerAuthenticationManager">
+
+		<intercept-url pattern="/store" access="permitAll" />
+		<intercept-url pattern="/store/" access="permitAll" />
+		<intercept-url pattern="/store/**" access="permitAll" />
+		<intercept-url pattern="/store/customer/logon*" access="permitAll" />
+		<intercept-url pattern="/store/customer/registration*" access="permitAll" />
+		<intercept-url pattern="/store/customer/customLogon*" access="permitAll" />
+		<intercept-url pattern="/store/customer/denied" access="permitAll" />
+		<intercept-url pattern="/store/customer/logon" access="permitAll" />
+		<intercept-url pattern="/store/customer" access="hasRole('AUTH_CUSTOMER')" />
+		<intercept-url pattern="/store/customer/" access="hasRole('AUTH_CUSTOMER')" />
+		<intercept-url pattern="/store/customer/**" access="hasRole('AUTH_CUSTOMER')" />
+		<intercept-url pattern="/store/customer/**" access="hasRole('AUTH_CUSTOMER')" />
+		<intercept-url pattern="/store/customer/*/**" access="hasRole('AUTH_CUSTOMER')" />
+		<intercept-url pattern="/store/customer/*/*/**" access="hasRole('AUTH_CUSTOMER')" />
+
+		<logout invalidate-session="false"
+				logout-success-url="/store/"
+				logout-url="/store/customer/logout" />
+		<access-denied-handler error-page="/store/"/>
+
+		<csrf disabled="true"/><!-- Spring security 4 -->
+	</http>
+
 	<!-- REST services -->
 	<http pattern="/services/**" create-session="stateless" use-expressions="true" authentication-manager-ref="adminAuthenticationManager" entry-point-ref="servicesAuthenticationEntryPoint">
 		<intercept-url pattern="/servicesintercept/private/**" access="hasRole('AUTH')"/>
@@ -87,5 +119,12 @@
 			<password-encoder ref="passwordEncoder" hash="sha"/>
 		</authentication-provider>
 	</authentication-manager>
+
+	<authentication-manager id="customerAuthenticationManager">
+		<authentication-provider user-service-ref="customerDetailsService">
+			<password-encoder ref="passwordEncoder" hash="sha"/>
+		</authentication-provider>
+	</authentication-manager>
+
 
 </beans:beans>
