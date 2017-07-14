@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.core.services.order;
 
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.order.*;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;

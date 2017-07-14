@@ -37,6 +37,6 @@
     </util:properties>
 
 
-    <bean id="initData" class="com.dynamicheart.bookstore.store.init.data.InitStoreData"/>
+    <bean id="initData" class="com.dynamicheart.bookstore.store.utils.init.data.InitStoreData"/>
 
 </beans>

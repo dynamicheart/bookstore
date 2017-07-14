@@ -6,7 +6,7 @@ import com.dynamicheart.bookstore.core.model.user.Permission;
 import com.dynamicheart.bookstore.core.services.user.GroupService;
 import com.dynamicheart.bookstore.core.services.user.PermissionService;
 import com.dynamicheart.bookstore.core.services.user.UserService;
-import com.dynamicheart.bookstore.store.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;

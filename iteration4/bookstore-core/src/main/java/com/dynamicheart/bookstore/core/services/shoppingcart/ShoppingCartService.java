@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.core.services.shoppingcart;
 
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.shoppingcart.ShoppingCart;

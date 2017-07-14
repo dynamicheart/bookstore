@@ -24,7 +24,7 @@
 <head>
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <title><s:message code="label.storeadministration"
+    <title><s:message code="label.store.administration"
                       text="Store administration" />
     </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >

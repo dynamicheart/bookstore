@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.core.utils;
 
-import com.dynamicheart.bookstore.core.exception.ConversionException;
+import com.dynamicheart.bookstore.core.utils.exception.ConversionException;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 
 import java.util.Locale;

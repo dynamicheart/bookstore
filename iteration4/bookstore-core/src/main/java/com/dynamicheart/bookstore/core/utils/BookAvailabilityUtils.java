@@ -1,7 +1,7 @@
 package com.dynamicheart.bookstore.core.utils;
 
 
-import com.dynamicheart.bookstore.core.constants.Constants;
+import com.dynamicheart.bookstore.core.constants.CoreConstants;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import org.apache.commons.lang3.Validate;
@@ -37,7 +37,7 @@ public class BookAvailabilityUtils {
             return "";
         }
         NumberFormat nf = null;
-        nf = NumberFormat.getInstance(Constants.DEFAULT_LOCALE);
+        nf = NumberFormat.getInstance(CoreConstants.DEFAULT_LOCALE);
 
         nf.setMaximumFractionDigits(Integer.parseInt(Character
                 .toString(DECIMALCOUNT)));
@@ -57,7 +57,7 @@ public class BookAvailabilityUtils {
 
         Set<BookAvailability> availabilities = book.getAvailabilities();
         for(BookAvailability availability : availabilities) {
-            if(availability.getRegion().equals(Constants.ALL_REGIONS)) {//TODO REL 2.1 accept a region
+            if(availability.getRegion().equals(CoreConstants.ALL_REGIONS)) {//TODO REL 2.1 accept a region
                 price = availability.getBookPrice();
             }
         }
@@ -70,7 +70,7 @@ public class BookAvailabilityUtils {
 
         Set<BookAvailability> availabilities = book.getAvailabilities();
         for(BookAvailability avail : availabilities) {
-            if(avail.getRegion().equals(Constants.ALL_REGIONS)) {//TODO REL 2.1 accept a region
+            if(avail.getRegion().equals(CoreConstants.ALL_REGIONS)) {//TODO REL 2.1 accept a region
                 bookAvailability = avail;
             }
         }
@@ -105,7 +105,7 @@ public class BookAvailabilityUtils {
 
 
         Currency curr = currency.getCurrency();
-        nf = NumberFormat.getInstance(Constants.DEFAULT_LOCALE);
+        nf = NumberFormat.getInstance(CoreConstants.DEFAULT_LOCALE);
         nf.setMaximumFractionDigits(Integer.parseInt(Character
                 .toString(DECIMALCOUNT)));
         nf.setMinimumFractionDigits(Integer.parseInt(Character

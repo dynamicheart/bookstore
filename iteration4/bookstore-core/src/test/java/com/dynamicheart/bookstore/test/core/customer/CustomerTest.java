@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.test.core.customer;
 
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.customer.CustomerGender;
 import com.dynamicheart.bookstore.test.core.common.AbstractBookstoreCoreTestCase;

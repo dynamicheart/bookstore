@@ -1,7 +1,7 @@
 package com.dynamicheart.bookstore.core.services.catalog.category;
 
-import com.dynamicheart.bookstore.core.constants.Constants;
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.constants.CoreConstants;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.category.Category;
 import com.dynamicheart.bookstore.core.model.catalog.category.CategoryDescription;
@@ -190,7 +190,7 @@ public class CategoryServiceImpl extends BookstoreEntityServiceImpl<Long, Catego
 		
 		//get category with lineage (subcategories)
 		StringBuilder lineage = new StringBuilder();
-		lineage.append(category.getLineage()).append(category.getId()).append(Constants.SLASH);
+		lineage.append(category.getLineage()).append(category.getId()).append(CoreConstants.SLASH);
 		List<Category> categories = this.listByLineage(lineage.toString());
 		
 		Category dbCategory = this.getById( category.getId() );

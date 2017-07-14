@@ -1,7 +1,7 @@
 package com.dynamicheart.bookstore.core.services.reference.language;
 
 
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityService;
 

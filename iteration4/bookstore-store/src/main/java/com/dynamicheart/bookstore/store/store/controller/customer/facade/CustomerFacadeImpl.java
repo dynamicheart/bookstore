@@ -1,31 +1,38 @@
 package com.dynamicheart.bookstore.store.store.controller.customer.facade;
 
-import com.dynamicheart.bookstore.core.exception.ConversionException;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.customer.CustomerGender;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.model.shoppingcart.ShoppingCart;
 import com.dynamicheart.bookstore.core.model.user.Group;
 import com.dynamicheart.bookstore.core.model.user.GroupType;
+import com.dynamicheart.bookstore.core.model.user.Permission;
 import com.dynamicheart.bookstore.core.services.customer.CustomerService;
 import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
 import com.dynamicheart.bookstore.core.services.shoppingcart.ShoppingCartService;
 import com.dynamicheart.bookstore.core.services.user.GroupService;
 import com.dynamicheart.bookstore.core.services.user.PermissionService;
-import com.dynamicheart.bookstore.store.constants.Constants;
-import com.dynamicheart.bookstore.store.model.customer.CustomerEntity;
-import com.dynamicheart.bookstore.store.model.customer.ReadableAndPersistableCustomer;
-import com.dynamicheart.bookstore.store.populator.customer.CustomerEntityPopulator;
+import com.dynamicheart.bookstore.store.common.constants.Constants;
+import com.dynamicheart.bookstore.store.store.model.customer.CustomerEntity;
+import com.dynamicheart.bookstore.store.store.model.customer.ReadableAndPersistableCustomer;
+import com.dynamicheart.bookstore.store.store.populator.customer.CustomerEntityPopulator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -60,6 +67,9 @@ public class CustomerFacadeImpl implements CustomerFacade{
     @Inject
     private PasswordEncoder passwordEncoder;
 
+    @Inject
+    private AuthenticationManager customerAuthenticationManager;
+
     @Override
     public CustomerEntity getCustomerDataByUserName(String userName, Language language) throws Exception {
         return null;
@@ -77,7 +87,7 @@ public class CustomerFacadeImpl implements CustomerFacade{
 
     @Override
     public Customer getCustomerByUserName(String userName) throws Exception {
-        return null;
+        return customerService.getByNick(userName);
     }
 
     @Override
@@ -132,6 +142,33 @@ public class CustomerFacadeImpl implements CustomerFacade{
     @Override
     public void authenticate(Customer customer, String userName, String password) throws Exception {
 
+        Validate.notNull(customer, "Customer cannot be null");
+
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        GrantedAuthority role = new SimpleGrantedAuthority(ROLE_PREFIX + Constants.PERMISSION_CUSTOMER_AUTHENTICATED);//required to login
+        authorities.add(role);
+        List<Integer> groupsId = new ArrayList<Integer>();
+        List<Group> groups = customer.getGroups();
+        if(groups!=null) {
+            for(Group group : groups) {
+                groupsId.add(group.getId());
+
+            }
+            if(groupsId!=null && groupsId.size()>0) {
+                List<Permission> permissions = permissionService.getPermissions(groupsId);
+                for(Permission permission : permissions) {
+                    GrantedAuthority auth = new SimpleGrantedAuthority(permission.getPermissionName());
+                    authorities.add(auth);
+                }
+            }
+        }
+
+        Authentication authenticationToken =
+                new UsernamePasswordAuthenticationToken(userName, password, authorities);
+
+        Authentication authentication = customerAuthenticationManager.authenticate(authenticationToken);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     @Override

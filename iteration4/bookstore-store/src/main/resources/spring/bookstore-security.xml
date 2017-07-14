@@ -97,10 +97,12 @@
 		<intercept-url pattern="/store/customer/*/**" access="hasRole('AUTH_CUSTOMER')" />
 		<intercept-url pattern="/store/customer/*/*/**" access="hasRole('AUTH_CUSTOMER')" />
 
+
 		<logout invalidate-session="false"
 				logout-success-url="/store/"
 				logout-url="/store/customer/logout" />
-		<access-denied-handler error-page="/store/"/>
+
+        <access-denied-handler error-page="/store/"/>
 
 		<csrf disabled="true"/><!-- Spring security 4 -->
 	</http>

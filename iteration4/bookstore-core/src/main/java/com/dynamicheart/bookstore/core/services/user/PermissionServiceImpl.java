@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.core.services.user;
 
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.user.Group;
 import com.dynamicheart.bookstore.core.model.user.Permission;
 import com.dynamicheart.bookstore.core.model.user.PermissionCriteria;

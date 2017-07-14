@@ -1,11 +1,9 @@
 package com.dynamicheart.bookstore.core.services.catalog.book.publisher;
 
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.PublisherDescription;
 import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityService;
-
-import java.util.List;
 
 public interface PublisherService extends BookstoreEntityService<Long, Publisher> {
 

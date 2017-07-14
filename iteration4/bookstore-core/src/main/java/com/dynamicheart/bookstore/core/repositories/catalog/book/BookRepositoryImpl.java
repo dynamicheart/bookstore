@@ -6,9 +6,7 @@ import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dynamicheart on 5/23/2017.
@@ -128,8 +126,8 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
 
         qs.append("where categs.id in (:cid)");
 
-        qs.append("and pd.language.id=:lang and papd.language.id=:lang ");
-        qs.append("and p.available=true");
+        qs.append("and bd.language.id=:lang and papd.language.id=:lang ");
+        qs.append("and b.available=true");
 
         String hql = qs.toString();
         Query q = this.em.createQuery(hql);
@@ -143,5 +141,50 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
         List<Book> books =  q.getResultList();
 
         return books;
+    }
+
+    @Override
+    public Book getByFriendlyUrl(String seUrl, Locale locale) {
+
+        List regionList = new ArrayList();
+        regionList.add("*");
+        regionList.add(locale.getCountry());
+
+
+        StringBuilder qs = new StringBuilder();
+        qs.append("select distinct b from Book as b ");
+        qs.append("join fetch b.availabilities ba ");
+        qs.append("join fetch b.descriptions bd ");
+
+
+        //images
+        qs.append("left join fetch b.images images ");
+
+        //other lefts
+        qs.append("left join fetch b.publisher publi ");
+        qs.append("left join fetch publi.descriptions publid ");
+
+        qs.append("where ba.region in (:lid) ");
+        qs.append("and bd.seUrl=:seUrl ");
+        qs.append("and b.available=true");
+
+
+
+        String hql = qs.toString();
+        Query q = this.em.createQuery(hql);
+
+
+        q.setParameter("lid", regionList);
+        q.setParameter("seUrl", seUrl);
+
+        Book b = null;
+
+        try {
+            b = (Book)q.getSingleResult();
+        } catch(javax.persistence.NoResultException ignore) {
+
+        }
+
+        return b;
     }
 }

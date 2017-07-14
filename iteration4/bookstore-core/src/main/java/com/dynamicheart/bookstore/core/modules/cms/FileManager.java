@@ -1,7 +1,7 @@
 package com.dynamicheart.bookstore.core.modules.cms;
 
-import com.dynamicheart.bookstore.core.exception.FileException;
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.utils.exception.FileException;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.content.InputContentFile;
 import com.dynamicheart.bookstore.core.model.content.OutputContentFile;
 

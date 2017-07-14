@@ -1,7 +1,7 @@
 package com.dynamicheart.bookstore.core.services.reference.language;
 
-import com.dynamicheart.bookstore.core.constants.Constants;
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.constants.CoreConstants;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.repositories.reference.language.LanguageRepository;
 import com.dynamicheart.bookstore.core.services.common.generic.BookstoreEntityServiceImpl;
@@ -54,7 +54,7 @@ public class LanguageServiceImpl extends BookstoreEntityServiceImpl<Integer, Lan
 			LOGGER.error("Cannot convert locale " + locale.getLanguage() + " to language");
 		}
 		
-		return new Language(Constants.DEFAULT_LANGUAGE);
+		return new Language(CoreConstants.DEFAULT_LANGUAGE);
 
 	}
 	

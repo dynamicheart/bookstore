@@ -2,7 +2,7 @@ package com.dynamicheart.bookstore.store.utils;
 
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
-import com.dynamicheart.bookstore.store.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.context.i18n.LocaleContextHolder;

@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.core.services.catalog.book;
 
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.repositories.catalog.book.BookRepository;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -71,5 +72,11 @@ public class BookServiceImpl extends BookstoreEntityServiceImpl<Long, Book> impl
         @SuppressWarnings({ "unchecked", "rawtypes" })
         Set ids = new HashSet(categoryIds);
         return bookRepository.getBooksListByCategories(ids);
+    }
+
+
+    @Override
+    public Book getBySeUrl(String seUrl, Locale locale) {
+        return bookRepository.getByFriendlyUrl(seUrl, locale);
     }
 }

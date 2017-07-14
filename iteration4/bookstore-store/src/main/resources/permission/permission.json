@@ -75,37 +75,7 @@
         }
       },
       {
-        "type": "TAX",
-        "group": {
-          "name": [
-            "SUPERADMIN",
-            "ADMIN",
-            "ADMIN_STORE"
-          ]
-        }
-      },
-      {
-        "type": "PAYMENT",
-        "group": {
-          "name": [
-            "SUPERADMIN",
-            "ADMIN",
-            "ADMIN_STORE"
-          ]
-        }
-      },
-      {
         "type": "CUSTOMER",
-        "group": {
-          "name": [
-            "SUPERADMIN",
-            "ADMIN",
-            "ADMIN_STORE"
-          ]
-        }
-      },
-      {
-        "type": "SHIPPING",
         "group": {
           "name": [
             "SUPERADMIN",

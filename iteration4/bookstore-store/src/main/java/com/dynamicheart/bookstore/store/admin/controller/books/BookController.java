@@ -9,9 +9,7 @@ import com.dynamicheart.bookstore.core.services.catalog.book.publisher.Publisher
 import com.dynamicheart.bookstore.core.utils.BookAvailabilityUtils;
 import com.dynamicheart.bookstore.store.admin.model.catalog.book.BookContainer;
 import com.dynamicheart.bookstore.store.admin.model.web.Menu;
-import com.dynamicheart.bookstore.store.utils.DateUtil;
 import com.dynamicheart.bookstore.store.utils.LabelUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -30,7 +28,7 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.*;
 
-import static com.dynamicheart.bookstore.core.constants.Constants.ALL_REGIONS;
+import static com.dynamicheart.bookstore.core.constants.CoreConstants.ALL_REGIONS;
 
 /**
  * Created by dynamicheart on 5/29/2017.

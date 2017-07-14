@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.store.utils;
 
-import com.dynamicheart.bookstore.store.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.Constants;
 import org.springframework.stereotype.Component;
 
 /**

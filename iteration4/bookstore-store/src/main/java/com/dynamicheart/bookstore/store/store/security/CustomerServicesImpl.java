@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.store.store.security;
 
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.user.Group;
 import com.dynamicheart.bookstore.core.model.user.Permission;
@@ -8,7 +8,7 @@ import com.dynamicheart.bookstore.core.services.customer.CustomerService;
 import com.dynamicheart.bookstore.core.services.user.GroupService;
 import com.dynamicheart.bookstore.core.services.user.PermissionService;
 import com.dynamicheart.bookstore.store.admin.security.SecurityDataAccessException;
-import com.dynamicheart.bookstore.store.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.Constants;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

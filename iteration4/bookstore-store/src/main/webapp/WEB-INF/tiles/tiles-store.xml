@@ -5,12 +5,20 @@
 
 <tiles-definitions>
  	<definition name="store-home" template="/layout/store/catalogLayout.jsp">
-		<put-attribute name="body" value="/pages/store/template/pages/home.jsp" />
+		<put-attribute name="body" value="/pages/store/home.jsp" />
 	</definition>
 
 	<!-- Customer registration - account - orders -->
 	<definition name="register" template="/layout/store/catalogLayout.jsp">
-		<put-attribute name="body" value="/pages/store/common/customer/register.jsp"/>
+		<put-attribute name="body" value="/pages/store/customer/register.jsp"/>
+	</definition>
+
+	<definition name="book" template="/layout/store/catalogLayout.jsp">
+		<put-attribute name="body" value="/pages/store/book/book.jsp"/>
+	</definition>
+
+	<definition name="dashboard" template="/layout/store/catalogLayout.jsp">
+		<put-attribute name="body" value="/pages/store/customer/dashboard.jsp"/>
 	</definition>
 
 </tiles-definitions>

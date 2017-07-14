@@ -1,7 +1,7 @@
 package com.dynamicheart.bookstore.core.services.reference.init;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
-import com.dynamicheart.bookstore.core.exception.ServiceException;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.reference.currency.Currency;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.services.reference.currency.CurrencyService;

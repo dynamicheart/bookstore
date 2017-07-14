@@ -3,8 +3,8 @@ package com.dynamicheart.bookstore.store.store.controller.customer.facade;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.model.shoppingcart.ShoppingCart;
-import com.dynamicheart.bookstore.store.model.customer.CustomerEntity;
-import com.dynamicheart.bookstore.store.model.customer.ReadableAndPersistableCustomer;
+import com.dynamicheart.bookstore.store.store.model.customer.CustomerEntity;
+import com.dynamicheart.bookstore.store.store.model.customer.ReadableAndPersistableCustomer;
 
 /**
  * Created by dynamicheart on 7/6/2017.

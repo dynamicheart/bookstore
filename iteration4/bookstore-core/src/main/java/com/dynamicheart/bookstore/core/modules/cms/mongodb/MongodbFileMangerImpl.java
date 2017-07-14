@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.core.modules.cms.mongodb;
 
-import com.dynamicheart.bookstore.core.exception.FileException;
+import com.dynamicheart.bookstore.core.utils.exception.FileException;
 import com.dynamicheart.bookstore.core.model.content.InputContentFile;
 import com.dynamicheart.bookstore.core.model.content.OutputContentFile;
 import com.dynamicheart.bookstore.core.modules.cms.FileManager;

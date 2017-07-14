@@ -4,7 +4,7 @@
 package com.dynamicheart.bookstore.store.store.controller;
 
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
-import com.dynamicheart.bookstore.store.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.Constants;
 import com.dynamicheart.bookstore.store.store.model.paging.PaginationData;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,22 +31,22 @@ public abstract class AbstractController {
     	return (Language)request.getAttribute(Constants.LANGUAGE);
     }
 
-    protected PaginationData createPaginaionData( final int pageNumber, final int pageSize )
-    {
-        final PaginationData paginaionData = new PaginationData(pageSize,pageNumber);
-       
-        return paginaionData;
-    }
-    
-    protected PaginationData calculatePaginaionData( final PaginationData paginationData, final int pageSize, final int resultCount){
-        
-    	int currentPage = paginationData.getCurrentPage();
+	protected PaginationData createPaginaionData( final int pageNumber, final int pageSize )
+	{
+		final PaginationData paginaionData = new PaginationData(pageSize,pageNumber);
+
+		return paginaionData;
+	}
+
+	protected PaginationData calculatePaginaionData( final PaginationData paginationData, final int pageSize, final int resultCount){
+
+		int currentPage = paginationData.getCurrentPage();
 
 
-    	int count = Math.min((currentPage * pageSize), resultCount);  
-    	paginationData.setCountByPage(count);
+		int count = Math.min((currentPage * pageSize), resultCount);
+		paginationData.setCountByPage(count);
 
-    	paginationData.setTotalCount( resultCount );
-        return paginationData;
-    }
+		paginationData.setTotalCount( resultCount );
+		return paginationData;
+	}
 }
