@@ -1,7 +1,9 @@
 package com.dynamicheart.bookstore.store.admin.controller.customers;
 
 import com.dynamicheart.bookstore.core.model.customer.Customer;
+import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.services.customer.CustomerService;
+import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
 import com.dynamicheart.bookstore.store.admin.model.web.Menu;
 import com.dynamicheart.bookstore.store.utils.LabelUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +43,9 @@ public class CustomerController {
     private LabelUtils messages;
 
     @Inject
+    private LanguageService languageService;
+
+    @Inject
     @Named("passwordEncoder")
     private PasswordEncoder passwordEncoder;
 
@@ -62,6 +67,7 @@ public class CustomerController {
         //display menu
         this.setMenu(model, request);
 
+        List<Language> languages = languageService.getLanguages();
         Customer customer = null;
 
         //if request.attribute contains id then get this customer from customerService
@@ -78,6 +84,7 @@ public class CustomerController {
         }
 
         model.addAttribute("customer",customer);
+        model.addAttribute("languages",languages);
         return "admin-customer";
     }
 
@@ -111,9 +118,13 @@ public class CustomerController {
             }
         }
 
+        Language language = languageService.getById(customer.getDefaultLanguage().getId());
+
         newCustomer.setEmailAddress(customer.getEmailAddress() );
         newCustomer.setGender(customer.getGender());
         newCustomer.setNick(customer.getNick());
+        newCustomer.setPassword(customer.getPassword());
+        newCustomer.setDefaultLanguage(language);
 
         customerService.saveOrUpdate(newCustomer);
 

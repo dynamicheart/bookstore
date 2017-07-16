@@ -3,10 +3,11 @@ package com.dynamicheart.bookstore.store.admin.controller.books;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
+import com.dynamicheart.bookstore.core.model.catalog.category.Category;
 import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
 import com.dynamicheart.bookstore.core.services.catalog.book.publisher.PublisherService;
+import com.dynamicheart.bookstore.core.services.catalog.category.CategoryService;
 import com.dynamicheart.bookstore.core.utils.PriceUtils;
-import com.dynamicheart.bookstore.store.admin.model.catalog.book.BookContainer;
 import com.dynamicheart.bookstore.store.admin.model.web.Menu;
 import com.dynamicheart.bookstore.store.utils.LabelUtils;
 import org.slf4j.Logger;
@@ -46,6 +47,9 @@ public class BookController {
 
     @Inject
     private PriceUtils priceUtils;
+
+    @Inject
+    private CategoryService categoryService;
 
     @RequestMapping(value="/admin/book/detail", method= RequestMethod.GET)
     public String displayBookEdit(@RequestParam("id") Long id, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -103,94 +107,61 @@ public class BookController {
 
         List<Publisher> publishers = publisherService.list();
 
-        BookContainer bookContainer = new BookContainer();
-        List<BookDescription> displayDescriptions = new ArrayList<BookDescription>();
+
+        Book book = null;
 
         //if request.attribute contains id then get this bookContainer from bookService
         if(id != null && id > 0L) {//edit mode
             //get from DB
-            Book dbBook = bookService.getById(id);
-            if(dbBook == null) {
+            book = bookService.getById(id);
+            if(book == null) {
                 return "redirect:/admin/books";
             }
-            
-            bookContainer.setBook(dbBook);
 
-            Set<BookDescription> bookDescriptions = dbBook.getDescriptions();
-            displayDescriptions.addAll(bookDescriptions);
-
-            BigDecimal bookPrice = null;
-
-            bookContainer.setDescriptions(displayDescriptions);
         } else {
-            BookDescription bookDescription = new BookDescription();
-            displayDescriptions.add(bookDescription);
+            book = new Book();
 
-            Book book = new Book();
-            book.setAvailable(true);
-
-            bookContainer.setBook(book);
-            bookContainer.setDescriptions(displayDescriptions);
         }
 
-        model.addAttribute("bookContainer", bookContainer);
+        model.addAttribute("book", book);
         model.addAttribute("publishers", publishers);
         return "admin-book";
     }
 
     @RequestMapping(value="/admin/book/save", method=RequestMethod.POST)
-    public String saveBook(@Valid @ModelAttribute("bookContainer") BookContainer bookContainer, BindingResult result, Model model, HttpServletRequest request, Locale locale) throws Exception {
+    public String saveBook(@Valid @ModelAttribute("book") Book book, BindingResult result, Model model, HttpServletRequest request, Locale locale) throws Exception {
 
         //display menu
         setMenu(model,request);
 
         List<Publisher> publishers = publisherService.list();
+
         model.addAttribute("publishers", publishers);
 
-        //validate price
-        BigDecimal submitedPrice = null;
-        try {
-
-        } catch (Exception e) {
-            ObjectError error = new ObjectError("bookPrice",messages.getMessage("NotEmpty.bookContainer.bookPrice", locale));
-            result.addError(error);
-        }
 
         if (result.hasErrors()) {
             return "admin-book";
         }
 
-        Book newBook = bookContainer.getBook();
-        BigDecimal newBookPrice = null;
+        Book newBook = new Book();
 
-        if(bookContainer.getBook().getId()!=null && bookContainer.getBook().getId().longValue()>0) {
+        if(book.getId()!=null && book.getId().longValue()>0) {
 
             //get actual book
-            newBook = bookService.getById(bookContainer.getBook().getId());
+            newBook = bookService.getById(book.getId());
             if(newBook == null) {
                 return "redirect:/admin/books";
             }
-
-            //copy properties
-            newBook.setIsbn(bookContainer.getBook().getIsbn());
-            newBook.setAvailable(bookContainer.getBook().isAvailable());
-            newBook.setPublisher(bookContainer.getBook().getPublisher());
-
-
         }
 
-
-        Set<BookDescription> descriptions = new HashSet<BookDescription>();
-        if(bookContainer.getDescriptions()!=null && bookContainer.getDescriptions().size()>0) {
-
-            for(BookDescription description : bookContainer.getDescriptions()) {
-                description.setBook(newBook);
-                descriptions.add(description);
-            }
-        }
-        newBook.setDescriptions(descriptions);
+        //copy properties
+        newBook.setIsbn(book.getIsbn());
+        newBook.setAvailable(book.isAvailable());
+        newBook.setPublisher(book.getPublisher());
+        newBook.setBookQuantity(book.getBookQuantity());
 
         bookService.save(newBook);
+        model.addAttribute("book",newBook);
         model.addAttribute("success","success");
 
         return "admin-book";

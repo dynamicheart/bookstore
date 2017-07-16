@@ -282,7 +282,7 @@ public class InitStoreData implements InitData{
         BigDecimal dprice = new BigDecimal(39.99);
         book1.setBookPrice(dprice);
 
-        // BookContainer description
+        // Book description
         BookDescription description = new BookDescription();
         description.setName("Spring in Action");
         description.setLanguage(en);
@@ -310,7 +310,7 @@ public class InitStoreData implements InitData{
         book2.setIsbn("7115380333");
         book2.setPublisher(packt);
 
-        // BookContainer description
+        // Book description
         description = new BookDescription();
         description.setName("Node Web Development");
         description.setBook(book2);
@@ -343,7 +343,7 @@ public class InitStoreData implements InitData{
         book3.setIsbn("9787111482451");
         book3.setPublisher(oreilley);
 
-        // BookContainer description
+        // Book description
         description = new BookDescription();
         description.setName("Programming for PAAS");
         description.setLanguage(en);
@@ -376,7 +376,7 @@ public class InitStoreData implements InitData{
         book4.setIsbn("9788126531066");
         book4.setPublisher(sams);
 
-        // BookContainer description
+        // Book description
         description = new BookDescription();
         description.setName("Android development");
         description.setBook(book4);
@@ -408,7 +408,7 @@ public class InitStoreData implements InitData{
         book5.setIsbn("9781849612954");
         book5.setPublisher(packt);
 
-        // BookContainer description
+        // Book description
         description = new BookDescription();
         description.setName("Android 3.0 Cookbook");
         description.setLanguage(en);
@@ -441,7 +441,7 @@ public class InitStoreData implements InitData{
         book6.setIsbn("9787508657424");
         book6.setPublisher(novells);
 
-        // BookContainer description
+        // Book description
         description = new BookDescription();
         description.setName("The Big Switch");
         description.setLanguage(en);

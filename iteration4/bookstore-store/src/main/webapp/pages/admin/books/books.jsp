@@ -6,9 +6,9 @@
 <%@ page session="false"%>
 
 <c:set value="/api/admin/books" var="fetchUrl" scope="request"/>
-<c:set value="/admin/bookContainer/detail" var="editUrl" scope="request"/>
-<c:set value="/admin/bookContainer/create" var="createUrl" scope="request"/>
-<c:set value="/api/admin/bookContainer/" var="deleteUrl" scope="request"/>
+<c:set value="/admin/book/detail" var="editUrl" scope="request"/>
+<c:set value="/admin/book/create" var="createUrl" scope="request"/>
+<c:set value="/api/admin/book/" var="deleteUrl" scope="request"/>
 
 <div class="tabbable">
 
@@ -18,13 +18,13 @@
 
             <div>
 
-                <h3 class="page-header"><s:message code="label.bookContainer.list" text="Book List" /></h3>
+                <h3 class="page-header"><s:message code="label.book.list" text="Book List" /></h3>
                 <br/><br/>
                 <div class="pull-right">
                 <div class="btn-group">
                     <button class="btn btn-info dropdown-toggle" data-toggle="dropdown"><s:message code="label.generic.moreoptions" text="More options"/> ... <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li><a href="<c:url value="${createUrl}" />"><s:message code="label.bookContainer.createbook" text="Create"/></a></li>
+                        <li><a href="<c:url value="${createUrl}" />"><s:message code="label.book.createbook" text="Create"/></a></li>
                     </ul>
                 </div>
                 </div>
@@ -95,7 +95,7 @@
             $(this).on('click',function(){
                 var table = $('#bookTable').DataTable();
                 var data = table.row( $(this).parents('tr') ).data();
-                if(confirm("Are you really want to delete the bookContainer" + data.title)){
+                if(confirm("Are you really want to delete the book" + data.title)){
                     $.ajax({
                         url: '<c:url value="${deleteUrl}" />'+ data.id,
                         type:'delete',

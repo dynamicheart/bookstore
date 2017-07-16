@@ -59,6 +59,15 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label><s:message code="label.generic.language" text="Language"/></label>
+                                    <div>
+                                        <form:select items="${languages}" cssClass="form-control" itemValue="id" itemLabel="code" path="defaultLanguage.id">
+                                            <form:options/>
+                                        </form:select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label><s:message code="label.customer.email" text="Email"/></label>
                                     <div>
                                         <form:input cssClass="form-control" maxlength="96" path="emailAddress"/>
@@ -74,6 +83,14 @@
                                         <form:select cssClass="form-control" path="gender">
                                             <form:options/>
                                         </form:select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><s:message code="label.generic.password" text="Password"/></label>
+                                    <div>
+                                        <form:input type="password" cssClass="form-control" path="password"/>
+
                                     </div>
                                 </div>
 
