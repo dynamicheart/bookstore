@@ -16,7 +16,8 @@ public class ShoppingCartItem extends StoreEntity implements Serializable {
     private ReadableImage image;
     private BigDecimal bookPrice;
     private int quantity = 0;
-    private long bookId;
+    private String bookIsbn;
+    private BigDecimal subTotal;
 
     public String getName() {
         return name;
@@ -50,12 +51,19 @@ public class ShoppingCartItem extends StoreEntity implements Serializable {
         this.quantity = quantity;
     }
 
-    public long getBookId() {
-        return bookId;
+    public String getBookIsbn() {
+        return bookIsbn;
     }
 
-    public void setBookId(long bookId) {
-        this.bookId = bookId;
+    public void setBookIsbn(String bookIsbn) {
+        this.bookIsbn = bookIsbn;
     }
 
+    public BigDecimal getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(BigDecimal subTotal) {
+        this.subTotal = subTotal;
+    }
 }

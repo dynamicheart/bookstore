@@ -29,11 +29,44 @@
     },
     {
       "menu": {
-        "code": "Statistic",
+        "code": "Statistics",
         "icon": "fa-bar-chart",
         "url": "/admin/statistics",
         "role": "STATISTIC",
-        "order": 4
+        "order": 3,
+        "menus":[
+          {
+            "menu": {
+              "code": "By Customer",
+              "url": "/admin/statistics/customer",
+              "role": "STATISTIC_CUSTOMER",
+              "order": 0
+            }
+          },{
+            "menu":{
+              "code":"By Date",
+              "url": "/admin/statistics/date",
+              "role":"STATISTIC_DATE",
+              "order": 1
+            }
+          },
+          {
+            "menu": {
+              "code": "By Book",
+              "url": "/admin/statistics/book",
+              "role": "STATISTIC_BOOK",
+              "order": 2
+            }
+          },
+          {
+            "menu":{
+              "code":"By Category",
+              "url": "/admin/statistics/category",
+              "role":"STATISTIC_CATEGORY",
+              "order": 3
+            }
+          }
+        ]
       }
     }
   ]

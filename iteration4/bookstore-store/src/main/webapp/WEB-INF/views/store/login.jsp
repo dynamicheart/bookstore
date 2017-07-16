@@ -71,7 +71,7 @@
             border-top-right-radius: 0;
         }
     </style>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
     <body>
 
@@ -123,12 +123,11 @@
                             text="Sign in"/></button>
                 </div>
             </div>
+            <a  href="<c:url value="/store/customer/registration"/>"><s:message
+                    code="label.register.notyetregistered" text="Not yet registered ?"/></a>
         </form>
 
-        <a id="registerLink" onClick="javascript:location.href='<c:url
-                value="/store/customer/registration"/>';" href="" role="button"
-           class="" data-toggle="modal"><s:message
-                code="label.register.notyetregistered" text="Not yet registered ?"/></a>
+
     </div> <!-- /container -->
 
     </body>

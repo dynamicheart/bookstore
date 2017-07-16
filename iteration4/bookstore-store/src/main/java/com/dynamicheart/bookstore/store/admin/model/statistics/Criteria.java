@@ -1,6 +1,4 @@
-package com.dynamicheart.bookstore.core.model.statistics;
-
-import org.springframework.format.annotation.DateTimeFormat;
+package com.dynamicheart.bookstore.store.admin.model.statistics;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,23 +11,21 @@ public class Criteria implements Serializable {
 
     private static final long serialVersionUID = 1035492884024727122L;
 
-    private List<Long> customerIds;
+    private Long customerIds;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date startDate;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date endDate;
 
-    private List<Long> bookIds;
+    private List bookIds;
 
-    private List<Long> categoryIds;
+    private List categoryIds;
 
-    public List<Long> getCustomerIds() {
+    public Long getCustomerIds() {
         return customerIds;
     }
 
-    public void setCustomerIds(List<Long> customerIds) {
+    public void setCustomerIds(Long customerIds) {
         this.customerIds = customerIds;
     }
 
@@ -49,19 +45,19 @@ public class Criteria implements Serializable {
         this.endDate = endDate;
     }
 
-    public List<Long> getBookIds() {
+    public List getBookIds() {
         return bookIds;
     }
 
-    public void setBookIds(List<Long> bookIds) {
+    public void setBookIds(List bookIds) {
         this.bookIds = bookIds;
     }
 
-    public List<Long> getCategoryIds() {
+    public List getCategoryIds() {
         return categoryIds;
     }
 
-    public void setCategoryIds(List<Long> categoryIds) {
+    public void setCategoryIds(List categoryIds) {
         this.categoryIds = categoryIds;
     }
 }

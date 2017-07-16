@@ -5,6 +5,7 @@ import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
 import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import com.dynamicheart.bookstore.store.store.controller.AbstractController;
+import com.dynamicheart.bookstore.store.store.controller.shoppingcart.facade.ShoppingCartFacade;
 import com.dynamicheart.bookstore.store.store.model.AjaxResponse;
 import com.dynamicheart.bookstore.store.store.model.catalog.book.ReadableBook;
 import com.dynamicheart.bookstore.store.store.model.shoppingcart.ShoppingCart;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.*;
 
 import static com.dynamicheart.bookstore.store.store.model.AjaxResponse.RESPONSE_STATUS_SUCCESS;
@@ -39,6 +41,9 @@ public class ShoppingCartController extends AbstractController{
 
     @Inject
     private ReadableBookPopulator populator;
+
+    @Inject
+    private ShoppingCartFacade shoppingCartFacade;
 
     @RequestMapping(value = {"/shoppingCart"}, method = RequestMethod.GET)
     public String displayShpping(final Model model, final HttpServletRequest request, final HttpServletResponse response, final Locale locale ) throws Exception{
@@ -73,7 +78,7 @@ public class ShoppingCartController extends AbstractController{
             }
             ReadableBook readableBook = new ReadableBook();
             populator.populate(book, readableBook, language);
-            shoppingCartItem.setBookId(readableBook.getId());
+            shoppingCartItem.setBookIsbn(readableBook.getIsbn());
             shoppingCartItem.setQuantity(quantity);
             shoppingCartItem.setBookPrice(readableBook.getPrice());
             shoppingCartItem.setName(readableBook.getDescription().getName());
@@ -81,8 +86,10 @@ public class ShoppingCartController extends AbstractController{
         }else {
             shoppingCartItem.setQuantity(shoppingCartItem.getQuantity() + quantity);
         }
+        shoppingCartItem.setSubTotal(shoppingCartFacade.calculateSubTotal(shoppingCartItem));
 
         shoppingCart.getShoppingCartItems().put(bookIsbn, shoppingCartItem);
+        shoppingCart.setTotal(shoppingCartFacade.calculateShoppingCart(shoppingCart));
 
         setSessionAttribute(StoreConstants.SHOPPING_CART, shoppingCart, request);
 
@@ -93,12 +100,13 @@ public class ShoppingCartController extends AbstractController{
     }
 
     @RequestMapping(value={"/removeShoppingCartItem"},method = { RequestMethod.GET, RequestMethod.POST })
-    public ResponseEntity<AjaxResponse> removeShoppingCartItem(@RequestParam final String bookIsbn, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    public ResponseEntity<AjaxResponse> removeShoppingCartItem(@RequestParam("bookIsbn") final String bookIsbn, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         ShoppingCart shoppingCart = (ShoppingCart)request.getSession().getAttribute(StoreConstants.SHOPPING_CART);
 
         Validate.notNull(shoppingCart);
 
         shoppingCart.getShoppingCartItems().remove(bookIsbn);
+        shoppingCart.setTotal(shoppingCartFacade.calculateShoppingCart(shoppingCart));
 
         if(shoppingCart.getShoppingCartItems().size() == 0){
             removeAttribute(StoreConstants.SHOPPING_CART, request);
@@ -114,21 +122,33 @@ public class ShoppingCartController extends AbstractController{
 
 
     @RequestMapping(value={"/updateShoppingCartItem"},method = { RequestMethod.GET, RequestMethod.POST })
-    public ResponseEntity<AjaxResponse> updateShoppingCartItem(@RequestParam final String bookIsbn, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+    public ResponseEntity<AjaxResponse> updateShoppingCartItem(@RequestParam("bookIsbn") final String bookIsbn, @RequestParam("quantity") final int quantity, final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         ShoppingCart shoppingCart = (ShoppingCart)request.getSession().getAttribute(StoreConstants.SHOPPING_CART);
 
         Validate.notNull(shoppingCart);
 
         ShoppingCartItem shoppingCartItem = shoppingCart.getShoppingCartItems().get(bookIsbn);
 
-        if(shoppingCart.getShoppingCartItems().size() == 0){
-            removeAttribute(StoreConstants.SHOPPING_CART, request);
-        }else {
-            setSessionAttribute(StoreConstants.SHOPPING_CART, shoppingCart, request);
-        }
+        shoppingCartItem.setQuantity(quantity);
+
+        BigDecimal subTotal = shoppingCartFacade.calculateSubTotal(shoppingCartItem);
+        shoppingCartItem.setSubTotal(subTotal);
+
+        shoppingCart.getShoppingCartItems().put(bookIsbn, shoppingCartItem);
+
+        BigDecimal grandTotal = shoppingCartFacade.calculateShoppingCart(shoppingCart);
+        shoppingCart.setTotal(grandTotal);
+
+        setSessionAttribute(StoreConstants.SHOPPING_CART, shoppingCart, request);
+
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("subTotal",subTotal);
+        result.put("total",grandTotal);
 
         AjaxResponse ajaxResponse = new AjaxResponse();
         ajaxResponse.setStatus(RESPONSE_STATUS_SUCCESS);
+        ajaxResponse.setResult(result);
 
         return new ResponseEntity<AjaxResponse>(ajaxResponse, HttpStatus.OK);
     }

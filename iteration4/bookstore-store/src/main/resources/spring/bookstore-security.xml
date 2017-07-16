@@ -100,17 +100,12 @@
 		<intercept-url pattern="/store/customer/*/**" access="hasRole('AUTH_CUSTOMER')" />
 		<intercept-url pattern="/store/customer/*/*/**" access="hasRole('AUTH_CUSTOMER')" />
 
-		<form-login login-page="/store/login"
-					username-parameter="username"
-					password-parameter="password"
-					login-processing-url="store/customer/logon"
-					authentication-success-handler-ref="customerAuthenticationSuccessHandler"
-					authentication-failure-url="/store/login?login_error=true"
+		<form-login login-page="/store/customer/logon"
 		/>
 
 
 		<logout invalidate-session="false"
-				logout-success-url="/store/"
+				logout-success-url="/store"
 				logout-url="/store/customer/logout" />
 
         <access-denied-handler error-page="/error/access_denied"/>

@@ -1,4 +1,4 @@
-package com.dynamicheart.bookstore.core.model.statistics;
+package com.dynamicheart.bookstore.store.admin.model.statistics;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

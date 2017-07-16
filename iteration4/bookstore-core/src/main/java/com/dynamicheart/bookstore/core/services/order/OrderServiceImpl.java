@@ -1,5 +1,6 @@
 package com.dynamicheart.bookstore.core.services.order;
 
+import com.dynamicheart.bookstore.core.model.order.orderitem.OrderItem;
 import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.order.*;
@@ -46,5 +47,28 @@ public class OrderServiceImpl extends BookstoreEntityServiceImpl<Long, Order> im
             LOGGER.debug("Creating Order");
             super.create(order);
         }
+    }
+
+    @Override
+    public BigDecimal calculateOrder(Order order) throws Exception {
+        BigDecimal grandTotal = new BigDecimal(0);
+        grandTotal = grandTotal.setScale(2, RoundingMode.HALF_UP);
+
+        for(OrderItem item:order.getOrderItems()) {
+            BigDecimal st = item.getOneTimeCharge().multiply(new BigDecimal(item.getItemQuantity()));
+            grandTotal = grandTotal.add(st);
+        }
+
+        return grandTotal;
+    }
+
+    @Override
+    public List<Order> listByCustomerId(Long customerId) {
+        return orderRepository.listByCustomerId(customerId);
+    }
+
+    @Override
+    public Order findOne(Long id) {
+        return orderRepository.findOne(id);
     }
 }

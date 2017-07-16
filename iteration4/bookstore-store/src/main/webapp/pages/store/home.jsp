@@ -20,7 +20,7 @@
         </div>
     </c:forEach>
 </div>
-<div class="row">
+<div class="row pull-right">
     <ul class="pagination">
         <li class="${paginationData.currentPage eq 1 ? 'disabled' : ''}">
             <c:choose>
@@ -80,6 +80,7 @@
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
+                                    <option value="5">5</option>
                                 </select>
                             </div>
                             <!-- end col -->
@@ -87,7 +88,7 @@
                         <br>
                         <div class="btn-ground">
                             <button type="button" onclick="addToCart(event)" class="btn btn-primary"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Add To Cart</button>
-                            <button type="button" class="btn btn-primary"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy Now</button>
+                            <button type="button" onclick="placeOrder(event)" class="btn btn-primary"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy Now</button>
                         </div>
                     </div>
                 </div>
@@ -131,6 +132,26 @@
             'success': function (response) {
                 if (response.status == 0) {
                     $("#modalView").modal('hide');
+                }
+            }
+        });
+    }
+
+    function placeOrder(e) {
+        e.preventDefault();
+        var quantity = $('#modalSelect').val();
+        var isbn = $('#modalIsbn').val();
+        $("#modalView").modal('hide');
+        $.ajax({
+            type: "POST",
+            url: "/store/order/single",
+            data: "bookIsbn=" + isbn + "&quantity=" + quantity,
+            cache: false,
+            dataType: 'json',
+            'success': function (response) {
+                if (response.status == 0) {
+                }else {
+                    alert(response.statusMessage);
                 }
             }
         });

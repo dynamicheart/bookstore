@@ -26,4 +26,12 @@
         <put-attribute name="body" value="/pages/store/book/list.jsp"/>
     </definition>
 
+	<definition name="customer-orders" template="/layout/store/catalogLayout.jsp">
+		<put-attribute name="body" value="/pages/store/customer/orders.jsp"/>
+	</definition>
+
+	<definition name="customer-order-items" template="/layout/store/catalogLayout.jsp">
+		<put-attribute name="body" value="/pages/store/customer/orderItems.jsp"/>
+	</definition>
+
 </tiles-definitions>

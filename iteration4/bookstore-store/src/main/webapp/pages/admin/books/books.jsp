@@ -102,8 +102,7 @@
                         dataType: "json",
                         cache: "false",
                         success:function(data){
-                            table.row( $(this).parents('tr') ).remove().draw(true);
-                            location.reload();
+                            $("#bookTable").ajax.reload();
                         },
                         error:function(err){
                         }

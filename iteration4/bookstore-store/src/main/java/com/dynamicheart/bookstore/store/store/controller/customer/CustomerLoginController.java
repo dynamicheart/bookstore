@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/store/customer")
-public class CustomerLoginController extends AbstractController{
+public class CustomerLoginController extends AbstractController {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomerLoginController.class);
 
@@ -39,7 +39,7 @@ public class CustomerLoginController extends AbstractController{
     private CustomerFacade customerFacade;
 
 
-    @RequestMapping(value="/login", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AjaxResponse> jsonLogon(@ModelAttribute SecuredCustomer securedCustomer, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         AjaxResponse jsonObject = this.logon(securedCustomer.getUserName(), securedCustomer.getPassword(), request, response);
@@ -54,10 +54,10 @@ public class CustomerLoginController extends AbstractController{
 
             LOG.debug("Authenticating user " + userName);
 
-            Language language = (Language)request.getAttribute("LANGUAGE");
+            Language language = (Language) request.getAttribute("LANGUAGE");
             //check if username is from the appropriate store
             Customer customerModel = customerFacade.getCustomerByUserName(userName);
-            if(customerModel==null) {
+            if (customerModel == null) {
                 jsonObject.setStatus(AjaxResponse.RESPONSE_STATUS_FAIURE);
                 return jsonObject;
             }
@@ -79,24 +79,51 @@ public class CustomerLoginController extends AbstractController{
 
         } catch (AuthenticationException ex) {
             jsonObject.setStatus(AjaxResponse.RESPONSE_STATUS_FAIURE);
-        } catch(Exception e) {
+        } catch (Exception e) {
             jsonObject.setStatus(AjaxResponse.RESPONSE_STATUS_FAIURE);
         }
 
         return jsonObject;
     }
 
-    @RequestMapping(value="/authenticate", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AjaxResponse> basicLogon(@RequestParam String userName, @RequestParam String password, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        AjaxResponse jsonObject = this.logon(userName, password,request, response);
-        return new ResponseEntity<AjaxResponse>(jsonObject, HttpStatus.OK);
+    @RequestMapping(value = "/authenticate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String basicLogon(@RequestParam String userName, @RequestParam String password, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        this.logon(userName, password, request, response);
+        return "redirect:/store";
     }
 
 
-    @RequestMapping(value="/logon", method= RequestMethod.GET)
+    @RequestMapping(value = "/logon", method = RequestMethod.GET)
     public String displayLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
         return "store/login";
+    }
+
+    @RequestMapping(value = "/logon", method = RequestMethod.POST)
+    public String formLogon(@RequestParam(value = "username") String userName, @RequestParam(value = "password") String password, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            Language language = (Language) request.getAttribute("LANGUAGE");
+            //check if username is from the appropriate store
+            Customer customerModel = customerFacade.getCustomerByUserName(userName);
+            if (customerModel == null) {
+                return "redirect:/store/customer/logon?login_error=true";
+            }
+
+
+            customerFacade.authenticate(customerModel, userName, password);
+            //set customer in the http session
+            super.setSessionAttribute(StoreConstants.CUSTOMER, customerModel, request);
+
+            //set username in the cookie
+            Cookie c = new Cookie(StoreConstants.COOKIE_NAME_USER, customerModel.getNick());
+            c.setMaxAge(60 * 24 * 3600);
+            c.setPath(StoreConstants.SLASH);
+            response.addCookie(c);
+        } catch (Exception e) {
+            return "redirect:/store/customer/logon?login_error=true";
+        }
+
+
+        return "redirect:/store";
     }
 
 }

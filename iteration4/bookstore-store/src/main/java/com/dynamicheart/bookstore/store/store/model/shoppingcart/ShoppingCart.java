@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,15 +19,15 @@ public class ShoppingCart extends StoreEntity implements Serializable{
 
     private static final long serialVersionUID = 5345470614399136558L;
 
-    private String total;
+    private BigDecimal total;
 
     private Map<String,ShoppingCartItem> shoppingCartItems = new HashMap<>();
 
-    public String getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 

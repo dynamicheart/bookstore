@@ -78,6 +78,11 @@
                                     class="fa fa-user" aria-hidden="true"></i>&nbsp;<s:message code="label.my.profile"
                                                                                                text="My Profile"/></a>
                         </li>
+                        <li>
+                            <a onClick="javascript:location.href='<c:url
+                                    value="/store/customer/order/orders"/>';" href="#"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;<s:message code="label.order.title"
+                                                                                               text="My Orders"/></a>
+                        </li>
                         <li class="divider"></li>
                         <li>
                             <a onClick="javascript:location.href='<c:url value="/store/customer/logout"/>';"
@@ -90,47 +95,12 @@
                 </sec:authorize>
                 <sec:authorize access="!hasRole('AUTH_CUSTOMER')">
                 <!-- login box -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <li>
+                    <a href="<c:url value="/store/customer/logon"/>" >
                                 <span class="signininfo normal-label"><s:message code="button.label.signin"
                                                                                  text="Signin"/></span> <span><i
                             class="fa fa-sign-in" aria-hidden="true"></i></span>
                     </a>
-                    <!-- form id must be login, form fields must be userName, password and storeCode -->
-                    <ul class="dropdown-menu">
-                        <li>
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div id="loginError" class="alert alert-error bg-danger"
-                                         style="display:none;"></div>
-                                    <form accept-charset="UTF-8">
-                                        <div class="control-group">
-                                            <label><s:message code="label.generic.username" text="Username"/></label>
-                                            <div class="controls">
-                                                <!-- important keep signin_userName -->
-                                                <input id="signin_userName" style="margin-bottom: 15px;" type="text"
-                                                       name="userName" size="30"/>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label><s:message code="label.generic.password" text="Password"/></label>
-                                            <div class="controls">
-                                                <!-- important keep signin_password -->
-                                                <input id="signin_password" style="margin-bottom: 15px;"
-                                                       type="password" name="password" size="30"/>
-                                            </div>
-                                        </div>
-                                        <button style="width:100%" class="btn btn-primary btn-large" id="login-button"><s:message code="button.label.login"
-                                                                                                                                  text="Login"/></button>
-                                        <a id="registerLink" onClick="javascript:location.href='<c:url
-                                                value="/store/customer/registration"/>';" href="" role="button"
-                                           class="" data-toggle="modal"><s:message
-                                                code="label.register.notyetregistered" text="Not yet registered ?"/></a>
-                                    </form>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
                 </li>
                 </sec:authorize>
                 <li>
@@ -161,55 +131,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script>
-
-    function getLoginErrorLabel() {
-        return '<s:message code="message.username.password" text="Login Failed. Username or Password is incorrect."/>';
-    }
-
-    function login() {
-        //$("#login").submit(function(e) {
-        //e.preventDefault();//do not submit form
-        $("#loginError").hide();
-
-        var userName = $('#signin_userName').val();
-        var password = $('#signin_password').val();
-        if(userName=='' || password=='') {
-            $("#loginError").html(getLoginErrorLabel());
-            $("#loginError").show();
-            return;
-        }
-
-        $.ajax({
-            type: "GET",
-            url: "/store/customer/authenticate",
-            data: "userName=" + userName + "&password=" + password,
-            cache:false,
-            dataType:'json',
-            'success': function(response) {
-                if (response.status==0) {
-                    location.reload();
-                } else {
-                    $("#loginError").html(getLoginErrorLabel());
-                    $("#loginError").show();
-                }
-            }
-        });
-        return false;
-    }
-
-    $("#login-button").click(function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        login();
-    });
-
-    (function(){
-
-        $("#cart").on("click", function() {
-            $(".shopping-cart").fadeToggle( "fast");
-        });
-
-    })();
 
     $("#searchInput").bind("keypress", {}, keypressInBox);
 
