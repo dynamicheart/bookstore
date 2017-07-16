@@ -79,4 +79,9 @@ public class BookServiceImpl extends BookstoreEntityServiceImpl<Long, Book> impl
     public Book getBySeUrl(String seUrl, Locale locale) {
         return bookRepository.getByFriendlyUrl(seUrl, locale);
     }
+
+    @Override
+    public List<Book> getBooksByCriteria(String criteria) {
+        return bookRepository.listByCriteria(criteria);
+    }
 }

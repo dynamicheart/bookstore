@@ -70,6 +70,8 @@ public class InitializationLoader {
     public void init(){
         try {
             if(initializationDatabase.isEmpty()){
+
+
                 File permissionXML=resourceLoader.getResource("classpath:/permission/permission.json").getFile();
                 StreamSource xmlSource = new StreamSource(permissionXML);
 

@@ -42,22 +42,16 @@ public class CategoryServiceImpl extends BookstoreEntityServiceImpl<Long, Catego
 	public void create(Category category) throws ServiceException {
 		
 		super.create(category);
-		
-		StringBuilder lineage = new StringBuilder();
-		Category parent = category.getParent();
-		if(parent!=null && parent.getId()!=null && parent.getId()!=0) {
-			lineage.append(parent.getLineage()).append("/").append(parent.getId());
-			category.setDepth(parent.getDepth()+1);
-		} else {
-			lineage.append("/");
-			category.setDepth(0);
-		}
-		category.setLineage(lineage.toString());
 		super.update(category);
 		
 		
 	}
-	
+
+	@Override
+	public List<Category> list() {
+		return categoryRepository.list();
+	}
+
 	@Override
 	public List<Object[]> countBooksByCategories(List<Long> categoryIds) throws ServiceException {
 		
@@ -100,19 +94,6 @@ public class CategoryServiceImpl extends BookstoreEntityServiceImpl<Long, Catego
 	}
 
 	@Override
-	public List<Category> listByLineage(String lineage) throws ServiceException {
-		try {
-			return categoryRepository.findByLineage(lineage);
-		} catch (Exception e) {
-			throw new ServiceException(e);
-		}
-		
-		
-	}
-	
-	
-
-	@Override
 	public List<Category> listBySeUrl(String seUrl) throws ServiceException {
 		
 		try {
@@ -147,27 +128,7 @@ public class CategoryServiceImpl extends BookstoreEntityServiceImpl<Long, Catego
 			return categoryRepository.findOne(id);
 		
 	}
-	
-	@Override
-	public List<Category> listByParent(Category category) throws ServiceException {
-		
-		try {
-			return categoryRepository.listByParent(category);
-		} catch (Exception e) {
-			throw new ServiceException(e);
-		}
-		
-	}
 
-	@Override
-	public List<Category> listByParent(Category category, Language language) {
-		Assert.notNull(category, "Category cannot be null");
-		Assert.notNull(language, "Language cannot be null");
-		
-		return categoryRepository.findByParent(category.getId(), language.getId());
-	}
-
-	
 	@Override
 	public void addCategoryDescription(Category category, CategoryDescription description)
 			throws ServiceException {
@@ -187,62 +148,8 @@ public class CategoryServiceImpl extends BookstoreEntityServiceImpl<Long, Catego
 	
 	//@Override
 	public void delete(Category category) throws ServiceException {
-		
-		//get category with lineage (subcategories)
-		StringBuilder lineage = new StringBuilder();
-		lineage.append(category.getLineage()).append(category.getId()).append(CoreConstants.SLASH);
-		List<Category> categories = this.listByLineage(lineage.toString());
-		
-		Category dbCategory = this.getById( category.getId() );
-		
-		
-		if(dbCategory != null && dbCategory.getId().longValue() == category.getId().longValue() ) {			
-			
-			
-			categories.add(dbCategory);
-			
-			
-			Collections.reverse(categories);
-			
-			List<Long> categoryIds = new ArrayList<Long>();
-	
-				
-			for(Category c : categories) {
-					categoryIds.add(c.getId());
-			}
-
-			List<Book> books = bookService.getBooks(categoryIds);
-			org.hibernate.Session session = em.unwrap(org.hibernate.Session.class);//need to refresh the session to update all book categories
-
-			
-			for(Book book : books) {
-				session.evict(book);//refresh book so we get all book categories
-				Book dbBook = bookService.getById(book.getId());
-				Set<Category> bookCategories = dbBook.getCategories();
-				if(bookCategories.size()>1) {
-					for(Category c : categories) {
-						bookCategories.remove(c);
-						bookService.update(dbBook);
-					}
-					
-					if(book.getCategories()==null || book.getCategories().size()==0) {
-						bookService.delete(dbBook);
-					}
-					
-				} else {
-					bookService.delete(dbBook);
-				}
-				
-				
-			}
-			
-			Category categ = this.getById(category.getId());
-			categoryRepository.delete(categ);
-			
-		}
-		
+		categoryRepository.delete(category);
 	}
-
 
 
 	@Override
@@ -255,74 +162,6 @@ public class CategoryServiceImpl extends BookstoreEntityServiceImpl<Long, Catego
 			}
 		}
 		return null;
-	}
-	
-	@Override
-	public void addChild(Category parent, Category child) throws ServiceException {
-		
-		
-		if(child==null) {
-			throw new ServiceException("Child category should not be null");
-		}
-		
-		try {
-			
-			if(parent==null) {
-				
-				//assign to root
-				child.setParent(null);
-				child.setDepth(0);
-				//child.setLineage(new StringBuilder().append("/").append(child.getId()).append("/").toString());
-				child.setLineage("/");
-				
-			} else {
-				
-				Category p = this.getById(parent.getId());//parent
-				
-				
-
-				
-				String lineage = p.getLineage();
-				int depth = p.getDepth();//TODO sometimes null
-				
-				child.setParent(p);
-				child.setDepth(depth+1);
-				child.setLineage(new StringBuilder().append(lineage).append(p.getId()).append("/").toString());
-				
-				
-			}
-			
-
-			update(child);
-			StringBuilder childLineage = new StringBuilder();
-			childLineage.append(child.getLineage()).append(child.getId()).append("/");
-			List<Category> subCategories = listByLineage(childLineage.toString());
-			
-			
-			//ajust all sub categories lineages
-			if(subCategories!=null && subCategories.size()>0) {
-				for(Category subCategory : subCategories) {
-					if(child.getId()!=subCategory.getId()) {
-						addChild(child, subCategory);
-					}
-				}
-				
-			}
-		} catch (Exception e) {
-			throw new ServiceException(e);
-		}
-		
-
-	}
-	
-	@Override
-	public List<Category> listByDepth(int depth) {
-		return categoryRepository.findByDepth(depth);
-	}
-	
-	@Override
-	public List<Category> listByDepth(int depth, Language language) {
-		return categoryRepository.findByDepth(depth, language.getId());
 	}
 
 	@Override

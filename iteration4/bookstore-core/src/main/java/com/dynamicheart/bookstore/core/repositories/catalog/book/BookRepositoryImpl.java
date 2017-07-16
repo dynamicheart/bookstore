@@ -22,10 +22,10 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
 
             StringBuilder qs = new StringBuilder();
             qs.append("select distinct b from Book as b ");
-            qs.append("join fetch b.availabilities ba ");
+            //images
+            qs.append("left join fetch b.images images ");
+
             qs.append("join fetch b.descriptions bd ");
-            qs.append("left join fetch ba.prices bap ");
-            qs.append("left join fetch bap.descriptions bapd ");
 
             //other lefts
             qs.append("left join fetch b.publisher publ ");
@@ -54,10 +54,10 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
 
             StringBuilder qs = new StringBuilder();
             qs.append("select distinct b from Book as b ");
-            qs.append("join fetch b.availabilities ba ");
+            //images
+            qs.append("left join fetch b.images images ");
+
             qs.append("join fetch b.descriptions bd ");
-            qs.append("left join fetch ba.prices bap ");
-            qs.append("left join fetch bap.descriptions bapd ");
 
             //other lefts
             qs.append("left join fetch b.publisher publ ");
@@ -85,13 +85,11 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     public List<Book> getBooksListByCategories(Set categoryIds) {
         StringBuilder qs = new StringBuilder();
         qs.append("select distinct b from Book as b ");
-        qs.append("join fetch b.availabilities ba ");
-        qs.append("left join fetch ba.prices bap ");
+        //images
+        qs.append("left join fetch b.images images ");
 
         qs.append("join fetch b.descriptions bd ");
         qs.append("join fetch b.categories categs ");
-
-        qs.append("left join fetch bap.descriptions bapd ");
 
         qs.append("left join fetch b.publisher publ ");
 
@@ -114,8 +112,8 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     public List<Book> getBooksListByCategories(Set<Long> categoryIds, Language language) {
         StringBuilder qs = new StringBuilder();
         qs.append("select distinct b from Book as b ");
-        qs.append("join fetch b.availabilities ba ");
-        qs.append("left join fetch ba.prices bap ");
+        //images
+        qs.append("left join fetch b.images images ");
 
         qs.append("join fetch b.descriptions bd ");
         qs.append("join fetch b.categories categs ");
@@ -126,7 +124,7 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
 
         qs.append("where categs.id in (:cid)");
 
-        qs.append("and bd.language.id=:lang and papd.language.id=:lang ");
+        qs.append("and bd.language.id=:lang and bapd.language.id=:lang ");
         qs.append("and b.available=true");
 
         String hql = qs.toString();
@@ -146,17 +144,9 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     @Override
     public Book getByFriendlyUrl(String seUrl, Locale locale) {
 
-        List regionList = new ArrayList();
-        regionList.add("*");
-        regionList.add(locale.getCountry());
-
-
         StringBuilder qs = new StringBuilder();
         qs.append("select distinct b from Book as b ");
-        qs.append("join fetch b.availabilities ba ");
         qs.append("join fetch b.descriptions bd ");
-
-
         //images
         qs.append("left join fetch b.images images ");
 
@@ -164,17 +154,14 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
         qs.append("left join fetch b.publisher publi ");
         qs.append("left join fetch publi.descriptions publid ");
 
-        qs.append("where ba.region in (:lid) ");
-        qs.append("and bd.seUrl=:seUrl ");
+        qs.append("where bd.seUrl=:seUrl ");
         qs.append("and b.available=true");
-
 
 
         String hql = qs.toString();
         Query q = this.em.createQuery(hql);
 
 
-        q.setParameter("lid", regionList);
         q.setParameter("seUrl", seUrl);
 
         Book b = null;
@@ -186,5 +173,34 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
         }
 
         return b;
+    }
+
+    @Override
+    public List<Book> listByCriteria(String criteria) {
+        StringBuilder qs = new StringBuilder();
+        qs.append("select distinct b from Book as b ");
+        qs.append("join fetch b.descriptions bd ");
+        //images
+        qs.append("left join fetch b.images images ");
+
+        //other lefts
+        qs.append("left join fetch b.publisher publi ");
+        qs.append("left join fetch publi.descriptions publid ");
+
+        qs.append("where bd.name like :criteria ");
+        qs.append("and b.available=true");
+
+
+        String hql = qs.toString();
+        Query q = this.em.createQuery(hql);
+
+
+        q.setParameter("criteria", "%"+criteria+"%");
+
+        @SuppressWarnings("unchecked")
+        List<Book> books = q.getResultList();
+
+
+        return books;
     }
 }

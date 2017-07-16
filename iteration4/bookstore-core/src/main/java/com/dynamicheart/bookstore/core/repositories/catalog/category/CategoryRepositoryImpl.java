@@ -16,51 +16,24 @@ public class CategoryRepositoryImpl implements CategoryRepositoryCustom {
 	@Override
 	public List<Object[]> countBooksByCategories(List<Long> categoryIds) {
 
-		
+
 		StringBuilder qs = new StringBuilder();
 		qs.append("select categories, count(book.id) from Book book ");
 		qs.append("inner join book.categories categories ");
 		qs.append("where categories.id in (:cid) ");
 		qs.append("and book.available=true");
 		qs.append("group by categories.id");
-		
-    	String hql = qs.toString();
+
+		String hql = qs.toString();
 		Query q = this.em.createQuery(hql);
 
-    	q.setParameter("cid", categoryIds);
+		q.setParameter("cid", categoryIds);
 
-    	@SuppressWarnings("unchecked")
-		List<Object[]> counts =  q.getResultList();
+		@SuppressWarnings("unchecked")
+		List<Object[]> counts = q.getResultList();
 
-    	
-    	return counts;
-		
-		
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Category> listByParent(Category category) {
-		
-		StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append("select c from Category c");
-		
 
-		if (category == null) {
-			queryBuilder.append(" where c.parent IsNull ");
-		} else {
-			queryBuilder.append(" join fetch c.parent cp where cp.id =:cid ");
-		}
-
-		
-		queryBuilder.append(" order by c.sortOrder asc");
-		
-    	String hql = queryBuilder.toString();
-		Query q = this.em.createQuery(hql);
-
-    	q.setParameter("cid", category.getId());
-		
-		return q.getResultList();
+		return counts;
 	}
 
 }

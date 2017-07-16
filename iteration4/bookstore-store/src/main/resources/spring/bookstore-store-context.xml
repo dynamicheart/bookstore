@@ -15,10 +15,10 @@
 
 	<!-- controllers -->
 	<beans:import resource="classpath:/spring/bookstore-controllers.xml" />
-	<!-- properties -->
-	<beans:import resource="classpath:/spring/bookstore-properties.xml" />
 	<!-- security -->
 	<beans:import resource="classpath:/spring/bookstore-security.xml" />
+	<!-- properties -->
+	<beans:import resource="classpath:/spring/bookstore-properties.xml" />
 	<!-- servlet-context -->
 	<beans:import resource="classpath:/spring/bookstore-servlet-context.xml" />
 	<!-- data init -->

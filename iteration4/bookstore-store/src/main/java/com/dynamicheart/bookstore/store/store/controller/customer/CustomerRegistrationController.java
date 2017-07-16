@@ -4,8 +4,7 @@ import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
 import com.dynamicheart.bookstore.core.utils.CoreConfiguration;
-import com.dynamicheart.bookstore.store.common.constants.Constants;
-import com.dynamicheart.bookstore.store.store.model.customer.AnonymousCustomer;
+import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import com.dynamicheart.bookstore.store.store.model.customer.CustomerEntity;
 import com.dynamicheart.bookstore.store.store.model.customer.SecuredStorePersistableCustomer;
 import com.dynamicheart.bookstore.store.store.controller.AbstractController;
@@ -129,15 +128,15 @@ public class CustomerRegistrationController extends AbstractController {
             Customer c = customerFacade.getCustomerByUserName(customer.getUserName());
             //authenticate
             customerFacade.authenticate(c, userName, password);
-            super.setSessionAttribute(Constants.CUSTOMER, c, request);
+            super.setSessionAttribute(StoreConstants.CUSTOMER, c, request);
 
             //set username in the cookie
-            Cookie cookie = new Cookie(Constants.COOKIE_NAME_USER, c.getNick());
+            Cookie cookie = new Cookie(StoreConstants.COOKIE_NAME_USER, c.getNick());
             cookie.setMaxAge(60 * 24 * 3600);
-            cookie.setPath(Constants.SLASH);
+            cookie.setPath(StoreConstants.SLASH);
             response.addCookie(cookie);
 
-            return "redirect:/store/customer/dashboard";
+            return "redirect:/";
 
 
         } catch(Exception e) {

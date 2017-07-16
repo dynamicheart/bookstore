@@ -21,4 +21,6 @@ public interface BookService extends BookstoreEntityService<Long, Book> {
     List<Book> getBooks(List<Long> categoryIds) throws ServiceException;
 
     Book getBySeUrl(String seUrl, Locale locale);
+
+    List<Book> getBooksByCriteria(String criteria);
 }

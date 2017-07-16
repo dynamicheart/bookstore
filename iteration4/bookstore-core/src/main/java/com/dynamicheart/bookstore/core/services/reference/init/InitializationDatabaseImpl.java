@@ -1,17 +1,21 @@
 package com.dynamicheart.bookstore.core.services.reference.init;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
-import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
-import com.dynamicheart.bookstore.core.model.reference.currency.Currency;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
-import com.dynamicheart.bookstore.core.services.reference.currency.CurrencyService;
 import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
+import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.sql.DataSource;
+import java.sql.Connection;
 
 @Service("initializationDatabase")
 public class InitializationDatabaseImpl implements InitializationDatabase {
@@ -22,7 +26,8 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 	private LanguageService languageService;
 
 	@Inject
-	private CurrencyService currencyService;
+	@Qualifier("datasource")
+	private DataSource dataSource;
 
 	private String name;
 
@@ -34,27 +39,6 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 	public void populate(String contextName) throws ServiceException {
 		this.name =  contextName;
 		createLanguages();
-		createCurrencies();
-	}
-
-	private void createCurrencies() throws ServiceException {
-		LOGGER.info(String.format("%s : Populating Currencies ", name));
-
-		for (String code : SchemaConstant.CURRENCY_MAP.keySet()) {
-			try {
-				java.util.Currency c = java.util.Currency.getInstance(code);
-
-				if(c==null) {
-					LOGGER.info(String.format("%s : Populating Currencies : no currency for code : %s", name, code));
-				}
-				Currency currency = new Currency();
-				currency.setName(c.getCurrencyCode());
-				currency.setCurrency(c);
-				currencyService.create(currency);
-			} catch (IllegalArgumentException e) {
-				LOGGER.info(String.format("%s : Populating Currencies : no currency for code : %s", name, code));
-			}
-		}
 	}
 
 	private void createLanguages() throws ServiceException {
@@ -64,4 +48,15 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 			languageService.create(language);
 		}
 	}
+
+	private void createProcedure() throws ServiceException{
+		ClassPathResource resource = new ClassPathResource("sql/statistics_function.sql");
+		try (Connection connection = dataSource.getConnection()){
+			ScriptUtils.executeSqlScript(connection, resource);
+		}catch (Exception e){
+			throw new ServiceException(e);
+		}
+	}
+
+
 }

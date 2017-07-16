@@ -8,7 +8,7 @@ import com.dynamicheart.bookstore.core.services.customer.CustomerService;
 import com.dynamicheart.bookstore.core.services.user.GroupService;
 import com.dynamicheart.bookstore.core.services.user.PermissionService;
 import com.dynamicheart.bookstore.store.admin.security.SecurityDataAccessException;
-import com.dynamicheart.bookstore.store.common.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +62,7 @@ public class CustomerServicesImpl implements UserDetailsService {
 	
 	
 
-			GrantedAuthority role = new SimpleGrantedAuthority(ROLE_PREFIX + Constants.PERMISSION_CUSTOMER_AUTHENTICATED);//required to login
+			GrantedAuthority role = new SimpleGrantedAuthority(ROLE_PREFIX + StoreConstants.PERMISSION_CUSTOMER_AUTHENTICATED);//required to login
 			authorities.add(role); 
 			
 			List<Integer> groupsId = new ArrayList<Integer>();

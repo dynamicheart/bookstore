@@ -3,16 +3,15 @@ package com.dynamicheart.bookstore.store.store.controller.customer.facade;
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.customer.CustomerGender;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
-import com.dynamicheart.bookstore.core.model.shoppingcart.ShoppingCart;
 import com.dynamicheart.bookstore.core.model.user.Group;
 import com.dynamicheart.bookstore.core.model.user.GroupType;
 import com.dynamicheart.bookstore.core.model.user.Permission;
 import com.dynamicheart.bookstore.core.services.customer.CustomerService;
 import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
-import com.dynamicheart.bookstore.core.services.shoppingcart.ShoppingCartService;
 import com.dynamicheart.bookstore.core.services.user.GroupService;
 import com.dynamicheart.bookstore.core.services.user.PermissionService;
-import com.dynamicheart.bookstore.store.common.constants.Constants;
+import com.dynamicheart.bookstore.core.utils.exception.ConversionException;
+import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import com.dynamicheart.bookstore.store.store.model.customer.CustomerEntity;
 import com.dynamicheart.bookstore.store.store.model.customer.ReadableAndPersistableCustomer;
 import com.dynamicheart.bookstore.store.store.populator.customer.CustomerEntityPopulator;
@@ -52,9 +51,6 @@ public class CustomerFacadeImpl implements CustomerFacade{
     private CustomerService customerService;
 
     @Inject
-    private ShoppingCartService shoppingCartService;
-
-    @Inject
     private LanguageService languageService;
 
     @Inject
@@ -70,8 +66,26 @@ public class CustomerFacadeImpl implements CustomerFacade{
     @Inject
     private AuthenticationManager customerAuthenticationManager;
 
+    @Inject
+    CustomerEntityPopulator customerEntityPopulator;
+
     @Override
     public CustomerEntity getCustomerDataByUserName(String userName, Language language) throws Exception {
+        LOG.info( "Fetching customer with userName" +userName);
+        Customer customer=customerService.getByNick( userName );
+
+        if(customer !=null){
+            LOG.info( "Found customer, converting to CustomerEntity");
+            try{
+                return customerEntityPopulator.populate( customer, language );
+
+            }
+            catch(ConversionException ex){
+                LOG.error( "Error while converting Customer to CustomerEntity", ex );
+                throw new Exception(ex);
+            }
+        }
+
         return null;
     }
 
@@ -80,10 +94,6 @@ public class CustomerFacadeImpl implements CustomerFacade{
         return null;
     }
 
-    @Override
-    public ShoppingCart mergeCart(Customer customer, String sessionShoppingCartId, Language language) throws Exception {
-        return null;
-    }
 
     @Override
     public Customer getCustomerByUserName(String userName) throws Exception {
@@ -132,7 +142,7 @@ public class CustomerFacadeImpl implements CustomerFacade{
         if(CollectionUtils.isEmpty(customer.getGroups())) {
             List<Group> groups = groupService.listGroup(GroupType.CUSTOMER);
             for(Group group : groups) {
-                if(group.getGroupName().equals(Constants.GROUP_CUSTOMER)) {
+                if(group.getGroupName().equals(StoreConstants.GROUP_CUSTOMER)) {
                     customer.getGroups().add(group);
                 }
             }
@@ -145,7 +155,7 @@ public class CustomerFacadeImpl implements CustomerFacade{
         Validate.notNull(customer, "Customer cannot be null");
 
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        GrantedAuthority role = new SimpleGrantedAuthority(ROLE_PREFIX + Constants.PERMISSION_CUSTOMER_AUTHENTICATED);//required to login
+        GrantedAuthority role = new SimpleGrantedAuthority(ROLE_PREFIX + StoreConstants.PERMISSION_CUSTOMER_AUTHENTICATED);//required to login
         authorities.add(role);
         List<Integer> groupsId = new ArrayList<Integer>();
         List<Group> groups = customer.getGroups();
@@ -176,10 +186,9 @@ public class CustomerFacadeImpl implements CustomerFacade{
         LOG.info( "Starting to populate customer model from customer data" );
         Customer customerModel = new Customer();
         customerModel.setNick(customer.getUserName());
-        customerModel.setAnonymous(false);
         customerModel.setPassword(passwordEncoder.encode(customer.getClearPassword()));
         customerModel.setEmailAddress(customer.getEmailAddress());
-        customerModel.setGender(CustomerGender.valueOf(customer.getGender()));
+        customerModel.setGender(customer.getGender());
         customerModel.setDefaultLanguage(languageService.defaultLanguage());
 
         setCustomerModelDefaultProperties(customerModel);

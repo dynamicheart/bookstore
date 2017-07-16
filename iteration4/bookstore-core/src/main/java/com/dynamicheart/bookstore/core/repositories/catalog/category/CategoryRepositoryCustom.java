@@ -9,6 +9,4 @@ public interface CategoryRepositoryCustom {
 
 	List<Object[]> countBooksByCategories(List<Long> categoryIds);
 
-	List<Category> listByParent(Category category);
-
 }

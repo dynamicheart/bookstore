@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface CustomerRepository extends JpaRepository<Customer, Long>, CustomerRepositoryCustom{
 
-    @Query("select c from  Customer c left join fetch c.defaultLanguage cl left join fetch c.groups where c.id = ?1")
+    @Query("select c from  Customer c left join fetch c.avatars cas left join fetch c.defaultLanguage cl left join fetch c.groups where c.id = ?1")
     Customer findOne(Long id);
 
-    @Query("select c from Customer c left join fetch c.defaultLanguage cl left join fetch c.groups  where c.nick = ?1")
+    @Query("select c from Customer c left join fetch c.avatars cas left join fetch c.defaultLanguage cl left join fetch c.groups  where c.nick = ?1")
     Customer findByNick(String nick);
 }

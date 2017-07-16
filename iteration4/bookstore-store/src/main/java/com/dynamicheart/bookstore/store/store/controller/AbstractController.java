@@ -4,7 +4,7 @@
 package com.dynamicheart.bookstore.store.store.controller;
 
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
-import com.dynamicheart.bookstore.store.common.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import com.dynamicheart.bookstore.store.store.model.paging.PaginationData;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +28,7 @@ public abstract class AbstractController {
 	}
     
     protected Language getLanguage(HttpServletRequest request) {
-    	return (Language)request.getAttribute(Constants.LANGUAGE);
+    	return (Language)request.getAttribute(StoreConstants.LANGUAGE);
     }
 
 	protected PaginationData createPaginaionData( final int pageNumber, final int pageSize )

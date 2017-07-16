@@ -8,8 +8,7 @@ import com.dynamicheart.bookstore.core.services.customer.CustomerService;
 import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
 import com.dynamicheart.bookstore.core.utils.CacheUtils;
 import com.dynamicheart.bookstore.core.utils.CoreConfiguration;
-import com.dynamicheart.bookstore.store.common.constants.Constants;
-import com.dynamicheart.bookstore.store.store.model.customer.AnonymousCustomer;
+import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import com.dynamicheart.bookstore.store.utils.LabelUtils;
 import com.dynamicheart.bookstore.store.utils.LanguageUtils;
 import com.dynamicheart.bookstore.store.utils.WebApplicationCacheUtils;
@@ -77,14 +76,9 @@ public class StoreFilter extends HandlerInterceptorAdapter {
 
 		try {
 			/** customer **/
-			Customer customer = (Customer)request.getSession().getAttribute(Constants.CUSTOMER);
+			Customer customer = (Customer)request.getSession().getAttribute(StoreConstants.CUSTOMER);
 			if(customer!=null) {
-				if(!customer.isAnonymous()) {
-					if(!request.isUserInRole("AUTH_CUSTOMER")) {
-						request.removeAttribute(Constants.CUSTOMER);
-					}
-				}
-				request.setAttribute(Constants.CUSTOMER, customer);
+				request.setAttribute(StoreConstants.CUSTOMER, customer);
 			}
 
 			if(customer==null) {
@@ -94,30 +88,15 @@ public class StoreFilter extends HandlerInterceptorAdapter {
 						request.isUserInRole("AUTH_CUSTOMER")) {
 					customer = customerService.getByNick(auth.getName());
 					if(customer!=null) {
-						request.setAttribute(Constants.CUSTOMER, customer);
+						request.setAttribute(StoreConstants.CUSTOMER, customer);
 					}
 				}
 
 			}
 
-
-
-			AnonymousCustomer anonymousCustomer =  (AnonymousCustomer)request.getSession().getAttribute(Constants.ANONYMOUS_CUSTOMER);
-			if(anonymousCustomer==null) {
-
-
-				anonymousCustomer = new AnonymousCustomer();
-				request.getSession().setAttribute(Constants.ANONYMOUS_CUSTOMER, anonymousCustomer);
-			} else {
-				request.setAttribute(Constants.ANONYMOUS_CUSTOMER, anonymousCustomer);
-			}
-
-
-
-
 			/** language & locale **/
 			Language language = languageUtils.getRequestLanguage(request, response);
-			request.setAttribute(Constants.LANGUAGE, language);
+			request.setAttribute(StoreConstants.LANGUAGE, language);
 
 
 			Locale locale = languageService.toLocale(language);

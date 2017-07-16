@@ -35,6 +35,9 @@
 	<beans:bean id="userAuthenticationSuccessHandler" class="com.dynamicheart.bookstore.store.admin.security.UserAuthenticationSuccessHandler">
 	</beans:bean>
 
+	<beans:bean id="customerAuthenticationSuccessHandler" class="com.dynamicheart.bookstore.store.store.security.CustomerAuthenticationSuccessHandler">
+	</beans:bean>
+
 	<beans:bean id="servicesAuthenticationSuccessHandler" class="com.dynamicheart.bookstore.store.store.security.ServicesAuthenticationSuccessHandler">
 	</beans:bean>
 
@@ -97,12 +100,20 @@
 		<intercept-url pattern="/store/customer/*/**" access="hasRole('AUTH_CUSTOMER')" />
 		<intercept-url pattern="/store/customer/*/*/**" access="hasRole('AUTH_CUSTOMER')" />
 
+		<form-login login-page="/store/login"
+					username-parameter="username"
+					password-parameter="password"
+					login-processing-url="store/customer/logon"
+					authentication-success-handler-ref="customerAuthenticationSuccessHandler"
+					authentication-failure-url="/store/login?login_error=true"
+		/>
+
 
 		<logout invalidate-session="false"
 				logout-success-url="/store/"
 				logout-url="/store/customer/logout" />
 
-        <access-denied-handler error-page="/store/"/>
+        <access-denied-handler error-page="/error/access_denied"/>
 
 		<csrf disabled="true"/><!-- Spring security 4 -->
 	</http>

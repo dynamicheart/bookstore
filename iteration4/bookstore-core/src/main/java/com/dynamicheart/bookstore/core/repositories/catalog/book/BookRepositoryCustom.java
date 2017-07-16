@@ -22,4 +22,6 @@ public interface BookRepositoryCustom {
                                         Language language);
 
     Book getByFriendlyUrl(String seUrl, Locale locale);
+
+    List<Book> listByCriteria(String criteria);
 }

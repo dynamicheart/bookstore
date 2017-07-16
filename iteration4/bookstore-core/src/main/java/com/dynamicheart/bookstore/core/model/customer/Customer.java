@@ -1,6 +1,7 @@
 package com.dynamicheart.bookstore.core.model.customer;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
+import com.dynamicheart.bookstore.core.model.customer.avatar.CustomerAvatar;
 import com.dynamicheart.bookstore.core.model.generic.BookstoreEntity;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.model.user.Group;
@@ -9,9 +10,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by dynamicheart on 5/3/2017.
@@ -45,12 +44,12 @@ public class Customer extends BookstoreEntity<Long, Customer>{
     @Column(name="CUSTOMER_PASSWORD", length=60)
     private String password;
 
-    @Column(name="CUSTOMER_ANONYMOUS")
-    private boolean anonymous;
-
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Language.class)
     @JoinColumn(name = "LANGUAGE_ID", nullable=false)
     private Language defaultLanguage;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "customer")
+    private Set<CustomerAvatar> avatars = new HashSet<CustomerAvatar>();
 
     @ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinTable(name = "CUSTOMER_GROUP", schema=SchemaConstant.BOOKSTORE_SCHEMA, joinColumns = {
@@ -119,14 +118,6 @@ public class Customer extends BookstoreEntity<Long, Customer>{
         this.groups = groups;
     }
 
-    public boolean isAnonymous() {
-        return anonymous;
-    }
-
-    public void setAnonymous(boolean anonymous) {
-        this.anonymous = anonymous;
-    }
-
     public Language getDefaultLanguage() {
         return defaultLanguage;
     }
@@ -135,5 +126,24 @@ public class Customer extends BookstoreEntity<Long, Customer>{
         this.defaultLanguage = defaultLanguage;
     }
 
+    public Set<CustomerAvatar> getAvatars() {
+        return avatars;
+    }
 
+    public void setAvatars(Set<CustomerAvatar> avatars) {
+        this.avatars = avatars;
+    }
+
+    public CustomerAvatar getDefaultAvatar() {
+        CustomerAvatar customerAvatar = null;
+        if(this.getAvatars()!=null && this.getAvatars().size()>0) {
+            for(CustomerAvatar avatar : this.getAvatars()) {
+                customerAvatar = avatar;
+                if(avatar.isDefaultAvatar()) {
+                    break;
+                }
+            }
+        }
+        return customerAvatar;
+    }
 }

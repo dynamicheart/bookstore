@@ -1,6 +1,8 @@
 package com.dynamicheart.bookstore.store.store.model.customer;
 
+import com.dynamicheart.bookstore.core.model.customer.CustomerGender;
 import com.dynamicheart.bookstore.store.store.model.Entity;
+import com.dynamicheart.bookstore.store.store.model.ReadableImage;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -17,7 +19,9 @@ public class CustomerEntity extends Entity implements Serializable {
     @NotEmpty(message="{NotEmpty.customer.emailAddress}")
     private String emailAddress;
 
-    private String gender;
+    private CustomerGender gender;
+
+    private ReadableImage image;
 
     private String language;
 
@@ -43,12 +47,20 @@ public class CustomerEntity extends Entity implements Serializable {
         this.emailAddress = emailAddress;
     }
 
-    public String getGender() {
+    public CustomerGender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(CustomerGender gender) {
         this.gender = gender;
+    }
+
+    public ReadableImage getImage() {
+        return image;
+    }
+
+    public void setImage(ReadableImage image) {
+        this.image = image;
     }
 
     public String getLanguage() {

@@ -13,12 +13,17 @@
 		<put-attribute name="body" value="/pages/store/customer/register.jsp"/>
 	</definition>
 
-	<definition name="book" template="/layout/store/catalogLayout.jsp">
-		<put-attribute name="body" value="/pages/store/book/book.jsp"/>
+
+	<definition name="customer-profile" template="/layout/store/catalogLayout.jsp">
+		<put-attribute name="body" value="/pages/store/customer/profile.jsp"/>
 	</definition>
 
-	<definition name="dashboard" template="/layout/store/catalogLayout.jsp">
-		<put-attribute name="body" value="/pages/store/customer/dashboard.jsp"/>
-	</definition>
+    <definition name="cart" template="/layout/store/catalogLayout.jsp">
+        <put-attribute name="body" value="/pages/store/cart/cart.jsp"/>
+    </definition>
+
+    <definition name="search" template="/layout/store/catalogLayout.jsp">
+        <put-attribute name="body" value="/pages/store/book/list.jsp"/>
+    </definition>
 
 </tiles-definitions>

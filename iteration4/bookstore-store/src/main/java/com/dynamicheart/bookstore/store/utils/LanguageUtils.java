@@ -2,7 +2,7 @@ package com.dynamicheart.bookstore.store.utils;
 
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
 import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
-import com.dynamicheart.bookstore.store.common.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -26,7 +26,7 @@ public class LanguageUtils {
 		
 		Locale locale = null;
 		
-		Language language = (Language) request.getSession().getAttribute(Constants.LANGUAGE);
+		Language language = (Language) request.getSession().getAttribute(StoreConstants.LANGUAGE);
 		
 
 		if(language==null) {
@@ -36,11 +36,11 @@ public class LanguageUtils {
                 if(locale!=null) {
                     LocaleContextHolder.setLocale(locale);
                 }
-                request.getSession().setAttribute(Constants.LANGUAGE, language);
+                request.getSession().setAttribute(StoreConstants.LANGUAGE, language);
 			} catch(Exception e) {
 				if(language==null) {
 					try {
-						language = languageService.getByCode(Constants.DEFAULT_LANGUAGE);
+						language = languageService.getByCode(StoreConstants.DEFAULT_LANGUAGE);
 					} catch(Exception ignore) {}
 				}
 			}
@@ -81,11 +81,11 @@ public class LanguageUtils {
 		Language language = null;
 		
 		
-		String lang = request.getParameter(Constants.LANG);
+		String lang = request.getParameter(StoreConstants.LANG);
 		
 		if(StringUtils.isBlank(lang)) {
 			//try with HttpSession
-			language = (Language) request.getSession().getAttribute(Constants.LANGUAGE);
+			language = (Language) request.getSession().getAttribute(StoreConstants.LANGUAGE);
 			
 			if(language==null) {
 				language = languageService.defaultLanguage();
@@ -93,7 +93,7 @@ public class LanguageUtils {
 		} else {
 			language = languageService.getByCode(lang);
 			if(language==null) {
-				language = (Language) request.getSession().getAttribute(Constants.LANGUAGE);
+				language = (Language) request.getSession().getAttribute(StoreConstants.LANGUAGE);
 				
 				if(language==null) {
 					language = languageService.defaultLanguage();

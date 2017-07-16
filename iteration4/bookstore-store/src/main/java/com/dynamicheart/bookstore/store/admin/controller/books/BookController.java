@@ -1,12 +1,11 @@
 package com.dynamicheart.bookstore.store.admin.controller.books;
 
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
-import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
 import com.dynamicheart.bookstore.core.services.catalog.book.BookService;
 import com.dynamicheart.bookstore.core.services.catalog.book.publisher.PublisherService;
-import com.dynamicheart.bookstore.core.utils.BookAvailabilityUtils;
+import com.dynamicheart.bookstore.core.utils.PriceUtils;
 import com.dynamicheart.bookstore.store.admin.model.catalog.book.BookContainer;
 import com.dynamicheart.bookstore.store.admin.model.web.Menu;
 import com.dynamicheart.bookstore.store.utils.LabelUtils;
@@ -28,8 +27,6 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.*;
 
-import static com.dynamicheart.bookstore.core.constants.CoreConstants.ALL_REGIONS;
-
 /**
  * Created by dynamicheart on 5/29/2017.
  */
@@ -48,7 +45,7 @@ public class BookController {
     private LabelUtils messages;
 
     @Inject
-    private BookAvailabilityUtils bookAvailabilityUtils;
+    private PriceUtils priceUtils;
 
     @RequestMapping(value="/admin/book/detail", method= RequestMethod.GET)
     public String displayBookEdit(@RequestParam("id") Long id, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -122,19 +119,8 @@ public class BookController {
             Set<BookDescription> bookDescriptions = dbBook.getDescriptions();
             displayDescriptions.addAll(bookDescriptions);
 
-            BookAvailability bookAvailability = bookAvailabilityUtils.getBookAvailability(dbBook);
-
             BigDecimal bookPrice = null;
-            if(bookAvailability != null) {
-                if(bookAvailability.getBookPrice() != null){
-                    bookPrice = bookAvailability.getBookPrice();
-                    bookContainer.setDisplayPrice(bookAvailabilityUtils.getAdminFormatedAmount(bookPrice));
-                }
-            }else {
-                bookAvailability = new BookAvailability();
-            }
 
-            bookContainer.setBookAvailability(bookAvailability);
             bookContainer.setDescriptions(displayDescriptions);
         } else {
             BookDescription bookDescription = new BookDescription();
@@ -143,9 +129,6 @@ public class BookController {
             Book book = new Book();
             book.setAvailable(true);
 
-            BookAvailability bookAvailability = new BookAvailability();
-
-            bookContainer.setBookAvailability(bookAvailability);
             bookContainer.setBook(book);
             bookContainer.setDescriptions(displayDescriptions);
         }
@@ -167,7 +150,7 @@ public class BookController {
         //validate price
         BigDecimal submitedPrice = null;
         try {
-            submitedPrice = bookAvailabilityUtils.getAmountFromFormatString(bookContainer.getDisplayPrice());
+
         } catch (Exception e) {
             ObjectError error = new ObjectError("bookPrice",messages.getMessage("NotEmpty.bookContainer.bookPrice", locale));
             result.addError(error);
@@ -178,10 +161,7 @@ public class BookController {
         }
 
         Book newBook = bookContainer.getBook();
-        BookAvailability newBookAvailability = null;
         BigDecimal newBookPrice = null;
-
-        Set<BookAvailability> availabilities = new HashSet<BookAvailability>();
 
         if(bookContainer.getBook().getId()!=null && bookContainer.getBook().getId().longValue()>0) {
 
@@ -196,31 +176,9 @@ public class BookController {
             newBook.setAvailable(bookContainer.getBook().isAvailable());
             newBook.setPublisher(bookContainer.getBook().getPublisher());
 
-            Set<BookAvailability> oldAvails = newBook.getAvailabilities();
-            if(oldAvails != null && oldAvails.size() > 0){
-                for(BookAvailability oldAvailability : oldAvails){
-                    if(oldAvailability.getRegion().equals(ALL_REGIONS)){
-                        newBookAvailability = oldAvailability;
 
-                        newBookPrice = oldAvailability.getBookPrice();
-                    }else{
-                        availabilities.add(oldAvailability);
-                    }
-
-                }
-            }
         }
 
-        if(newBookAvailability==null) {
-            newBookAvailability = new BookAvailability();
-        }
-
-
-        newBookAvailability.setBookQuantity(bookContainer.getBookAvailability().getBookQuantity());
-        newBookAvailability.setBook(newBook);
-        availabilities.add(newBookAvailability);
-
-        newBook.setAvailabilities(availabilities);
 
         Set<BookDescription> descriptions = new HashSet<BookDescription>();
         if(bookContainer.getDescriptions()!=null && bookContainer.getDescriptions().size()>0) {

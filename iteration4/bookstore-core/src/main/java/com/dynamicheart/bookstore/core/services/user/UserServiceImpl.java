@@ -50,13 +50,7 @@ public class UserServiceImpl extends BookstoreEntityServiceImpl<Long, User>
 	
 	@Override
 	public void saveOrUpdate(User user) throws ServiceException {
-		
-/*		if(user.getId()==null || user.getId().longValue()==0) {
-			userDao.save(user);
-		} else {
-			userDao.update(user);
-		}*/
-		
+
 		userRepository.save(user);
 		
 	}

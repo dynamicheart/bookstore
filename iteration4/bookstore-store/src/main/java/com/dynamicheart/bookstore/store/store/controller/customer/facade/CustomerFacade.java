@@ -2,7 +2,6 @@ package com.dynamicheart.bookstore.store.store.controller.customer.facade;
 
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
-import com.dynamicheart.bookstore.core.model.shoppingcart.ShoppingCart;
 import com.dynamicheart.bookstore.store.store.model.customer.CustomerEntity;
 import com.dynamicheart.bookstore.store.store.model.customer.ReadableAndPersistableCustomer;
 
@@ -14,8 +13,6 @@ public interface CustomerFacade {
     public CustomerEntity getCustomerDataByUserName(final String userName,final Language language) throws Exception;
 
     public ReadableAndPersistableCustomer getCustomerById(final Long id, final Language language) throws Exception;
-
-    public ShoppingCart mergeCart(final Customer customer, final String sessionShoppingCartId, final Language language) throws Exception;
 
     public Customer getCustomerByUserName(final String userName) throws Exception;
 

@@ -16,27 +16,10 @@
 
 
     <util:properties id="bookstore-properties">
-        <prop key="INDEX_PRODUCTS">true</prop>
-        <!-- Images -->
-        <prop key="PRODUCT_IMAGE_WIDTH_SIZE">400</prop>
-        <prop key="PRODUCT_IMAGE_HEIGHT_SIZE">400</prop>
-        <prop key="CROP_UPLOADED_IMAGES">false</prop>
-
-        <!-- upload image validations -->
-        <prop key="PRODUCT_IMAGE_MAX_HEIGHT_SIZE">2000</prop>
-        <prop key="PRODUCT_IMAGE_MAX_WIDTH_SIZE">4000</prop>
-        <prop key="PRODUCT_IMAGE_MAX_SIZE">9000000</prop>
-        <prop key="IMAGE_FORMATS">jpg|png|gif</prop>
-
         <prop key="POPULATE_TEST_DATA">true</prop>
-        <prop key="SHOP_SCHEME">http</prop>
-        <!-- when removing the context path from the url put that value to blank (nothing) otherwise put the uri for the web app eg /bs-shop -->
         <prop key="CONTEXT_PATH"></prop>
-        <prop key="URL_EXTENSION">.html</prop>
 
     </util:properties>
 
-
-    <bean id="initData" class="com.dynamicheart.bookstore.store.utils.init.data.InitStoreData"/>
 
 </beans>

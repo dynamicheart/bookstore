@@ -12,9 +12,11 @@ public class AjaxResponse{
 	public final static int CODE_ALREADY_EXIST=9998;
 	
 	private int status;
+	private Map<String,Object> result = new HashMap<>();
 	private List<Map<String,String>> data = new ArrayList<Map<String,String>>();
 	private Map<String,String> dataMap = new HashMap<String,String>();
 	private Map<String,String> validationMessages = new HashMap<String,String>();
+
 	public Map<String, String> getValidationMessages() {
 		return validationMessages;
 	}
@@ -70,4 +72,11 @@ public class AjaxResponse{
 		this.dataMap = dataMap;
 	}
 
+    public Map<String, Object> getResult() {
+        return result;
+    }
+
+    public void setResult(Map<String, Object> result) {
+        this.result = result;
+    }
 }

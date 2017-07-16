@@ -1,7 +1,6 @@
 package com.dynamicheart.bookstore.core.model.catalog.book;
 
 import com.dynamicheart.bookstore.core.constants.SchemaConstant;
-import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
 import com.dynamicheart.bookstore.core.model.catalog.book.publisher.Publisher;
@@ -14,6 +13,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,9 +42,6 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "book")
     private Set<BookDescription> descriptions = new HashSet<BookDescription>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="book")
-    private Set<BookAvailability> availabilities = new HashSet<BookAvailability>();
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "book")//cascade is set to remove because book save requires logic to create physical image first and then save the image id in the database, cannot be done in cascade
     private Set<BookImage> images = new HashSet<BookImage>();
 
@@ -65,6 +63,14 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
     @Column(name="AVAILABLE")
     private boolean available = true;
+
+    @NotNull
+    @Column(name="QUANTITY")
+    private Integer bookQuantity = 0;
+
+    @NotNull
+    @Column(name = "PRICE")
+    private BigDecimal bookPrice = new BigDecimal(0);
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH})
     @JoinColumn(name="PUBLISHER_ID", nullable=true)
@@ -105,14 +111,6 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
         this.descriptions = descriptions;
     }
 
-    public Set<BookAvailability> getAvailabilities() {
-        return availabilities;
-    }
-
-    public void setAvailabilities(Set<BookAvailability> availabilities) {
-        this.availabilities = availabilities;
-    }
-
     public Set<BookImage> getImages() {
         return images;
     }
@@ -151,6 +149,22 @@ public class Book extends BookstoreEntity<Long, Book> implements Auditable {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public Integer getBookQuantity() {
+        return bookQuantity;
+    }
+
+    public void setBookQuantity(Integer bookQuantity) {
+        this.bookQuantity = bookQuantity;
+    }
+
+    public BigDecimal getBookPrice() {
+        return bookPrice;
+    }
+
+    public void setBookPrice(BigDecimal bookPrice) {
+        this.bookPrice = bookPrice;
     }
 
     public BookDescription getBookDescription() {

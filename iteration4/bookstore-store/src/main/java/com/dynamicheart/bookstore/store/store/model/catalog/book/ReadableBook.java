@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.store.store.model.catalog.book;
 
-import com.dynamicheart.bookstore.store.store.model.catalog.ReadableImage;
+import com.dynamicheart.bookstore.store.store.model.ReadableImage;
 import com.dynamicheart.bookstore.store.store.model.catalog.publisher.ReadablePublisher;
 
 import java.io.Serializable;
@@ -14,8 +14,6 @@ public class ReadableBook extends BookEntity implements Serializable {
 
     private ReadableAndPersistableBookDescription description;
 
-    private String displayPrice;
-
     private ReadableImage defaultImage;
 
     private ReadablePublisher publisher;
@@ -26,14 +24,6 @@ public class ReadableBook extends BookEntity implements Serializable {
 
     public void setDescription(ReadableAndPersistableBookDescription description) {
         this.description = description;
-    }
-
-    public String getDisplayPrice() {
-        return displayPrice;
-    }
-
-    public void setDisplayPrice(String displayPrice) {
-        this.displayPrice = displayPrice;
     }
 
     public ReadableImage getDefaultImage() {

@@ -2,11 +2,8 @@ package com.dynamicheart.bookstore.store.store.controller.customer;
 
 import com.dynamicheart.bookstore.core.model.customer.Customer;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
-import com.dynamicheart.bookstore.core.services.catalog.book.PricingService;
-import com.dynamicheart.bookstore.core.services.shoppingcart.ShoppingCartCalculationService;
-import com.dynamicheart.bookstore.core.services.shoppingcart.ShoppingCartService;
 import com.dynamicheart.bookstore.store.store.model.AjaxResponse;
-import com.dynamicheart.bookstore.store.common.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import com.dynamicheart.bookstore.store.store.model.customer.SecuredCustomer;
 import com.dynamicheart.bookstore.store.store.controller.AbstractController;
 import com.dynamicheart.bookstore.store.store.controller.customer.facade.CustomerFacade;
@@ -41,16 +38,8 @@ public class CustomerLoginController extends AbstractController{
     @Inject
     private CustomerFacade customerFacade;
 
-    @Inject
-    private ShoppingCartService shoppingCartService;
 
-    @Inject
-    private ShoppingCartCalculationService shoppingCartCalculationService;
-
-    @Inject
-    private PricingService pricingService;
-
-    @RequestMapping(value="/logon", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/login", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AjaxResponse> jsonLogon(@ModelAttribute SecuredCustomer securedCustomer, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         AjaxResponse jsonObject = this.logon(securedCustomer.getUserName(), securedCustomer.getPassword(), request, response);
@@ -61,8 +50,6 @@ public class CustomerLoginController extends AbstractController{
     private AjaxResponse logon(String userName, String password, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         AjaxResponse jsonObject = new AjaxResponse();
-
-
         try {
 
             LOG.debug("Authenticating user " + userName);
@@ -78,15 +65,15 @@ public class CustomerLoginController extends AbstractController{
 
             customerFacade.authenticate(customerModel, userName, password);
             //set customer in the http session
-            super.setSessionAttribute(Constants.CUSTOMER, customerModel, request);
+            super.setSessionAttribute(StoreConstants.CUSTOMER, customerModel, request);
             jsonObject.setStatus(AjaxResponse.RESPONSE_STATUS_SUCCESS);
-            jsonObject.addEntry(Constants.RESPONSE_KEY_USERNAME, customerModel.getNick());
+            jsonObject.addEntry(StoreConstants.RESPONSE_KEY_USERNAME, customerModel.getNick());
 
 
             //set username in the cookie
-            Cookie c = new Cookie(Constants.COOKIE_NAME_USER, customerModel.getNick());
+            Cookie c = new Cookie(StoreConstants.COOKIE_NAME_USER, customerModel.getNick());
             c.setMaxAge(60 * 24 * 3600);
-            c.setPath(Constants.SLASH);
+            c.setPath(StoreConstants.SLASH);
             response.addCookie(c);
 
 
@@ -103,6 +90,13 @@ public class CustomerLoginController extends AbstractController{
     public ResponseEntity<AjaxResponse> basicLogon(@RequestParam String userName, @RequestParam String password, HttpServletRequest request, HttpServletResponse response) throws Exception {
         AjaxResponse jsonObject = this.logon(userName, password,request, response);
         return new ResponseEntity<AjaxResponse>(jsonObject, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value="/logon", method= RequestMethod.GET)
+    public String displayLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        return "store/login";
     }
 
 }

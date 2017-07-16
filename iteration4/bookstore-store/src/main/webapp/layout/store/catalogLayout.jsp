@@ -74,9 +74,9 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a onClick="javascript:location.href='<c:url
-                                    value="/store/customer/dashboard"/>';" href="#"><i
-                                    class="fa fa-user" aria-hidden="true"></i>&nbsp;<s:message code="label.customer.myaccount"
-                                                                      text="My account"/></a>
+                                    value="/store/customer/profile"/>';" href="#"><i
+                                    class="fa fa-user" aria-hidden="true"></i>&nbsp;<s:message code="label.my.profile"
+                                                                                               text="My Profile"/></a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -133,17 +133,12 @@
                     </ul>
                 </li>
                 </sec:authorize>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>&nbsp;Cart</a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <jsp:include page="/pages/store/cart/minicart.jsp"/>
-                        </li>
-                    </ul>
+                <li>
+                    <a href="<c:url value="/store/cart/shoppingCart"/>"><span><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>&nbsp;Cart</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
+                <input id="searchInput" type="text" class="form-control" placeholder="Search...">
             </form>
         </div>
     </div>
@@ -215,6 +210,17 @@
         });
 
     })();
+
+    $("#searchInput").bind("keypress", {}, keypressInBox);
+
+    function keypressInBox(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) { //Enter keycode
+            e.preventDefault();
+            var keyword = $('#searchInput').val();
+            location.href='<c:url value="/store/search/book"/>' + "?keyword=" + keyword;
+        }
+    };
 </script>
 
 </body>

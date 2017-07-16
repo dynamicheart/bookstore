@@ -35,28 +35,12 @@ public class Category extends BookstoreEntity<Long, Category> implements Auditab
 	@Valid
 	@OneToMany(mappedBy="category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<CategoryDescription> descriptions = new ArrayList<CategoryDescription>();
-	
-	@ManyToOne
-	@JoinColumn(name = "PARENT_ID")
-	private Category parent;
-	
-	@OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true)
-	private List<Category> categories = new ArrayList<Category>();
-
-	@Column(name = "SORT_ORDER")
-	private Integer sortOrder = 0;
 
 	@Column(name = "CATEGORY_STATUS")
 	private boolean categoryStatus;
 
 	@Column(name = "VISIBLE")
 	private boolean visible;
-
-	@Column(name = "DEPTH")
-	private Integer depth;
-
-	@Column(name = "LINEAGE")
-	private String lineage;
 	
 	@NotEmpty
 	@Column(name="CODE", length=100, nullable=false)
@@ -101,14 +85,6 @@ public class Category extends BookstoreEntity<Long, Category> implements Auditab
 		this.descriptions = descriptions;
 	}
 
-	public Integer getSortOrder() {
-		return sortOrder;
-	}
-
-	public void setSortOrder(Integer sortOrder) {
-		this.sortOrder = sortOrder;
-	}
-
 	public boolean isCategoryStatus() {
 		return categoryStatus;
 	}
@@ -125,37 +101,6 @@ public class Category extends BookstoreEntity<Long, Category> implements Auditab
 		this.visible = visible;
 	}
 
-	public Integer getDepth() {
-		return depth;
-	}
-
-	public void setDepth(Integer depth) {
-		this.depth = depth;
-	}
-
-	public String getLineage() {
-		return lineage;
-	}
-
-	public void setLineage(String lineage) {
-		this.lineage = lineage;
-	}
-
-	public Category getParent() {
-		return parent;
-	}
-
-	public void setParent(Category parent) {
-		this.parent = parent;
-	}
-
-	public List<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
 	
 	public CategoryDescription getDescription() {
 		if(descriptions!=null && descriptions.size()>0) {
@@ -164,4 +109,6 @@ public class Category extends BookstoreEntity<Long, Category> implements Auditab
 		
 		return null;
 	}
+
+
 }

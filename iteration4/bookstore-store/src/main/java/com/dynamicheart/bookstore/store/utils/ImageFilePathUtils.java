@@ -1,6 +1,6 @@
 package com.dynamicheart.bookstore.store.utils;
 
-import com.dynamicheart.bookstore.store.common.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ImageFilePathUtils extends AbstractimageFilePath{
-    private String basePath = Constants.STATIC_URI;
+    private String basePath = StoreConstants.STATIC_URI;
 
     @Override
     public String getContextPath() {

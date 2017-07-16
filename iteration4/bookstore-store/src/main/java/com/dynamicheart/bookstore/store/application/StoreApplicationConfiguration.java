@@ -2,8 +2,12 @@ package com.dynamicheart.bookstore.store.application;
 
 import com.dynamicheart.bookstore.core.configuration.CoreApplicationConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.MultipartAutoConfiguration;
 import org.springframework.context.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
@@ -40,4 +44,5 @@ public class StoreApplicationConfiguration {
         resolver.setViewClass(TilesView.class);
         return resolver;
     }
+
 }

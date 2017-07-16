@@ -1,8 +1,9 @@
 package com.dynamicheart.bookstore.store.utils.init.data;
 
+import com.dynamicheart.bookstore.core.model.customer.avatar.CustomerAvatar;
+import com.dynamicheart.bookstore.core.services.customer.avatar.CustomerAvatarService;
 import com.dynamicheart.bookstore.core.utils.exception.ServiceException;
 import com.dynamicheart.bookstore.core.model.catalog.book.Book;
-import com.dynamicheart.bookstore.core.model.catalog.book.availability.BookAvailability;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
 import com.dynamicheart.bookstore.core.model.catalog.category.Category;
@@ -27,7 +28,7 @@ import com.dynamicheart.bookstore.core.services.customer.CustomerService;
 import com.dynamicheart.bookstore.core.services.order.OrderService;
 import com.dynamicheart.bookstore.core.services.reference.language.LanguageService;
 import com.dynamicheart.bookstore.core.services.user.GroupService;
-import com.dynamicheart.bookstore.store.common.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -57,6 +58,9 @@ public class InitStoreData implements InitData{
 
     @Inject
     private CustomerService customerService;
+
+    @Inject
+    private CustomerAvatarService customerAvatarService;
 
     @Inject
     private GroupService groupService;
@@ -138,10 +142,7 @@ public class InitStoreData implements InitData{
 
         tech.setDescriptions(descriptions4);
 
-        tech.setParent(book);
-
         categoryService.create(tech);
-        categoryService.addChild(book, tech);
 
         Category web = new Category();
         web.setCode("web");
@@ -159,12 +160,7 @@ public class InitStoreData implements InitData{
 
         web.setDescriptions(descriptions3);
 
-        web.setParent(book);
-
         categoryService.create(web);
-        categoryService.addChild(book, web);
-
-
 
         Category fiction = new Category();
         fiction.setCode("fiction");
@@ -181,11 +177,7 @@ public class InitStoreData implements InitData{
 
         fiction.setDescriptions(fictiondescriptions);
 
-        fiction.setParent(novs);
-
         categoryService.create(fiction);
-        categoryService.addChild(novs, fiction);
-
 
         Category business = new Category();
         business.setCode("business");
@@ -206,7 +198,6 @@ public class InitStoreData implements InitData{
         categoryService.create(business);
 
 
-
         Category cloud = new Category();
         cloud.setCode("cloud");
         cloud.setVisible(true);
@@ -222,10 +213,7 @@ public class InitStoreData implements InitData{
 
         cloud.setDescriptions(clouddescriptions);
 
-        cloud.setParent(tech);
-
         categoryService.create(cloud);
-        categoryService.addChild(tech, cloud);
 
         Publisher oreilley = new Publisher();
         oreilley.setCode("oreilley");
@@ -290,15 +278,9 @@ public class InitStoreData implements InitData{
         book1.setPublisher(manning);
 
         // Availability
-        BookAvailability availability = new BookAvailability();
-        availability.setBookQuantity(100);
-        availability.setBook(book1);// associate with book
-
-        
+        book1.setBookQuantity(100);
         BigDecimal dprice = new BigDecimal(39.99);
-
-        availability.setBookPrice(dprice);
-        book1.getAvailabilities().add(availability);
+        book1.setBookPrice(dprice);
 
         // BookContainer description
         BookDescription description = new BookDescription();
@@ -341,14 +323,9 @@ public class InitStoreData implements InitData{
         book2.getCategories().add(web);
 
         // Availability
-        BookAvailability availability2 = new BookAvailability();
-        availability2.setBookQuantity(100);
-        availability2.setBook(book2);// associate with book
-
+        book2.setBookQuantity(100);
         BigDecimal dprice2 = new BigDecimal(29.99);
-
-        availability2.setBookPrice(dprice2);
-        book2.getAvailabilities().add(availability2);
+        book2.setBookPrice(dprice2);
 
         bookService.create(book2);
 
@@ -378,15 +355,10 @@ public class InitStoreData implements InitData{
         book3.getCategories().add(cloud);
 
         // Availability
-        BookAvailability availability3 = new BookAvailability();
-        availability3.setBookQuantity(100);
-        availability3.setBook(book3);// associate with book
-
+        book3.setBookQuantity(100);
         BigDecimal dprice3 = new BigDecimal(19.99);
 
-        availability3.setBookPrice(dprice3);
-        book3.getAvailabilities().add(availability3);
-
+        book3.setBookPrice(dprice3);
 
         bookService.create(book3);
 
@@ -417,15 +389,9 @@ public class InitStoreData implements InitData{
 
 
         // Availability
-        BookAvailability availability4 = new BookAvailability();
-        availability4.setBookQuantity(100);
-        availability4.setBook(book4);// associate with book
-
-
+        book4.setBookQuantity(100);
         BigDecimal dprice4 = new BigDecimal(18.99);
-
-        availability4.setBookPrice(dprice4);
-        book4.getAvailabilities().add(availability4);
+        book4.setBookPrice(dprice4);
 
         bookService.create(book4);
         try {
@@ -454,16 +420,9 @@ public class InitStoreData implements InitData{
         book5.getCategories().add(tech);
 
         // Availability
-        BookAvailability availability5 = new BookAvailability();
-        availability5.setBookQuantity(100);
-        availability5.setBook(book5);// associate with book
-
-        // bookAvailabilityService.create(availability5);
-
+        book5.setBookQuantity(100);
         BigDecimal dprice5 = new BigDecimal(18.99);
-
-        availability5.setBookPrice(dprice5);
-        book5.getAvailabilities().add(availability5);
+        book5.setBookPrice(dprice5);
 
         bookService.create(book5);
 
@@ -494,16 +453,9 @@ public class InitStoreData implements InitData{
         book6.getCategories().add(business);
 
         // Availability
-        BookAvailability availability6 = new BookAvailability();
-        availability6.setBookQuantity(100);
-        availability6.setBook(book6);// associate with book
-
-        //bookAvailabilityService.create(availability6);
-
+        book6.setBookQuantity(100);
         BigDecimal dprice6 = new BigDecimal(18.99);
-
-        availability6.setBookPrice(dprice6);
-        book6.getAvailabilities().add(availability6);
+        book6.setBookPrice(dprice6);
 
         bookService.create(book6);
 
@@ -522,19 +474,25 @@ public class InitStoreData implements InitData{
         customer.setGender(CustomerGender.M);
         customer.setDefaultLanguage(en);
         customer.setEmailAddress("customer@bookstore.com");
-        String password = passwordEncoder.encode("password");
-        customer.setPassword(password);
+        customer.setPassword("password");
 
         List<Group> groups = groupService.listGroup(GroupType.CUSTOMER);
         for (Group group : groups) {
-            if (group.getGroupName().equals(Constants.GROUP_CUSTOMER)) {
+            if (group.getGroupName().equals(StoreConstants.GROUP_CUSTOMER)) {
                 customer.getGroups().add(group);
             }
         }
 
-
         customerService.create(customer);
 
+        try {
+
+            ClassPathResource classPathResource = new ClassPathResource("/demo/pepe.png");
+            InputStream inStream = classPathResource.getInputStream();
+            this.saveAvatar(inStream, "pepe.png", customer);
+        } catch(Exception e) {
+            LOGGER.error("Error while reading demo file google.jpg",e);
+        }
 
         //create an order
         Order order = new Order();
@@ -545,10 +503,8 @@ public class InitStoreData implements InitData{
         order.setCustomerEmailAddress("customer@bookstore.com");
         order.setOrderDateFinished(new Date());//committed date
 
-
         order.setStatus( OrderStatus.DELIVERED);
         order.setTotal(new BigDecimal(199.99));
-
 
         //OrderItem
         OrderItem oitem = new OrderItem();
@@ -584,6 +540,30 @@ public class InitStoreData implements InitData{
             image.setDefaultImage(true);
             image.setResourceId(resourceId);
             bookImageService.save(image);
+        }catch (Exception ignore){
+        }
+    }
+
+    private void saveAvatar(InputStream fis, String name, Customer customer) throws Exception {
+        if(fis==null) {
+            return;
+        }
+
+        final FileNameMap fileNameMap = URLConnection.getFileNameMap();
+
+        InputContentFile file = new InputContentFile();
+        file.setFile(fis);
+        file.setFileName(name);
+        file.setMimeType(fileNameMap.getContentTypeFor(name));
+        try{
+            String resourceId = fileManager.addFile(file);
+
+            CustomerAvatar customerAvatar = new CustomerAvatar();
+            customerAvatar.setCustomer(customer);
+            customerAvatar.setDefaultAvatar(true);
+            customerAvatar.setResourceId(resourceId);
+
+            customerAvatarService.save(customerAvatar);
         }catch (Exception ignore){
         }
     }

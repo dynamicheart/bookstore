@@ -5,49 +5,36 @@ import com.dynamicheart.bookstore.core.model.catalog.book.Book;
 import com.dynamicheart.bookstore.core.model.catalog.book.description.BookDescription;
 import com.dynamicheart.bookstore.core.model.catalog.book.image.BookImage;
 import com.dynamicheart.bookstore.core.model.reference.language.Language;
-import com.dynamicheart.bookstore.core.services.catalog.book.PricingService;
 import com.dynamicheart.bookstore.core.utils.AbstractDataPopulator;
-import com.dynamicheart.bookstore.store.store.model.catalog.ReadableImage;
+import com.dynamicheart.bookstore.store.store.model.ReadableImage;
 import com.dynamicheart.bookstore.store.store.model.catalog.book.ReadableAndPersistableBookDescription;
 import com.dynamicheart.bookstore.store.store.model.catalog.book.ReadableBook;
 import com.dynamicheart.bookstore.store.store.model.catalog.publisher.PublisherDescription;
 import com.dynamicheart.bookstore.store.store.model.catalog.publisher.ReadablePublisher;
 import com.dynamicheart.bookstore.store.utils.ImageFilePath;
 import org.apache.commons.lang3.Validate;
+import org.springframework.stereotype.Component;
+
+import javax.inject.Inject;
 
 /**
  * Created by dynamicheart on 7/8/2017.
  */
+
+@Component
 public class ReadableBookPopulator extends AbstractDataPopulator<Book, ReadableBook> {
 
-    private PricingService pricingService;
-
+    @Inject
     private ImageFilePath imageUtils;
-
-    public PricingService getPricingService() {
-        return pricingService;
-    }
-
-    public void setPricingService(PricingService pricingService) {
-        this.pricingService = pricingService;
-    }
-
-    public ImageFilePath getImageUtils() {
-        return imageUtils;
-    }
-
-    public void setImageUtils(ImageFilePath imageUtils) {
-        this.imageUtils = imageUtils;
-    }
 
     @Override
     public ReadableBook populate(Book source, ReadableBook target, Language language) throws ConversionException {
-        Validate.notNull(pricingService, "Requires to set PricingService");
-        Validate.notNull(imageUtils, "Requires to set imageUtils");
 
         try{
             target.setId(source.getId());
             target.setIsbn(source.getIsbn());
+            target.setQuantity(source.getBookQuantity());
+            target.setPrice(source.getBookPrice());
 
 
             BookDescription bookDescription = source.getBookDescription();
@@ -84,8 +71,6 @@ public class ReadableBookPopulator extends AbstractDataPopulator<Book, ReadableB
                 target.setDefaultImage(readableImage);
             }
 
-            target.setPrice(pricingService.calculateBookPrice(source));
-            target.setDisplayPrice(pricingService.getStringAmount(target.getPrice()));
 
             return target;
         }catch (Exception e){

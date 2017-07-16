@@ -6,7 +6,7 @@ import com.dynamicheart.bookstore.core.model.user.Permission;
 import com.dynamicheart.bookstore.core.services.user.GroupService;
 import com.dynamicheart.bookstore.core.services.user.PermissionService;
 import com.dynamicheart.bookstore.core.services.user.UserService;
-import com.dynamicheart.bookstore.store.common.constants.Constants;
+import com.dynamicheart.bookstore.store.common.constants.StoreConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -71,7 +71,7 @@ public class UserServicesImpl implements WebUserServices{
 				return null;
 			}
 
-			GrantedAuthority role = new SimpleGrantedAuthority(ROLE_PREFIX + Constants.PERMISSION_AUTHENTICATED);//required to login
+			GrantedAuthority role = new SimpleGrantedAuthority(ROLE_PREFIX + StoreConstants.PERMISSION_AUTHENTICATED);//required to login
 			authorities.add(role);
 	
 			List<Integer> groupsId = new ArrayList<Integer>();
@@ -119,7 +119,7 @@ public class UserServicesImpl implements WebUserServices{
 		  user.setLastName("User");
 		  
 		  for(Group group : groups) {
-			  if(group.getGroupName().equals(Constants.GROUP_SUPERADMIN) || group.getGroupName().equals(Constants.GROUP_ADMIN)) {
+			  if(group.getGroupName().equals(StoreConstants.GROUP_SUPERADMIN) || group.getGroupName().equals(StoreConstants.GROUP_ADMIN)) {
 				  user.getGroups().add(group);
 			  }
 		  }

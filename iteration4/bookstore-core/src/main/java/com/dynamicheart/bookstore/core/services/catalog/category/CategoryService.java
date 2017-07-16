@@ -11,17 +11,12 @@ import java.util.List;
 
 public interface CategoryService extends BookstoreEntityService<Long, Category> {
 
-	List<Category> listByLineage(String lineage) throws ServiceException;
 	
 	List<Category> listBySeUrl(String seUrl) throws ServiceException;
 	
 	CategoryDescription getDescription(Category category, Language language) throws ServiceException;
 
 	void addCategoryDescription(Category category, CategoryDescription description) throws ServiceException;
-
-	void addChild(Category parent, Category child) throws ServiceException;
-
-	List<Category> listByParent(Category category) throws ServiceException;
 
 	List<Category> getByName(String name, Language language) throws ServiceException;
 
@@ -30,18 +25,12 @@ public interface CategoryService extends BookstoreEntityService<Long, Category> 
 
 	void saveOrUpdate(Category category) throws ServiceException;
 
-	List<Category> listByDepth(int depth);
-
-	List<Category> listByDepth(int depth, Language language);
 
 	Category getBySeUrl(String seUrl);
-
-	List<Category> listByParent(Category category, Language language);
 
 	Category getByLanguage(long categoryId, Language language);
 
 	List<Object[]> countBooksByCategories(List<Long> categoryIds) throws ServiceException;
-
 
 	List<Category> listByCodes(List<String> codes, Language language);
 
