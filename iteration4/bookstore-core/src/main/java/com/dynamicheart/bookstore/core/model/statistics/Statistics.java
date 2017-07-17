@@ -1,4 +1,4 @@
-package com.dynamicheart.bookstore.store.admin.model.statistics;
+package com.dynamicheart.bookstore.core.model.statistics;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 /**
  * Created by dynamicheart on 7/16/2017.
  */
-public class Stastistics implements Serializable{
+public class Statistics implements Serializable{
 
     private static final long serialVersionUID = -3578008116742661476L;
 

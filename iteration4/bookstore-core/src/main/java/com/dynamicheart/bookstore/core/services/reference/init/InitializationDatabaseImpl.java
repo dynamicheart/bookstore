@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.sql.Connection;
 
@@ -28,6 +29,9 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 	@Inject
 	@Qualifier("datasource")
 	private DataSource dataSource;
+
+	@Inject
+	private EntityManager em;
 
 	private String name;
 
@@ -48,15 +52,5 @@ public class InitializationDatabaseImpl implements InitializationDatabase {
 			languageService.create(language);
 		}
 	}
-
-	private void createProcedure() throws ServiceException{
-		ClassPathResource resource = new ClassPathResource("sql/statistics_function.sql");
-		try (Connection connection = dataSource.getConnection()){
-			ScriptUtils.executeSqlScript(connection, resource);
-		}catch (Exception e){
-			throw new ServiceException(e);
-		}
-	}
-
 
 }

@@ -19,8 +19,15 @@
     <definition name="admin-book" template="/layout/admin/layout.jsp">
         <put-attribute name="body" value="/pages/admin/books/book.jsp" />
     </definition>
-    <definition name="admin-statistics" template="/layout/admin/layout.jsp">
-        <put-attribute name="body" value="/pages/admin/statistics/statistics.jsp" />
+    <definition name="statistics-customer" template="/layout/admin/layout.jsp">
+        <put-attribute name="body" value="/pages/admin/statistics/statistics-customer.jsp" />
     </definition>
+	<definition name="statistics-book" template="/layout/admin/layout.jsp">
+		<put-attribute name="body" value="/pages/admin/statistics/statistics-book.jsp" />
+	</definition>
+	<definition name="statistics-date" template="/layout/admin/layout.jsp">
+		<put-attribute name="body" value="/pages/admin/statistics/statistics-date.jsp" />
+	</definition>
+
 
 </tiles-definitions>

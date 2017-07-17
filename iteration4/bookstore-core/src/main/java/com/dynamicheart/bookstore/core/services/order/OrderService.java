@@ -18,4 +18,5 @@ public interface OrderService extends BookstoreEntityService<Long, Order>{
     List<Order> listByCustomerId(Long customerId);
 
     Order findOne(Long id);
+
 }

@@ -1,4 +1,4 @@
-package com.dynamicheart.bookstore.store.admin.model.statistics;
+package com.dynamicheart.bookstore.core.model.statistics;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,22 +11,22 @@ public class Criteria implements Serializable {
 
     private static final long serialVersionUID = 1035492884024727122L;
 
-    private Long customerIds;
+    private Long customerId;
 
     private Date startDate;
 
     private Date endDate;
 
-    private List bookIds;
+    private String bookIsbn;
 
-    private List categoryIds;
+    private Long categoryId;
 
-    public Long getCustomerIds() {
-        return customerIds;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerIds(Long customerIds) {
-        this.customerIds = customerIds;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public Date getStartDate() {
@@ -45,19 +45,19 @@ public class Criteria implements Serializable {
         this.endDate = endDate;
     }
 
-    public List getBookIds() {
-        return bookIds;
+    public String getBookIsbn() {
+        return bookIsbn;
     }
 
-    public void setBookIds(List bookIds) {
-        this.bookIds = bookIds;
+    public void setBookIsbn(String bookIsbn) {
+        this.bookIsbn = bookIsbn;
     }
 
-    public List getCategoryIds() {
-        return categoryIds;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryIds(List categoryIds) {
-        this.categoryIds = categoryIds;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }
