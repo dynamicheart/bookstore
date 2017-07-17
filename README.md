@@ -34,3 +34,10 @@ a homework for SE228
 
 ### 销售统计
 - 考虑到查询销售统计所得到的结果是一些非常小的值，所以并不需要从数据库获取大量数据再拿回来处理，而是在数据库中调用储存过程得到返回值再返给服务器，减轻服务器和数据库之间的通信压力。
+
+
+### get started
+- 在core module的resource中根据本机电脑的配置，修改database.properties，在数据库中新建一个数据库，名字叫bookstore。
+- 安装gradle，在根目录下，运行gradle bootRun，当系统启动之后，找到core resource中的sql文件夹，在boostore数据库中，运行statistics_function.sql脚本。
+- 初始化管理员账号:admin，密码:password 管理员界面的根url：/admin
+- store界面的根url： /
