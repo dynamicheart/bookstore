@@ -1,6 +1,12 @@
 # OnlineBookstore
 a homework for SE228
 
+### Overview
+- iteration1使用了php作为后端的语言，没有使用任何框架。前端管理员界面用的是easy-ui, 购书网站界面使用的是bootstrap.
+- iteration2后端使用了spring mvc，前端管理员网页用的是angularJs的框架，尝试前后端分离，做得不是很好。
+- iteration3属于iteration4未完成版本，请忽视。
+- iteration4的架构请看下面的描述。
+
 ### 采用的技术
 - Spring Boot
 - Spring Data Jpa

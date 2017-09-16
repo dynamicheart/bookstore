@@ -1,10 +1,3 @@
-# Contact with me if web not working
-  - ID: 515030910223
-  - Name:Jianbang Yang
-  - Phone:15821912630
-  - Email:765005263@qq.com
-  - Github:dynamicheart
-
 # Online Bookstore Iteration 1 Documentation
   - Configuration
   - Implemention decription
@@ -24,4 +17,5 @@
   - homepage UI
   - dynamic loading books' infomation from database
   - Every book info card is linked to itempage which is also loaded dynamicly
-  - login modal , signup modal and cartpage UI (not working)
+  - login modal , signup modal and cartpage UI (not implemented)
+
